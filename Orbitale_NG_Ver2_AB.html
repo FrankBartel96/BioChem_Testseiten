@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orbitale NG mit Drag-and-Drop</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #F6F8E2;
+            color: #1d1d1f;
+            text-align: left;
+            padding-top: 50px;
+        }
+
+        h2, h3 {
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background-color: #F6F8E9;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .luecke {
+            width: 50px;
+            height: 30px;
+            border: 1px solid #d2d2d7;
+            display: inline-block;
+            border-radius: 10px;
+            margin-right: 2px;
+            vertical-align: bottom;
+            background-color: #f9f9f9;
+            line-height: 32px;
+        }
+
+        
+        .luecke2 {
+            width: 200px;
+            height: 35px;
+            border: 1px solid #d2d2d7;
+            display: inline-block;
+            border-radius: 10px;
+            margin-right: 2px;
+            vertical-align: bottom;
+            background-color: #f9f9f9;
+            line-height: 32px;
+            font-size:20px;
+        }
+
+
+        .luecke1s {
+            width: 30px;
+            height: 30px;
+            border: 1px solid #d2d2d7;
+            display: inline-block;
+            border-radius: 10px;
+            margin-right: 2px;
+            vertical-align: bottom;
+            background-color: #f9f9f9;
+            line-height: 32px;
+        }
+       
+        .luecke2s {
+            width: 30px;
+            height: 30px;
+            border: 1px solid #d2d2d7;
+            display: inline-block;
+            border-radius: 10px;
+            margin-right: 2px;
+            vertical-align: bottom;
+            background-color: #f9f9f9;
+            line-height: 32px;
+        }
+
+      
+        .luecke2p {
+            width: 70px;
+            height: 30px;
+            border: 1px solid #d2d2d7;
+            display: inline-block;
+            border-radius: 10px;
+            margin-right: 2px;
+            vertical-align: bottom;
+            background-color: #f9f9f9;
+            line-height: 32px;
+        }
+       
+        .luecke3s {
+            width: 30px;
+            height: 30px;
+            border: 1px solid #d2d2d7;
+            display: inline-block;
+            border-radius: 10px;
+            margin-right: 2px;
+            vertical-align: bottom;
+            background-color: #f9f9f9;
+            line-height: 32px;
+        }
+
+
+        .luecke3p {
+            width: 120px;
+            height: 30px;
+            border: 1px solid #d2d2d7;
+            display: inline-block;
+            border-radius: 10px;
+            margin-right: 2px;
+            vertical-align: bottom;
+            background-color: #f9f9f9;
+            line-height: 32px;
+        }
+
+
+        .luecke3d {
+            width: 120px;
+            height: 30px;
+            border: 1px solid #d2d2d7;
+            display: inline-block;
+            border-radius: 10px;
+            margin-right: 2px;
+            vertical-align: bottom;
+            background-color: #f9f9f9;
+            line-height: 32px;
+        }
+
+
+        .luecke4s {
+            width: 40px;
+            height: 30px;            
+            border: 1px solid #d2d2d7;
+            display: inline-block;
+            border-radius: 10px;
+            margin-right: 2px;
+            vertical-align: bottom;
+            background-color: #f9f9f9;
+            line-height: 32px;
+        }
+        /* 
+        .wortspeicher {
+            margin-top: 10px;
+            font-size: 22px;
+        }
+
+
+       
+        .wortspeicher2 {
+            margin-top: 10px;
+            font-size: 22px;
+        }
+        
+*/
+        .wort {
+            width: 26px;
+            padding: 5px;
+            margin: 5px;
+            border: 1px solid #d2d2d7;
+            border-radius: 10px;
+            background-color: #e1e1e3;
+            display: inline-block;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+             
+        .wort2 {
+            width: 180px;
+            padding: 5px;
+            margin: 5px;
+            border: 1px solid #d2d2d7;
+            border-radius: 10px;
+            background-color: #e1e1e3;
+            display: inline-block;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+
+
+
+        .wortp {
+            width: 60px;
+            padding: 5px;
+            margin: 5px;
+            border: 1px solid #d2d2d7;
+            border-radius: 10px;
+            background-color: #e1e1e3;
+            display: inline-block;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+
+
+
+
+        .wortd {
+            width: 110px;
+            padding: 5px;
+            margin: 5px;
+            border: 1px solid #d2d2d7;
+            border-radius: 10px;
+            background-color: #e1e1e3;
+            display: inline-block;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+  
+        .wort:hover {
+            background-color: #f5f5f7;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+        }
+
+        .wortp:hover {
+            background-color: #f5f5f7;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+        }
+
+
+        .wortd:hover {
+            background-color: #f5f5f7;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+        }
+
+        .wort2:hover {
+            background-color: #f5f5f7;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+        }
+
+
+        button {
+            padding: 12px 24px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 12px;
+            background-color: #0071e3;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #005bb5;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+        }
+
+        p#ergebnis {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        p#ergebnis2 {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <!-- -->
+
+    <div class="container">
+        <h2 style="color:#731768">&nbsp;Orbitalbesetzungen Nebengruppenelemente mit Ionen</h2>
+        <h3 style="color:red" font-family:'Courier New'"> &nbsp;&nbsp;  Vervollständigen Sie die Orbitalbesetzung folgender Elemente und Ionen.</h3>
+        <h3 style="color:red" font-family:'Courier New'">&nbsp;   1. Beachten Sie die Hückel-Regel und das Paui-Verbot.</h3>
+
+        <div>
+            <table  width="100%" align="center" border="0" cellpadding="0" cellspacing="0">
+
+                <tr align="center">
+                    <th>  </th>
+                    <th>  </th>
+                    <th  colspan="7"> <h2>  Orbitalbesetzung  </h2>        </th>
+                    <th>          </th>
+                    <th>          </th>
+                </tr>
+                <tr bgcolor=#F0A88D align="center">
+
+                    <td width="60px">       </td>
+                    <td width="50px"> <h2>  Hochzahlschreibweise  </h2>  </td>
+                    <td><h1>  1s     </h1>              </td>
+                    <td><h1>  2s     </h1>              </td>
+                    <td> <h1> 2p     </h1>              </td>
+                    <td> <h1>3s      </h1>              </td>
+                    <td> <h1>3p      </h1>              </td>
+                    <td> <h1>3d      </h1>              </td>
+                    <td> <h1>4s      </h1>              </td>
+                    <td width="200px"> <h2>  Orbitale   </h2>                     </td>
+                    <td width="200px"> <h2>  Hochzahlen </h2>                     </td>                    
+                </tr>
+                <tr bgcolor=#EEE8AA>
+                    <td width="60px" align="center">  Sc   </td>
+                    <td width="50px" align="center">  <span class="luecke2" id="lueckeSc" ondrop="drop(event)" ondragover="allowDrop(event)"> Hochzahl Sc</span>      </td>
+                    <td width="50px" align="center">  <span class="luecke1s" id="luecke1s2" ondrop="drop(event)" ondragover="allowDrop(event)"> &uarr;&darr;</span>      </td>
+                    <td width="50px" align="center">  <span class="luecke2s" id="luecke2s1" ondrop="drop(event)" ondragover="allowDrop(event)">&uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke2p" id="luecke2p1" ondrop="drop(event)" ondragover="allowDrop(event)">&uarr;&darr; &uarr;&darr; &uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke3s" id="luecke3sx" ondrop="drop(event)" ondragover="allowDrop(event)"> &uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke3p" id="luecke3px" ondrop="drop(event)" ondragover="allowDrop(event)">&uarr;&darr; &uarr;&darr; &uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke3d" id="lueckeSc3d10" ondrop="drop(event)" ondragover="allowDrop(event)">3d10</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke4s" id="lueckeSc4s2" ondrop="drop(event)" ondragover="allowDrop(event)">4s2</span> </td>
+                
+
+                    <td rowspan="14" bgcolor=#FFEAA5>
+                        <div class="wortspeicher2">
+
+                            <p>
+                                4s
+                                <div class="wort" id="wort4s1" draggable="true" ondragstart="drag(event)"> &uarr;</div> 
+                                <div class="wort" id="wort4s2" draggable="true" ondragstart="drag(event)"> &uarr;&darr;</div>
+                                <!-- falsche Orbitale  -->
+                                <div class="wort" id="wortx" draggable="true" ondragstart="drag(event)"> &uarr; &uarr;</div>
+                            </p>
+
+                            <p>3d </p>
+                            <div class="wortd" id="wort3d5" draggable="true" ondragstart="drag(event)"> &uarr; &uarr; &uarr; &uarr; &uarr;</div> 
+                            <div class="wortd" id="wortx" draggable="true" ondragstart="drag(event)"> &uarr; &uarr;</div>
+                            <div class="wortd" id="wort3d1" draggable="true" ondragstart="drag(event)"> &uarr; </div>
+                            <div class="wortd" id="wort3d8" draggable="true" ondragstart="drag(event)"> &uarr;&darr; &uarr;&darr; &uarr;&darr; &uarr; &uarr;</div>
+                            <div class="wortd" id="wort3d6" draggable="true" ondragstart="drag(event)"> &uarr;&darr; &uarr; &uarr; &uarr; &uarr;</div>
+                            <div class="wortd" id="wort3d10" draggable="true" ondragstart="drag(event)"> &uarr;&darr; &uarr;&darr; &uarr;&darr; &uarr;&darr; &uarr;&darr;</div> 
+
+                           
+                            <!-- falsche Orbitale     -->
+                            <div class="wortd" id="wortx" draggable="true" ondragstart="drag(event)"> &uarr; &darr; &uarr; &uarr; &uarr;</div>
+                            <div class="wortd" id="wortx" draggable="true" ondragstart="drag(event)"> &uarr;&uarr; &uarr;&uarr; &uarr;&uarr; &uarr;&uarr; &uarr;&uarr;</div>
+                            <div class="wortd" id="wortx" draggable="true" ondragstart="drag(event)"> &uarr;&darr; &uarr; &uarr; &uarr;</div>
+                            <div class="wortd" id="wortx" draggable="true" ondragstart="drag(event)"> &uarr; &uarr; &uarr;</div>
+                        </div>
+                    </td>
+
+                    <td rowspan="14">
+                        <div class="wortspeicher2">
+
+                            <!-- Hochzahlen  http://www.millin.de/downloads/3-935922-52-3/src/sonderzeichhtml.htm  &#178;(hoch) oder &#179; wie Quadrat oder kubik  -->
+                            <div class="wort2" id="wortSc1" draggable="true" ondragstart="drag(event)">&#091;Ar&#093;</div>
+                            <div class="wort2" id="wortFe" draggable="true" ondragstart="drag(event)">&#091;Ar&#093;3d<sup>6</sup>  4s&#178; </div>
+                            <div class="wort2" id="wortNi" draggable="true" ondragstart="drag(event)">&#091;Ar&#093;3d<sup>8</sup>   4s&#178; </div>
+                            <div class="wort2" id="wortMn2" draggable="true" ondragstart="drag(event)">&#091;Ar&#093;3d<sup>5</sup></div>
+                            <div class="wort2" id="wortCr2" draggable="true" ondragstart="drag(event)">&#091;Ar&#093;</div>
+                            <div class="wort2" id="wortMn" draggable="true" ondragstart="drag(event)">&#091;Ar&#093;3d<sup>5</sup>4s&#178;</div>
+                            <div class="wort2" id="wortSc" draggable="true" ondragstart="drag(event)">&#091;Ar&#093;3d<sup>1</sup> 4s&#178;</div>
+                            <div class="wort2" id="wortCu1" draggable="true" ondragstart="drag(event)">&#091;Ar&#093;3d<sup>10</sup></div>
+                            <div class="wort2" id="wortCu" draggable="true" ondragstart="drag(event)">&#091;Ar&#093;3d<sup>10</sup>4s<sup>1 </sup></div>
+                            <div class="wort2" id="wortZn" draggable="true" ondragstart="drag(event)">&#091;Ar&#093;3d<sup>10</sup>4s&#178; </div>
+                            <div class="wort2" id="wortZn2" draggable="true" ondragstart="drag(event)">&#091;Ar&#093;3d<sup>10</sup></div>
+                            <div class="wort2" id="wortCr1" draggable="true" ondragstart="drag(event)">&#091;Ar&#093;3d<sup>5</sup></div>
+                            <div class="wort2" id="wortCr" draggable="true" ondragstart="drag(event)">&#091;Ar&#093;3d<sup>5</sup>4s<sup>1 </sup></div>
+                            <div class="wort2" id="wortFe3" draggable="true" ondragstart="drag(event)">&#091;Ar&#093;3d<sup>5</sup>  </div>
+                    </td>
+
+                </tr>
+              
+                <tr bgcolor=#F0A88D>
+                    <td width="60px" align="center">  Sc<sup>3+</sup>   </td>
+                    <td width="50px" align="center">  <span class="luecke2" id="lueckeSc1" ondrop="drop(event)" ondragover="allowDrop(event)"> Hochzahl Sc<sup>3+</sup></span></td>
+                    <td width="50px" align="center">  <span class="luecke1s" id="luecke1s2" ondrop="drop(event)" ondragover="allowDrop(event)"> &uarr;&darr;</span>      </td>
+                    <td width="50px" align="center">  <span class="luecke2s" id="luecke2s1" ondrop="drop(event)" ondragover="allowDrop(event)">&uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke2p" id="luecke2p1" ondrop="drop(event)" ondragover="allowDrop(event)">&uarr;&darr; &uarr;&darr; &uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke3s" id="luecke3sx" ondrop="drop(event)" ondragover="allowDrop(event)"> &uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke3p" id="luecke3px" ondrop="drop(event)" ondragover="allowDrop(event)">&uarr;&darr; &uarr;&darr; &uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke3d" id="lueckeScIon" ondrop="drop(event)" ondragover="allowDrop(event)">3d10</span>    </td>
+                    <td width="50px" align="center">
+                        <span class="luecke4s" id="luecke4sx" ondrop="drop(event)" ondragover="allowDrop(event)">4s2</span>
+
+                        
+</tr>
+
+                <tr bgcolor=#EEE8AA>
+                    <td width="60px" align="center">   Fe  </td>
+                    <td width="50px" align="center">  <span class="luecke2" id="lueckeFe" ondrop="drop(event)" ondragover="allowDrop(event)">Hochzahl Fe</span>    </td>
+
+                    <td width="50px" align="center">  <span class="luecke1s" id="luecke1s2" ondrop="drop(event)" ondragover="allowDrop(event)"> &uarr;&darr;</span>      </td>
+                    <td width="50px" align="center">  <span class="luecke2s" id="luecke2s1" ondrop="drop(event)" ondragover="allowDrop(event)">&uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke2p" id="luecke2p1" ondrop="drop(event)" ondragover="allowDrop(event)">&uarr;&darr; &uarr;&darr; &uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke3s" id="luecke3sx" ondrop="drop(event)" ondragover="allowDrop(event)"> &uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke3p" id="luecke3px" ondrop="drop(event)" ondragover="allowDrop(event)">&uarr;&darr; &uarr;&darr; &uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke3d" id="lueckeFe3d10" ondrop="drop(event)" ondragover="allowDrop(event)">3d10</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke4s" id="lueckeFe4s2" ondrop="drop(event)" ondragover="allowDrop(event)">4s2</span> </td>
+                </tr>
+
+                <tr bgcolor=#F0A88D>
+                    <td width="60px" align="center"> Fe<sup>3+</sup>    </td>
+                    <td width="50px" align="center">  <span class="luecke2" id="lueckeFe3" ondrop="drop(event)" ondragover="allowDrop(event)">Hochzahl Fe<sup>3+</sup></span>    </td>
+                    <td width="50px" align="center">  <span class="luecke1s" id="luecke1s2" ondrop="drop(event)" ondragover="allowDrop(event)"> &uarr;&darr;</span>      </td>
+                    <td width="50px" align="center">  <span class="luecke2s" id="luecke2s1" ondrop="drop(event)" ondragover="allowDrop(event)">&uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke2p" id="luecke2p1" ondrop="drop(event)" ondragover="allowDrop(event)">&uarr;&darr; &uarr;&darr; &uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke3s" id="luecke3sx" ondrop="drop(event)" ondragover="allowDrop(event)"> &uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke3p" id="luecke3px" ondrop="drop(event)" ondragover="allowDrop(event)">&uarr;&darr; &uarr;&darr; &uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke3d" id="lueckeFeIon" ondrop="drop(event)" ondragover="allowDrop(event)">3d10</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke4s" id="luecke4sx" ondrop="drop(event)" ondragover="allowDrop(event)">4s2</span> </td>
+                </tr>
+
+                <tr bgcolor=#EEE8AA>
+                    <td width="60px" align="center">  Ni  </td>
+                    <td width="50px" align="center">  <span class="luecke2" id="lueckeNi" ondrop="drop(event)" ondragover="allowDrop(event)">Hochzahl Ni</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke1s" id="luecke1s2" ondrop="drop(event)" ondragover="allowDrop(event)"> &uarr;&darr;</span>      </td>
+                    <td width="50px" align="center">  <span class="luecke2s" id="luecke2s1" ondrop="drop(event)" ondragover="allowDrop(event)">&uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke2p" id="luecke2p1" ondrop="drop(event)" ondragover="allowDrop(event)">&uarr;&darr; &uarr;&darr; &uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke3s" id="luecke3sx" ondrop="drop(event)" ondragover="allowDrop(event)"> &uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke3p" id="luecke3px" ondrop="drop(event)" ondragover="allowDrop(event)">&uarr;&darr; &uarr;&darr; &uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke3d" id="lueckeNi3d10" ondrop="drop(event)" ondragover="allowDrop(event)">3d10</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke4s" id="lueckeNi4s2" ondrop="drop(event)" ondragover="allowDrop(event)">4s2</span> </td>
+                </tr>
+
+                <tr bgcolor=#F0A88D>
+                    <td width="60px" align="center">   Mn  </td>
+                    <td width="50px" align="center">  <span class="luecke2" id="lueckeMn" ondrop="drop(event)" ondragover="allowDrop(event)">Hochzahl Mn</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke1s" id="luecke1s2" ondrop="drop(event)" ondragover="allowDrop(event)"> &uarr;&darr;</span>      </td>
+                    <td width="50px" align="center">  <span class="luecke2s" id="luecke2s1" ondrop="drop(event)" ondragover="allowDrop(event)">&uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke2p" id="luecke2p1" ondrop="drop(event)" ondragover="allowDrop(event)">&uarr;&darr; &uarr;&darr; &uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke3s" id="luecke3sx" ondrop="drop(event)" ondragover="allowDrop(event)"> &uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke3p" id="luecke3px" ondrop="drop(event)" ondragover="allowDrop(event)">&uarr;&darr; &uarr;&darr; &uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke3d" id="lueckeMn3d10" ondrop="drop(event)" ondragover="allowDrop(event)">3d10</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke4s" id="lueckeMn4s2" ondrop="drop(event)" ondragover="allowDrop(event)">4s2</span> </td>
+                </tr>
+
+                <tr bgcolor=#EEE8AA>
+                    <td width="60px" align="center"> Mn<sup>2+</sup> </td>
+                    <td width="50px" align="center">  <span class="luecke2" id="lueckeMn2" ondrop="drop(event)" ondragover="allowDrop(event)">Hochzahl Mn<sup>2+</sup></span>    </td>
+                    <td width="50px" align="center">  <span class="luecke1s" id="luecke1s2" ondrop="drop(event)" ondragover="allowDrop(event)"> &uarr;&darr;</span>      </td>
+                    <td width="50px" align="center">  <span class="luecke2s" id="luecke2s1" ondrop="drop(event)" ondragover="allowDrop(event)">&uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke2p" id="luecke2p1" ondrop="drop(event)" ondragover="allowDrop(event)">&uarr;&darr; &uarr;&darr; &uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke3s" id="luecke3sx" ondrop="drop(event)" ondragover="allowDrop(event)"> &uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke3p" id="luecke3px" ondrop="drop(event)" ondragover="allowDrop(event)">&uarr;&darr; &uarr;&darr; &uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke3d" id="lueckeMnIon" ondrop="drop(event)" ondragover="allowDrop(event)">3d10</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke4s" id="luecke4sx" ondrop="drop(event)" ondragover="allowDrop(event)">4s2</span> </td>
+                </tr>
+
+                <tr bgcolor=#F0A88D>
+                    <td width="60px" align="center">  Cr   </td>
+                    <td width="50px" align="center">  <span class="luecke2" id="lueckeCr" ondrop="drop(event)" ondragover="allowDrop(event)">Hochzahl Cr</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke1s" id="luecke1s2" ondrop="drop(event)" ondragover="allowDrop(event)"> &uarr;&darr;</span>      </td>
+                    <td width="50px" align="center">  <span class="luecke2s" id="luecke2s1" ondrop="drop(event)" ondragover="allowDrop(event)">&uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke2p" id="luecke2p1" ondrop="drop(event)" ondragover="allowDrop(event)">&uarr;&darr; &uarr;&darr; &uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke3s" id="luecke3sx" ondrop="drop(event)" ondragover="allowDrop(event)"> &uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke3p" id="luecke3px" ondrop="drop(event)" ondragover="allowDrop(event)">&uarr;&darr; &uarr;&darr; &uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke3d" id="lueckeCr3d10" ondrop="drop(event)" ondragover="allowDrop(event)">3d10</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke4s" id="lueckeCr4s2" ondrop="drop(event)" ondragover="allowDrop(event)">4s2</span> </td>
+                </tr>
+
+                <tr bgcolor=#EEE8AA>
+                    <td width="60px" align="center">   Cr<sup>+</sup>  </td>
+                    <td width="50px" align="center">  <span class="luecke2" id="lueckeCr1" ondrop="drop(event)" ondragover="allowDrop(event)">Hochzahl Cr<sup>+</sup></span>    </td>
+                    <td width="50px" align="center">  <span class="luecke1s" id="luecke1s2" ondrop="drop(event)" ondragover="allowDrop(event)"> &uarr;&darr;</span>      </td>
+                    <td width="50px" align="center">  <span class="luecke2s" id="luecke2s1" ondrop="drop(event)" ondragover="allowDrop(event)">&uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke2p" id="luecke2p1" ondrop="drop(event)" ondragover="allowDrop(event)">&uarr;&darr; &uarr;&darr; &uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke3s" id="luecke3sx" ondrop="drop(event)" ondragover="allowDrop(event)"> &uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke3p" id="luecke3px" ondrop="drop(event)" ondragover="allowDrop(event)">&uarr;&darr; &uarr;&darr; &uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke3d" id="lueckeCrIon" ondrop="drop(event)" ondragover="allowDrop(event)">3d10</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke4s" id="luecke4sx" ondrop="drop(event)" ondragover="allowDrop(event)">4s2</span> </td>
+                </tr>
+
+
+                <tr bgcolor=#F0A88D>
+                    <td width="60px" align="center">   Cr<sup>6+</sup>   </td>
+                    <td width="50px" align="center">  <span class="luecke2" id="lueckeCr2" ondrop="drop(event)" ondragover="allowDrop(event)">Hochzahl Cr<sup>6+</sup></span>    </td>
+                    <td width="50px" align="center">  <span class="luecke1s" id="luecke1s2" ondrop="drop(event)" ondragover="allowDrop(event)"> &uarr;&darr;</span>      </td>
+                    <td width="50px" align="center">  <span class="luecke2s" id="luecke2s1" ondrop="drop(event)" ondragover="allowDrop(event)">&uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke2p" id="luecke2p1" ondrop="drop(event)" ondragover="allowDrop(event)">&uarr;&darr; &uarr;&darr; &uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke3s" id="luecke3sx" ondrop="drop(event)" ondragover="allowDrop(event)"> &uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke3p" id="luecke3px" ondrop="drop(event)" ondragover="allowDrop(event)">&uarr;&darr; &uarr;&darr; &uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke3d" id="lueckeCrIon6" ondrop="drop(event)" ondragover="allowDrop(event)">3d10</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke4s" id="luecke4sx" ondrop="drop(event)" ondragover="allowDrop(event)">4s2</span> </td>
+                </tr>
+
+                <tr bgcolor=#EEE8AA>
+                    <td width="60px" align="center">  Cu    </td>
+                    <td width="50px" align="center">  <span class="luecke2" id="lueckeCu" ondrop="drop(event)" ondragover="allowDrop(event)">Hochzahl Cu</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke1s" id="luecke1s2" ondrop="drop(event)" ondragover="allowDrop(event)"> &uarr;&darr;</span>      </td>
+                    <td width="50px" align="center">  <span class="luecke2s" id="luecke2s1" ondrop="drop(event)" ondragover="allowDrop(event)">&uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke2p" id="luecke2p1" ondrop="drop(event)" ondragover="allowDrop(event)">&uarr;&darr; &uarr;&darr; &uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke3s" id="luecke3sx" ondrop="drop(event)" ondragover="allowDrop(event)"> &uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke3p" id="luecke3px" ondrop="drop(event)" ondragover="allowDrop(event)">&uarr;&darr; &uarr;&darr; &uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke3d" id="lueckeCu3d10" ondrop="drop(event)" ondragover="allowDrop(event)">3d10</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke4s" id="lueckeCu4s2" ondrop="drop(event)" ondragover="allowDrop(event)">4s2</span> </td>
+                </tr>
+
+
+                <tr bgcolor=#F0A88D>
+                    <td width="60px" align="center">  Cu<sup>+</sup>      </td>
+                    <td width="50px" align="center">  <span class="luecke2" id="lueckeCu1" ondrop="drop(event)" ondragover="allowDrop(event)">Hochzahl Cu<sup>+</sup></span>    </td>
+                    <td width="50px" align="center">  <span class="luecke1s" id="luecke1s2" ondrop="drop(event)" ondragover="allowDrop(event)"> &uarr;&darr;</span>      </td>
+                    <td width="50px" align="center">  <span class="luecke2s" id="luecke2s1" ondrop="drop(event)" ondragover="allowDrop(event)">&uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke2p" id="luecke2p1" ondrop="drop(event)" ondragover="allowDrop(event)">&uarr;&darr; &uarr;&darr; &uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke3s" id="luecke3sx" ondrop="drop(event)" ondragover="allowDrop(event)"> &uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke3p" id="luecke3px" ondrop="drop(event)" ondragover="allowDrop(event)">&uarr;&darr; &uarr;&darr; &uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke3d" id="lueckeCuIon" ondrop="drop(event)" ondragover="allowDrop(event)">3d10</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke4s" id="luecke4sx" ondrop="drop(event)" ondragover="allowDrop(event)">4s2</span> </td>
+                </tr>
+
+                <tr bgcolor=#EEE8AA>
+                    <td width="60px" align="center">  Zn   </td>
+                    <td width="50px" align="center">  <span class="luecke2" id="lueckeZn" ondrop="drop(event)" ondragover="allowDrop(event)">Hochzahl Zn</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke1s" id="luecke1s2" ondrop="drop(event)" ondragover="allowDrop(event)"> &uarr;&darr;</span>      </td>
+                    <td width="50px" align="center">  <span class="luecke2s" id="luecke2s1" ondrop="drop(event)" ondragover="allowDrop(event)">&uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke2p" id="luecke2p1" ondrop="drop(event)" ondragover="allowDrop(event)">&uarr;&darr; &uarr;&darr; &uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke3s" id="luecke3sx" ondrop="drop(event)" ondragover="allowDrop(event)"> &uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke3p" id="luecke3px" ondrop="drop(event)" ondragover="allowDrop(event)">&uarr;&darr; &uarr;&darr; &uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke3d" id="lueckeZn3d10" ondrop="drop(event)" ondragover="allowDrop(event)">3d10</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke4s" id="lueckeZn4s2" ondrop="drop(event)" ondragover="allowDrop(event)">4s2</span> </td>
+                </tr>
+
+                <tr bgcolor=#F0A88D>
+                    <td width="60px" align="center">   Zn<sup>2+</sup>   </td>
+                    <td width="50px" align="center">  <span class="luecke2" id="lueckeZn2" ondrop="drop(event)" ondragover="allowDrop(event)">Hochzahl Zn<sup>2+</sup></span>    </td>
+                    <td width="50px" align="center">  <span class="luecke1s" id="luecke1s2" ondrop="drop(event)" ondragover="allowDrop(event)"> &uarr;&darr;</span>      </td>
+                    <td width="50px" align="center">  <span class="luecke2s" id="luecke2s1" ondrop="drop(event)" ondragover="allowDrop(event)">&uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke2p" id="luecke2p1" ondrop="drop(event)" ondragover="allowDrop(event)">&uarr;&darr; &uarr;&darr; &uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke3s" id="luecke3sx" ondrop="drop(event)" ondragover="allowDrop(event)"> &uarr;&darr;</span>    </td>
+                    <td width="50px" align="center">  <span class="luecke3p" id="luecke3px" ondrop="drop(event)" ondragover="allowDrop(event)">&uarr;&darr; &uarr;&darr; &uarr;&darr;</span>    </td>
+
+                    <td width="50px" align="center">  <span class="luecke3d" id="lueckeZnIon" ondrop="drop(event)" ondragover="allowDrop(event)">3d10</span>    </td>
+
+                    <td width="50px" align="center">  <span class="luecke4s" id="luecke4sx" ondrop="drop(event)" ondragover="allowDrop(event)">4s2</span>  </td>
+                </tr>
+                                       
+
+                <tr>
+                    <td bgcolor=#AFDAB9 align=center colspan="11">
+                        <button onclick="checkAnswers()">Überprüfen</button>
+                        Nochmal probieren?
+                        <button onclick="location.reload()">Seite neu laden</button>
+                        <p id="ergebnis"></p>
+                    </td>
+                </tr>
+
+
+            </table>
+        </div>
+    
+
+    </div>
+
+    <script>function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            ev.target.textContent = document.getElementById(data).textContent;
+        }
+
+        function checkAnswers() {
+            var ergebnis = document.getElementById("ergebnis");
+        
+         
+
+            var lueckeZnIon = document.getElementById("lueckeZnIon").textContent; 
+            var lueckeCrIon = document.getElementById("lueckeCrIon").textContent; 
+            var lueckeCuIon = document.getElementById("lueckeCuIon").textContent; 
+            var lueckeMnIon = document.getElementById("lueckeMnIon").textContent; 
+            var lueckeFeIon = document.getElementById("lueckeFeIon").textContent; 
+            var lueckeScIon = document.getElementById("lueckeScIon").textContent; 
+            var lueckeCrIon6 = document.getElementById("lueckeCrIon6").textContent;
+
+           var wort4s1 = document.getElementById("wort4s1").textContent;
+            var wort4s2 = document.getElementById("wort4s2").textContent;
+           
+            var wort3d1 = document.getElementById("wort3d1").textContent;
+            var wort3d8 = document.getElementById("wort3d8").textContent;
+            var wort3d5 = document.getElementById("wort3d5").textContent;
+            var wort3d6 = document.getElementById("wort3d6").textContent;
+            var wort3d10 = document.getElementById("wort3d10").textContent;
+
+            var lueckeZn3d10 = document.getElementById("lueckeZn3d10").textContent; var lueckeZn4s2 = document.getElementById("lueckeZn4s2").textContent;
+            var lueckeCu3d10 = document.getElementById("lueckeCu3d10").textContent; var lueckeCu4s2 = document.getElementById("lueckeCu4s2").textContent;          
+            var lueckeCr3d10 = document.getElementById("lueckeCr3d10").textContent; var lueckeCr4s2 = document.getElementById("lueckeCr4s2").textContent;   
+            var lueckeMn3d10 = document.getElementById("lueckeMn3d10").textContent; var lueckeMn4s2 = document.getElementById("lueckeMn4s2").textContent;  
+            var lueckeNi3d10 = document.getElementById("lueckeNi3d10").textContent; var lueckeNi4s2 = document.getElementById("lueckeNi4s2").textContent;
+            var lueckeFe3d10 = document.getElementById("lueckeFe3d10").textContent; var lueckeFe4s2 = document.getElementById("lueckeFe4s2").textContent;
+            var lueckeSc3d10 = document.getElementById("lueckeSc3d10").textContent; var lueckeSc4s2 = document.getElementById("lueckeSc4s2").textContent;
+           
+            /* Hochzahlen */
+            var lueckeSc = document.getElementById("lueckeSc").textContent; var wortSc = document.getElementById("wortSc").textContent;
+            var lueckeSc1 = document.getElementById("lueckeSc1").textContent; var wortSc1 = document.getElementById("wortSc1").textContent;
+            var lueckeFe = document.getElementById("lueckeFe").textContent; var wortFe = document.getElementById("wortFe").textContent;
+            var lueckeFe3 = document.getElementById("lueckeFe3").textContent; var wortFe3 = document.getElementById("wortFe3").textContent;
+            var lueckeNi = document.getElementById("lueckeNi").textContent; var wortNi = document.getElementById("wortNi").textContent;
+            var lueckeMn = document.getElementById("lueckeMn").textContent; var wortMn = document.getElementById("wortMn").textContent;
+            var lueckeMn2 = document.getElementById("lueckeMn2").textContent; var wortMn2 = document.getElementById("wortMn2").textContent;
+            var lueckeCr = document.getElementById("lueckeCr").textContent; var wortCr = document.getElementById("wortCr").textContent;
+            var lueckeCr1 = document.getElementById("lueckeCr1").textContent; var wortCr1 = document.getElementById("wortCr1").textContent;
+            var lueckeCr2 = document.getElementById("lueckeCr2").textContent; var wortCr2 = document.getElementById("wortCr2").textContent;
+            var lueckeCu = document.getElementById("lueckeCu").textContent; var wortCu = document.getElementById("wortCu").textContent;
+            var lueckeCu1 = document.getElementById("lueckeCu1").textContent; var wortCu1 = document.getElementById("wortCu1").textContent;
+            var lueckeZn = document.getElementById("lueckeZn").textContent; var wortZn = document.getElementById("wortZn").textContent;
+            var lueckeZn2 = document.getElementById("lueckeZn2").textContent; var wortZn2 = document.getElementById("wortZn2").textContent;
+           
+            /* falsche orbitale */
+            var wortx = document.getElementById("wortx").textContent; 
+            var luecke4sx = document.getElementById("luecke4sx").textContent; 
+/*
+            Zn = new Array(3) // kann man weglassen
+            Zn[0] = wortZn
+            Zn[1] = wort3d10
+            Zn[2] = wort4s2
+      */      
+
+
+            if (             
+                // Hochzahlen                          
+               lueckeSc === wortSc && lueckeSc1 === wortSc1 && lueckeFe === wortFe && lueckeFe3 === wortFe3 && lueckeNi === wortNi  && lueckeMn === wortMn && lueckeMn2 === wortMn2 && lueckeCr === wortCr
+              && lueckeCr1 === wortCr1 && lueckeCr2 === wortCr2 && lueckeCu === wortCu && lueckeCu1 === wortCu1 && lueckeZn === wortZn && lueckeZn2 === wortZn2
+           
+
+                && lueckeCrIon === wort3d5 &&  luecke4sx === "4s2"
+                && lueckeCuIon === wort3d10 && luecke4sx === "4s2"
+                && lueckeMnIon === wort3d5 && luecke4sx === "4s2"
+                && lueckeFeIon === wort3d5 && luecke4sx === "4s2"
+                && lueckeScIon === "3d10" && luecke4sx === "4s2"
+                && lueckeCrIon6 === "3d10" && luecke4sx === "4s2"
+
+                && lueckeZn3d10 === wort3d10 && lueckeZn4s2 === wort4s2
+                && lueckeCu3d10 === wort3d10 && lueckeCu4s2 === wort4s1
+                && lueckeCr3d10 === wort3d5 && lueckeCr4s2 === wort4s1
+                && lueckeMn3d10 === wort3d5 && lueckeMn4s2 === wort4s2
+                && lueckeNi3d10 === wort3d8 && lueckeNi4s2 === wort4s2
+                && lueckeFe3d10 === wort3d6 && lueckeFe4s2 === wort4s2
+                && lueckeSc3d10 === wort3d1 && lueckeSc4s2 === wort4s2 
+
+
+
+
+            ) {
+                ergebnis.textContent = "Super! Alles richtig!";
+                ergebnis.style.color = "green";
+            } else {
+                ergebnis.textContent = "Leider falsch. Versuche es noch einmal.";
+                ergebnis.style.color = "red";
+            }
+        }
+
+
+   </script>
+
+
+
+
+
+</body>
+</html>

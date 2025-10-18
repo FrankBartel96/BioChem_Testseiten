@@ -1,0 +1,265 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Umsatzberechnungen5 pH Werte</title>
+<meta name="author" content="Franks Bartel">
+<meta name="editor" content="html-editor phase 5">
+ <script language="Javascript">
+
+ //    var zahl;
+ //function runden(zahl,n_stelle)  { var  n_stelle ; var zahl;  zahl = (Math.round(zahl * n_stelle) / n_stelle);  return zahl;   }
+//rundezahl=runden(5.127456,100);
+
+
+
+       function getBaseLog(x, y) { return Math.log(y) / Math.log(x); }     //y=expnonent; x=Zahl
+       function round(wert, dez)
+       {
+        wert = parseFloat(wert);  if (!wert) return 0;
+        dez = parseInt(dez);      if (!dez) dez=0;
+        var umrechnungsfaktor = Math.pow(10,dez);
+        return Math.round(wert * umrechnungsfaktor) / umrechnungsfaktor;
+        }
+
+
+   function PHWert()
+{
+  var cSre=document.Formular.Sc.value;  pHSre=document.Formular.SpH.value; cHSre=document.Formular.ScH.value;pOHSre=document.Formular.SpOH.value; cOHSre=document.Formular.ScOH.value;
+
+           function KonzS1()    //geg: CSre:
+       {
+       var     cSre;      //geg als Var
+       var cSre=document.Formular.Sc.value;
+       pHsre=((getBaseLog(10,cSre)));
+       pHsre2 = round(pHsre, 3); //Rundet auf 3 Stelle
+       document.Formular.ScH.value=cSre;
+       document.Formular.SpH.value=(pHsre2*-1) ;
+       document.Formular.SpOH.value=(14+pHsre2);
+       document.Formular.ScOH.value=(1e-14/cSre);
+
+      }      //end of cSsre  KonzS1()
+
+
+        function pHWert1()   //geg: pH    pHSre
+        {  var     pHSre;      //geg als Var
+          var pHSre=document.Formular.SpH.value;
+         cSre = Math.pow(10,(pHSre*-1));
+         document.Formular.Sc.value=cSre;
+         document.Formular.ScH.value=cSre;
+         document.Formular.SpOH.value=(14- pHSre);
+         document.Formular.ScOH.value=(1e-14/cSre);
+       }    //end of pHSsre  pHWert1()
+
+
+       function cHIonen1()    //geg: cH:    cHSre
+        {
+           var     cHSre;      //geg als Var
+         var cHSre=document.Formular.ScH.value;
+         document.Formular.Sc.value=cHSre;
+         pHsre=((getBaseLog(10,cHSre)));   pHsre2 = round(pHsre, 3); //Rundet auf 3 Stelle
+         document.Formular.SpH.value=(pHsre2*-1) ;
+         document.Formular.SpOH.value=(14-pHsre2*-1);
+         document.Formular.ScOH.value=(1e-14/cHSre);     //??
+         }  //end of  cHSre  cHIonen1()
+
+         function PH_OH1()   //geg: pOH:    pOHSre
+      {
+      var     pOHSre;      //geg als Var
+      var pOHSre=document.Formular.SpOH.value;
+      document.Formular.SpH.value=(14-pOHSre) ;
+      document.Formular.ScOH.value=(Math.pow(10,(pOHSre*-1)));     cOHSre=(Math.pow(10,(pOHSre*-1)));;
+      document.Formular.ScH.value=(1e-14/cOHSre);                  cHSre=(1e-14/cOHSre);
+      document.Formular.Sc.value=(cHSre*1);
+      }  //end of  pOHSre  PH_OH1()
+
+      function OHkonz1()     //geg: cOH:    cOHSre
+      {
+         var  cOHSre;        //geg als Var
+      var cOHSre=document.Formular.ScOH.value;
+      document.Formular.ScH.value=(1e-14/cOHSre);    cHSre=(1e-14/cOHSre);
+      pOHsre=((getBaseLog(10,cOHSre)));
+      pOHsre2 = round(pOHsre, 3); //Rundet auf 3 Stelle
+      document.Formular.SpOH.value= pOHsre2*-1;
+      document.Formular.SpH.value= (14+pOHsre2);
+      document.Formular.Sc.value=(cHSre*1);
+      }
+
+                   if(cSre>0 &&  pHSre=="" && cHSre=="" && cOHSre=="" ) {KonzS1();}                //KonzS1();
+                      else {if( pHSre>0 && cSre==0 &&  cHSre=="" && cOHSre=="") {pHWert1();}     // pHWert1();
+                             else { if( cHSre>0) {cHIonen1();}                                  // cHIonen1();
+                                   else { if( pOHSre>0) {PH_OH1();}                             // PH_OH1()
+                                           else {if( cOHSre>0) {OHkonz1();}                     // OHkonz1()
+                                                 else {document.Formular.ScOH.value="Wert eingeben!";}}} } }
+ }
+
+
+   function PHWert2()   //mal sehen
+   {
+
+var cSre=document.Formular.Sc.value; pHSre=document.Formular.SpH.value; cHSre=document.Formular.ScH.value;pOHSre=document.Formular.SpOH.value; cOHSre=document.Formular.ScOH.value;
+
+           function KonzS1()    //geg: CSre:
+       {
+       var     cSre;  var  ScHH;   //geg als Var
+       var cSre=document.Formular.Sc.value;
+       ScHH=cSre*2;
+       document.Formular.ScH.value=ScHH;
+       pHsre=((getBaseLog(10,ScHH)));
+       pHsre2 = round(pHsre, 3); //Rundet auf 3 Stelle
+
+       document.Formular.SpH.value=(pHsre2*-1) ;
+       document.Formular.SpOH.value=(14+pHsre2);
+       document.Formular.ScOH.value=(1e-14/ScHH);
+
+      }      //end of cSsre  KonzS1()
+
+
+        function pHWert1()   //geg: pH    pHSre
+        {  var     pHSre;      //geg als Var
+          var pHSre=document.Formular.SpH.value;
+          var cSre;
+
+
+         ccSre = Math.pow(10,(pHSre*-1));
+         document.Formular.Sc.value=(ccSre/2);
+         document.Formular.ScH.value=ccSre;
+         document.Formular.SpOH.value=(14- pHSre);
+         document.Formular.ScOH.value=(1e-14/ccSre);
+       }    //end of pHSsre  pHWert1()
+
+
+       function cHIonen1()    //geg: cH:    cHSre
+        {
+           var     cHSre;      //geg als Var
+         var cHSre=document.Formular.ScH.value;
+
+         document.Formular.Sc.value=cHSre/2;
+         pHsre=((getBaseLog(10,cHSre)));   pHsre2 = round(pHsre, 3); //Rundet auf 3 Stelle
+         document.Formular.SpH.value=(pHsre2*-1) ;
+         document.Formular.SpOH.value=(14-pHsre2*-1);
+         document.Formular.ScOH.value=(1e-14/cHSre);     //??
+         }  //end of  cHSre  cHIonen1()
+
+         function PH_OH1()   //geg: pOH:    pOHSre
+      {
+      var     pOHSre;      //geg als Var
+      var pOHSre=document.Formular.SpOH.value;
+      var cSre;
+      document.Formular.SpH.value=(14-pOHSre) ;
+      document.Formular.ScOH.value=(Math.pow(10,(pOHSre*-1)));     cOHSre=(Math.pow(10,(pOHSre*-1)));;
+      document.Formular.ScH.value=(1e-14/cOHSre);                  cHSre=(1e-14/cOHSre);
+       cSre=cHSre/2;
+      document.Formular.Sc.value=(cSre*1);
+      }  //end of  pOHSre  PH_OH1()
+
+      function OHkonz1()     //geg: cOH:    cOHSre
+      {
+         var  cOHSre;        //geg als Var
+      var cOHSre=document.Formular.ScOH.value;
+      var cSre;
+      document.Formular.ScH.value=(1e-14/cOHSre);    cHSre=(1e-14/cOHSre);
+      pOHsre=((getBaseLog(10,cOHSre)));
+      pOHsre2 = round(pOHsre, 3); //Rundet auf 3 Stelle
+      document.Formular.SpOH.value= pOHsre2*-1;
+      document.Formular.SpH.value= (14+pOHsre2);
+      cSre=cHSre/2;
+      document.Formular.Sc.value=(cSre*1);
+      }
+
+                   if(cSre>0 &&  pHSre=="" && cHSre=="" && cOHSre=="" ) {KonzS1();}                //KonzS1();
+                      else {if( pHSre>0 && cSre==0 &&  cHSre=="" && cOHSre=="") {pHWert1();}     // pHWert1();
+                             else { if( cHSre>0) {cHIonen1();}                                  // cHIonen1();
+                                   else { if( pOHSre>0) {PH_OH1();}                             // PH_OH1()
+                                           else {if( cOHSre>0) {OHkonz1();}                     // OHkonz1()
+                                                 else {document.Formular.ScOH.value="Wert eingeben!";}}} } }
+ }
+
+
+  function saure(e)    //Oberverzweigung 1/2 Protonige sre   PHWert2()
+  {
+                 var   proton1;
+                       proton1= document.Formular.W1.value;
+         if( proton1<2) {PHWert();}   else { PHWert2();}
+
+  }
+
+ //neue Rechnung  function newFunction() {document.getElementById("Formular").reset();         }
+
+
+
+   function neu()
+
+   {     document.Formular.Sc.value="";
+         document.Formular.ScH.value="";
+         document.Formular.SpH.value="" ;
+         document.Formular.SpOH.value="";
+         document.Formular.ScOH.value="";
+    }
+
+
+
+</script>
+
+</head>
+
+<body text="#000000" bgcolor="#F6F8E2" link="#FF0000" alink="#FF0000" vlink="#FF0000">
+<h1 style="color:#731768" ><p style="font-family:'Courier New'">Berechnung zu einfachen S&auml;uren/ Basen</p></h1>
+
+   <h3 style="color:red"><p style="font-family:'Courier New'">Gilt nur f&uuml;r vollst&auml;ndig protolysierte S&auml;uren/Basen</p></h3>
+   <h3 style="color:red"><p style="font-family:'Courier New'">bis zu einer Konzentration von 5 mol/l.</p></h3>
+
+ <form name="Formular"  method="get" enctype="text/plain" >
+
+ <table border="0" bgcolor=#CCC9C9 bordercolor=#CCC9C9>
+   <tr bgcolor=#CCC9C9>
+    <td align="center">  <font size="5">gegeben</font></td>
+    <td bgcolor=#CCC9C9 align="center">  <font size="5"></font>
+              <select size="1" name="W1" >
+            <option value="RE" name="RE">S&auml;ure/Base</option>
+            <option value=0 name="Salzs&auml;ure">Salzs&auml;ure</option>
+            <option value=1 name="Salpeters&auml;ure">Salpeters&auml;ure</option>
+            <option value=2 name="Schwefels&auml;ure">Schwefels&auml;ure</option>
+            <option value=0 name="Natriumhydroxid">Natriumhydroxid</option>
+            <option value=1 name="Kaliumhydroxid">Kaliumhydroxid</option>
+            <option value=2 name="Calciumhydroxid">Calciumhydroxid</option>
+             </select>
+    </td>
+     <td bgcolor=#CCC9C9 rowspan="8">
+     <h3 style="color:#731768"><p style="font-family:'Courier New'">S&auml;ure/Base Rechner</p></h3>
+     <h4 style="color:red"><p style="font-family:'Courier New'">1.S&auml;ure/Base ausw&auml;hlen.</p></h4>
+     <h4 style="color:red"><p style="font-family:'Courier New'">2.Gegebene Gr&ouml;&szlig;e eingeben.</p></h4>
+     <h4 style="color:red"><p style="font-family:'Courier New'">3.Auf Berechnung clicken.-> Ergebnisse</p></h4>
+     <h4 style="color:red"><p style="font-family:'Courier New'">.Statt dem Komma wird ein Punkt eingegeben.</p></h4>
+     </td>
+    </tr>
+   <tr bgcolor=#CCC9C9>
+    <td align="center">  <font size="5">c</font></td> <td align="center"><input name="Sc" type="text" value=""></td><td align="center"</tr>
+   <tr bgcolor=#FF3400>
+     <td align="center">  <font size="5">cH </font></td> <td align="center"><input name="ScH" type="text" value=""></td><td align="center"></tr>
+   <tr bgcolor=#FF3400>
+    <td align="center">  <font size="5">pH </font></td> <td align="center"><input name="SpH" type="text" value=""></td><td align="center"></tr>
+   <tr bgcolor=#2819CA>
+    <td align="center">  <font color=#FFFFFF size="5">pOH </font></td> <td align="center"><input name="SpOH" type="text" value=""></td></tr>
+   <tr bgcolor=#2819CA>
+     <td align="center"> <font color=#FFFFFF size="5">cOH </font></td> <td align="center"><input name="ScOH" type="text" value=""></td></tr>
+   <tr bgcolor=#CCC9C9>
+     <td align="center">  <font size="5">... </font></td>
+     <td bgcolor=#FF3400 align="center">
+      <input type="button" onclick="javascript:saure(document.Formular.W1.options[document.Formular.W1.selectedIndex].value)" value="Berechnung"> </td>
+     </tr>
+    <tr>
+      <!--  <td align="center"></td>  <td  align="center"><input type="button" onclick="newFunction()" value="Neue Rechnung">  </td>    -->
+     <td align="center"></td>  <td  align="center"><input type="button" onclick="neu()" value="Neue Rechnung">  </td>
+
+
+    </tr>
+</table>
+
+        <!--    <input type="button" onclick="newFunction()" value="Neue Rechnung">   -->
+        <!--    <a href="javascript:saure(document.Formular.W1.options[document.Formular.W1.selectedIndex].value)">Proton</a>   -->
+       <!--      <a href="javascript:PHWert2()">pH-Wert2</a>    -->
+
+
+
+</body>
+</html>

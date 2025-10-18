@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Periodensystem Drag & Drop</title>
+    <style>
+        :root {
+            --primary-bg: #f9f9f9;
+            --element-bg: #ffffff;
+            --element-border: #d1d1d6;
+            --text-color: #1c1c1e;
+            --accent-color: #007aff;
+            --metal-color: #cce5ff;
+            --nonmetal-color: #d4edda;
+            --noble-gas-color: #f8d7da;
+        }
+
+        .container {
+            max-width:700px;
+            /*align-items: center;*/
+            /* text-align: center;*/
+            margin: auto;
+            background: #F6F8E2;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: #F6F8E2;
+            color: #333;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            /*background-color: var(--primary-bg);*/
+            /* color: var(--text-color); */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+           
+        }
+
+        h2 {
+            font-size: 25px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #731768;
+        }
+
+
+
+        .elemente {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+
+        .symbol {
+            width: 80px;
+            height: 80px;
+            border-radius: 12px;
+            border: 1px solid var(--element-border);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 20px;
+            /*  font-style: oblique; */
+            cursor: grab;
+            transition: transform 0.2s ease;
+            text-align: center;
+            align-content: center;
+        }
+
+            .symbol span {
+                font-size: 15px;
+                color: #555;
+            }
+
+            .symbol .masse {
+                font-size: 9px;
+                color: #777;
+            }
+
+            .symbol:active {
+                transform: scale(0.95);
+            }
+
+        .metal {
+            background-color: var(--metal-color);
+        }
+
+        .nonmetal {
+            background-color: var(--nonmetal-color);
+        }
+
+        .noble-gas {
+            background-color: var(--noble-gas-color);
+        }
+
+        .periodensystem {
+            display: grid;
+            grid-template-columns: repeat(8, 80px);
+            grid-auto-rows: 80px;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .feld {
+            width: 80px;
+            height: 80px;
+            border-radius: 12px;
+            background-color: #ffffff;
+            border: 1px dashed var(--element-border);
+            transition: background-color 0.2s ease;
+        }
+
+            .feld:hover {
+                background-color: #f2f2f7;
+            }
+
+        #auswertung {
+            margin-top: 20px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 8px 16px;
+            font-size: 14px;
+            border: none;
+            border-radius: 8px;
+            background-color: var(--accent-color);
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Periodensystem: 1-3. Periode</h2>
+        <h1>Elemente mit Ordnungszahl und relativer Atommasse</h1>
+        
+
+        <div class="elemente" id="elemente">
+            <div class="symbol nonmetal" draggable="true" id="H">H<br><span>1</span>   <div class="masse">Wasserstoff</div> <div class="masse">1.01 </div>   </div>
+            <div class="symbol nonmetal" draggable="true" id="S">S<br><span>16</span><div class="masse">Schwefel</div><div class="masse">32.07</div></div>
+            <div class="symbol nonmetal" draggable="true" id="Cl">Cl<br><span>17</span><div class="masse">Chlor</div><div class="masse">35.45</div></div>
+            <div class="symbol metal" draggable="true" id="Be">Be<br><span>4</span><div class="masse">Beryllium</div><div class="masse">9.01</div></div>
+
+            <div class="symbol noble-gas" draggable="true" id="Ne">Ne<br><span>10</span><div class="masse">Neon</div><div class="masse">20.18</div></div>
+            <div class="symbol metal" draggable="true" id="Na">Na<br><span>11</span><div class="masse">Natrium</div><div class="masse">22.99</div></div>
+            <div class="symbol metal" draggable="true" id="Mg">Mg<br><span>12</span><div class="masse">Magnesium</div><div class="masse">24.31</div></div>
+
+            <div class="symbol nonmetal" draggable="true" id="P">P<br><span>15</span><div class="masse">Phosphor</div><div class="masse">30.97</div></div>
+
+            <div class="symbol noble-gas" draggable="true" id="Ar">Ar<br><span>18</span><div class="masse">Argon</div><div class="masse">39.95</div></div>
+            <div class="symbol nonmetal" draggable="true" id="B">B<br><span>5</span><div class="masse">Bor</div><div class="masse">10.81</div></div>
+            <div class="symbol nonmetal" draggable="true" id="C">C<br><span>6</span><div class="masse">Kohlenstoff</div><div class="masse">12.01</div></div>
+            <div class="symbol nonmetal" draggable="true" id="N">N<br><span>7</span><div class="masse">Stickstoff</div><div class="masse">14.01</div></div>
+
+            <div class="symbol metal" draggable="true" id="Al">Al<br><span>13</span><div class="masse">Aluminium</div><div class="masse">26.98</div></div>
+            <div class="symbol nonmetal" draggable="true" id="Si">Si<br><span>14</span><div class="masse">Silicium</div><div class="masse">28.09</div></div>
+
+            <div class="symbol nonmetal" draggable="true" id="O">O<br><span>8</span><div class="masse">Sauerstoff</div><div class="masse">16.00</div></div>
+            <div class="symbol nonmetal" draggable="true" id="F">F<br><span>9</span><div class="masse">Fluor</div><div class="masse">19.00</div></div>
+
+            <div class="symbol noble-gas" draggable="true" id="He">He<br><span>2</span><div class="masse">Helium</div><div class="masse">4.00</div></div>
+            <div class="symbol metal" draggable="true" id="Li">Li<br><span>3</span><div class="masse">Lithium</div><div class="masse">6.94</div></div>
+
+
+        </div>
+        <table  >
+            <tr><td colspan="8" align="center">   <b> Hauptgruppen </b>   -- Legende: <font color="#3CB371 ">Nichtmetalle </font> <font color="#4169E1">Metalle </font> <font color="#FF69B4">Edelgase </font> </td> </tr>
+             <tr>   
+                <td width=100px align="center">  <h2>    I </h2>   </td>
+                <td width=100px align="center">  <h2>    II </h2>   </td>
+                <td width=100px align="center">  <h2>    III </h2>   </td>
+                <td width=100px align="center">  <h2>    IV </h2>   </td>
+                <td width=100px align="center">  <h2>    V </h2>   </td>
+                <td width=100px align="center">  <h2>    VI </h2>   </td>
+                <td width=100px align="center">  <h2>    VII </h2>   </td>
+                <td width=100px align="center">  <h2>    VIII </h2>   </td>
+            </tr>
+        </table>
+        <div class="periodensystem" id="periodensystem">
+            <script> 
+                for (let i = 0; i < 8 * 3; i++) {
+                    document.write('<div class="feld" ondrop="drop(event)" ondragover="allowDrop(event)"></div>');
+                }
+            </script>
+
+           
+        </div>
+        <h2>Auswertung:   </h2>
+        <div id="auswertung">         Ziehe die Elemente an die richtige Position im PSE.</div>
+        <button onclick="location.reload()">Seite neu laden</button>
+
+
+    </div>
+
+            <script>
+                function allowDrop(ev) {
+                    ev.preventDefault();
+                }
+
+                function drag(ev) {
+                    ev.dataTransfer.setData("text", ev.target.id);
+                }
+
+                function drop(ev) {
+                    ev.preventDefault();
+                    let data = ev.dataTransfer.getData("text");
+                    let element = document.getElementById(data);
+                    if (!ev.target.hasChildNodes()) {
+                        ev.target.appendChild(element);
+                        updateAuswertung();
+                    }
+                }
+
+                document.querySelectorAll('.symbol').forEach(el => {
+                    el.addEventListener('dragstart', drag);
+                });
+
+                function updateAuswertung() {
+                    const felder = document.querySelectorAll('.feld');
+                    let richtig = 0;
+                    felder.forEach((feld, i) => {
+                        const kind = feld.firstChild;
+                        if (!kind) return;
+                        const gruppe = i % 8 + 1;
+                        const korrekteGruppe = {
+                            'H': 1, 'He': 8, 'Li': 1, 'Be': 2, 'B': 3, 'C': 4,
+                            'N': 5, 'O': 6, 'F': 7, 'Ne': 8,
+                            'Na': 1, 'Mg': 2, 'Al': 3, 'Si': 4,
+                            'P': 5, 'S': 6, 'Cl': 7, 'Ar': 8
+                        };
+                        if (korrekteGruppe[kind.id] === gruppe) richtig++;
+                    });
+                    document.getElementById("auswertung").innerText = `${richtig} von 18 Elementen korrekt platziert.`;
+                }
+            </script>
+</body>
+</html>

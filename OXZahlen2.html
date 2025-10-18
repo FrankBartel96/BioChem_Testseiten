@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redoxreaktionen mit Drag-and-Drop</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #F6F8E2;
+            color: #1d1d1f;
+            text-align: left;
+            padding-top: 50px;
+        }
+
+
+        h1 {
+            text-align: center;
+            color: #731768;
+        }
+
+        h2, h3 {
+            font-weight: 600;
+            color: #731768;
+            font-size: 22px;
+            margin: 5px;
+            padding: 5px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #F6F8E9;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+
+
+
+        table, th, caption {
+            /*border: thin solid #a0a0a0;  border: 0;  */
+            width: 95%;
+            /* padding: none;*/
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            /* padding: 10px; */
+            /* height: 20px; */
+        }
+
+
+        table {
+            thead: th;
+            background-color: #FFE4E1;
+            /*Tabellenkopf*/
+        }
+
+        tbody tr:nth-child(odd) {
+            background-color: #F5FFFA;
+            /*Hintergrund für ungerade Zeilen*/
+            /* height: 35px;*/
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #FFE4E1;
+            /* Hintergrund für gerade Zeilen*/
+            /*  height: 30px;  */
+        }
+
+
+
+
+
+
+        .luecke {
+            width: 20px;
+            height: 32px;
+            border: 1px solid #d2d2d7;
+            display: inline-block;
+            border-radius: 5px;
+            margin-right: 1px;
+            margin-left: 1px;
+            /* padding:2px;*/
+            vertical-align: bottom;
+            background-color: #f9f9f9;
+            line-height: 32px;
+        }
+
+        .wortspeicher {
+            margin-top: 10px;
+        }
+
+        .wort {
+            width: 26px;
+            padding: 5px;
+            margin: 5px;
+            border: 1px solid #d2d2d7;
+            border-radius: 10px;
+            background-color: #e1e1e3;
+            display: inline-block;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .wort:hover {
+            background-color: #f5f5f7;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            padding: 12px 24px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 12px;
+            background-color: #0071e3;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #005bb5;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+        }
+
+        p#ergebnis {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        p#ergebnis2 {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <!-- -->
+
+    <div class="container">
+
+        <h2 style="color:#731768">&nbsp;Oxidationszahlen</h2>
+       
+        <h3 style="color:red" font-family:'Courier New'">&nbsp;   1. Bestimme die Oxidationszahlen.</h3>
+        <h3 style="color:red" font-family:'Courier New'">&nbsp;      (Summe aller OZ=0;Elemente: OZ=0; O:(fast) immer-2; H:immer+1; Ionenladung=OZ; zusammengesetzte Ionen: Summe OZ=Ionenladung)</h3>
+
+        <table>
+            <tbody>
+                <tr>
+
+                    <td colspan="8">
+                        <h3> Oxidationszahlen in Atomen und Elementen</h3>
+                    </td>
+                </tr>
+                <tr>
+                    <td>                    OZ                 </td>
+                    <td>                        <span class="luecke" id="luecke1" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>                   </td>
+                    <td>                        <span class="luecke" id="luecke2" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>                    </td>
+
+                    <td>                        <span class="luecke" id="luecke3" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>                    </td>
+                    <td>                        <span class="luecke" id="luecke4" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>                    </td>
+                    <td>                        <span class="luecke" id="luecke5" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>                    </td>
+                    <td>                        <span class="luecke" id="luecke6" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>                     </td>
+                    <td>                        <span class="luecke" id="luecke7" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>                     </td>
+
+
+
+
+                    <td rowspan="15" colspan="1 " width="10px">
+                        Ox-Zahl
+                        <div class="wortspeicher">
+                            <div class="wort" id="wort1" draggable="true" ondragstart="drag(event)">+7</div>
+
+
+                            <div class="wort" id="wort2" draggable="true" ondragstart="drag(event)">+6</div>
+                            <div class="wort" id="wort3" draggable="true" ondragstart="drag(event)">+5</div>
+                            <div class="wort" id="wort4" draggable="true" ondragstart="drag(event)">+4</div>
+                            <div class="wort" id="wort5" draggable="true" ondragstart="drag(event)">+3</div>
+                            <div class="wort" id="wort6" draggable="true" ondragstart="drag(event)">+2</div>
+                            <div class="wort" id="wort7" draggable="true" ondragstart="drag(event)">+1</div>
+                            <div class="wort" id="wort8" draggable="true" ondragstart="drag(event)">0</div>
+
+                            <div class="wort" id="wort9" draggable="true" ondragstart="drag(event)">-1</div>
+                            <div class="wort" id="wort10" draggable="true" ondragstart="drag(event)">-2</div>
+                            <div class="wort" id="wort11" draggable="true" ondragstart="drag(event)">-3</div>
+                            <div class="wort" id="wort12" draggable="true" ondragstart="drag(event)">-4</div>
+                            <div class="wort" id="wort13" draggable="true" ondragstart="drag(event)">-5</div>
+                            <div class="wort" id="wort14" draggable="true" ondragstart="drag(event)">-6</div>
+                            <div class="wort" id="wort15" draggable="true" ondragstart="drag(event)">-7</div>
+
+                        </div>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>                   1.                </td>
+                    <td>                   <font size="5"> K  </font>              </td>
+                    <td>                   <font size="5"> N </font>               </td>
+                    <td>                   <font size="5"> Ca </font>              </td>
+                    <td>                    <font size="5">O</font>2        </td>
+                    <td>                    <font size="5">H</font>2        </td>
+                    <td>                    <font size="5">Cl</font>2       </td>
+                    <td>                   <font size="5"> S  </font>              </td>
+
+
+                </tr>
+
+                <tr>
+                    <td colspan="8">
+                        <h3> Oxidationszahlen in einfachen Verbindungen  </h3>
+                    </td>
+                </tr>
+                <tr>
+                    <td>                    OZ                 </td>
+                    <td>
+                        <span class="luecke" id="luecke21" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                        <span class="luecke" id="luecke22" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                    </td>
+                    <td>
+                        <span class="luecke" id="luecke23" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                        <span class="luecke" id="luecke24" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                    </td>
+                    <td>
+                        <span class="luecke" id="luecke25" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                        <span class="luecke" id="luecke26" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                    </td>
+                    <td>
+                        <span class="luecke" id="luecke27" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                        <span class="luecke" id="luecke28" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                    </td>
+                    <td>
+                        <span class="luecke" id="luecke29" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>  <!--S -->
+                        <span class="luecke" id="luecke210" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                    </td>
+                    <td>
+                        <span class="luecke" id="luecke211" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                        <span class="luecke" id="luecke212" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                    </td>
+                    <td>
+                        <span class="luecke" id="luecke213" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                        <span class="luecke" id="luecke214" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                    </td>
+
+                </tr>
+
+
+                <tr>
+                    <td>                   2.                </td>
+                    <td>                   <font size="5">H</font>2<font size="5">O</font>        </td>
+                    <td>                   <font size="5">CO</font>2                              </td>
+                    <td>                   <font size="5">NO</font>2                              </td>
+                    <td>                   <font size="5">NH</font>3                              </td>
+                    <td>                   <font size="5">SO</font>3                              </td>
+                    <td>                   <font size="5">ZnO</font>                              </td>
+                    <td>                   <font size="5">Cu</font>2<font size="5">O</font>       </td>
+
+                </tr>
+
+                <tr>
+                    <td colspan="8">
+                        <h3> Oxidationszahlen in Säuren und Salzen  </h3>
+                    </td>
+                </tr>
+                <tr>
+                    <td>                    OZ                 </td>
+                    <td>
+                        <span class="luecke" id="luecke31" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                        <span class="luecke" id="luecke311" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                        <span class="luecke" id="luecke3111" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                    </td>
+                    <td>
+                        <span class="luecke" id="luecke32" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                        <span class="luecke" id="luecke322" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                        <span class="luecke" id="luecke3222" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                    </td>
+                    <td>
+                        <span class="luecke" id="luecke33" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                        <span class="luecke" id="luecke333" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                        <span class="luecke" id="luecke3333" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                    </td>
+                    <td>
+                        <span class="luecke" id="luecke34" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                        <span class="luecke" id="luecke344" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                        <span class="luecke" id="luecke3444" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                    </td>
+                    <td>
+                        <span class="luecke" id="luecke35" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                        <span class="luecke" id="luecke355" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                        <span class="luecke" id="luecke3555" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                    </td>
+                    <td>
+                        <span class="luecke" id="luecke36" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                        <span class="luecke" id="luecke366" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                        <span class="luecke" id="luecke3666" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                    </td>
+                    <td>
+                        <span class="luecke" id="luecke37" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                        <span class="luecke" id="luecke377" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                        <span class="luecke" id="luecke3777" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                    </td>
+
+                </tr>
+
+                <tr>
+                    <td>                   3.                </td>
+                    <td>                    <font size="5">H</font>2<font size="5">CO</font>3                            </td>
+                    <td>                    <font size="5">H</font>2<font size="5">SO</font>4                            </td>
+                    <td>                    <font size="5">Ca</font><font size="5">CO</font>3                            </td>
+                    <td>                    <font size="5">K</font>2<font size="5">Cr</font>2<font size="5">O</font>7    </td>
+                    <td>                    <font size="5">Na</font>2<font size="5">SO</font>4                           </td>
+                    <td>                    <font size="5">H</font>3<font size="5">PO</font>4                            </td>
+                    <td>                    <font size="5">Al</font><font size="5">(NO</font>3<font size="5">)</font>3   </td>
+
+                </tr>
+
+                <tr>
+                    <td colspan="8">
+                        <h3> Oxidationszahlen in Ionen  </h3>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>                    OZ                 </td>
+                    <td>                        <span class="luecke" id="luecke41" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>                    </td>
+                    <td>                        <span class="luecke" id="luecke42" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>                    </td>
+                    <td>                        <span class="luecke" id="luecke43" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>                    </td>
+                    <td>
+                        <span class="luecke" id="luecke44" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                        <span class="luecke" id="luecke45" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                    </td>
+                    <td>
+
+                        <span class="luecke" id="luecke46" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                        <span class="luecke" id="luecke47" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                    </td>
+                    <td>
+                        <span class="luecke" id="luecke48" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                        <span class="luecke" id="luecke49" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                    </td>
+                    <td>
+                        <span class="luecke" id="luecke410" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                        <span class="luecke" id="luecke411" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                    </td>
+
+                </tr>
+
+                <tr>
+                    <td>                   4.                </td>
+                    <td>                    <font size="5">O</font><font size="5"><sup>2-</sup></font>           </td>
+                    <td>                    <font size="5">Ca</font><font size="5"><sup>2+</sup></font>                 </td>
+                    <td>                    <font size="5">Cl</font><font size="5"><sup>-</sup></font>                  </td>
+                    <td>                    <font size="5">OH</font><font size="5"><sup>-</sup></font>                  </td>
+                    <td>                    <font size="5">SO</font>4<font size="5"><sup>2-</sup></font>         </td>
+                    <td>                    <font size="5">PO</font>4<font size="5"><sup>3-</sup></font>         </td>
+                    <td>                    <font size="5">MnO</font>4<font size="5"><sup>-</sup></font>                </td>
+
+                </tr>
+
+                <tr>
+                    <td colspan="8">
+                        <h3> Oxidationszahlen in organischen Verbindungen (nur für C)  </h3>
+                    </td>
+                </tr>
+                <tr>
+                    <td>                    OZ                 </td>
+                    <td>
+                        <span class="luecke" id="luecke51" ondrop="drop(event)" ondragover="allowDrop(event)">&nbsp; </span>
+                        <span class="luecke" id="luecke52" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                    </td>
+                    <td>
+                        <span class="luecke" id="luecke53" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                        <span class="luecke" id="luecke54" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                    </td>
+                    <td>
+                        <span class="luecke" id="luecke55" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                        <span class="luecke" id="luecke56" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                        <span class="luecke" id="luecke57" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                    </td>
+                    <td>
+                        <span class="luecke" id="luecke58" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                        <span class="luecke" id="luecke59" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                    </td>
+                    <td>
+                        <span class="luecke" id="luecke510" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                    </td>
+                    <td>
+                        <span class="luecke" id="luecke511" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                    </td>
+                    <td>
+                        <span class="luecke" id="luecke512" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                        <span class="luecke" id="luecke513" ondrop="drop(event)" ondragover="allowDrop(event)"> &nbsp;</span>
+                    </td>
+
+                </tr>
+
+                <tr>
+                    <td>                   5.                </td>
+                    <td>                    <font size="5">CH</font>3<font size="5">-CH</font>3                               </td>
+                    <td>                    <font size="5">CH</font>2<font size="5">=CH</font>2                               </td>
+                    <td>                    <font size="5">CH</font>3<font size="5">-CH</font>2<font size="5">-CH</font>3     </td>
+                    <td>                    <font size="5">CH</font>3<font size="5">-CH</font>2<font size="5">OH</font>       </td>
+                    <td>                    <font size="5">HCHO</font>                                                               </td>
+                    <td>                    <font size="5">HCOOH</font>                                                              </td>
+                    <td>                    <font size="5">CH</font>3<font size="5">-CHO</font>                               </td>
+
+                </tr>
+
+            </tbody>
+        </table>
+
+
+
+
+        <table>
+
+            <tr>
+                <td bgcolor=#AFDAB9 align=center colspan="3">
+                    Lösung
+
+                    <button onclick="checkAnswers()">Überprüfen</button>
+                    Nochmal probieren?
+                    <button onclick="location.reload()">Seite neu laden</button>
+                    <p id="ergebnis"></p>
+                </td>
+            </tr>
+
+        </table>
+
+    </div>
+
+        <script>
+            function allowDrop(ev) {
+                ev.preventDefault();
+            }
+
+            function drag(ev) {
+                ev.dataTransfer.setData("text", ev.target.id);
+            }
+
+            function drop(ev) {
+                ev.preventDefault();
+                var data = ev.dataTransfer.getData("text");
+                ev.target.textContent = document.getElementById(data).textContent;
+            }
+
+            function checkAnswers() {
+                var ergebnis = document.getElementById("ergebnis");
+
+                var luecke1 = document.getElementById("luecke1").textContent; 
+                var luecke2 = document.getElementById("luecke2").textContent; 
+                var luecke3 = document.getElementById("luecke3").textContent; 
+                var luecke4 = document.getElementById("luecke4").textContent; 
+                var luecke5 = document.getElementById("luecke5").textContent; 
+                var luecke6 = document.getElementById("luecke6").textContent; 
+                var luecke7 = document.getElementById("luecke7").textContent;  //Schwefel
+
+                var luecke21 = document.getElementById("luecke21").textContent;
+                    luecke22 = document.getElementById("luecke22").textContent; //Wasser
+                 
+                var luecke23 = document.getElementById("luecke23").textContent; 
+                var luecke24 = document.getElementById("luecke24").textContent; 
+                var luecke25 = document.getElementById("luecke25").textContent; 
+                var luecke26 = document.getElementById("luecke26").textContent; 
+                var luecke27 = document.getElementById("luecke27").textContent; 
+                var luecke28 = document.getElementById("luecke28").textContent;
+                var luecke29 = document.getElementById("luecke29").textContent;
+                var luecke210 = document.getElementById("luecke210").textContent;
+                var luecke211 = document.getElementById("luecke211").textContent;
+                var luecke212 = document.getElementById("luecke212").textContent;
+                var luecke213 = document.getElementById("luecke213").textContent; //ZNO
+                var luecke214 = document.getElementById("luecke214").textContent;
+
+                var luecke31 = document.getElementById("luecke31").textContent; var luecke311 = document.getElementById("luecke311").textContent; var luecke3111 = document.getElementById("luecke3111").textContent;                                
+                var luecke32 = document.getElementById("luecke32").textContent; var luecke322 = document.getElementById("luecke322").textContent; var luecke3222 = document.getElementById("luecke3222").textContent;                              
+                var luecke33 = document.getElementById("luecke33").textContent; var luecke333 = document.getElementById("luecke333").textContent; var luecke3333 = document.getElementById("luecke3333").textContent;                                
+                var luecke34 = document.getElementById("luecke34").textContent; var luecke344 = document.getElementById("luecke344").textContent; var luecke3444 = document.getElementById("luecke3444").textContent;                               
+                var luecke35 = document.getElementById("luecke35").textContent; var luecke355 = document.getElementById("luecke355").textContent; var luecke3555 = document.getElementById("luecke3555").textContent;              
+                var luecke36 = document.getElementById("luecke36").textContent; var luecke366 = document.getElementById("luecke366").textContent; var luecke3666 = document.getElementById("luecke3666").textContent;
+                var luecke37 = document.getElementById("luecke37").textContent; var luecke377 = document.getElementById("luecke377").textContent; var luecke3777 = document.getElementById("luecke3777").textContent;              
+
+                var luecke41 = document.getElementById("luecke41").textContent; var luecke42 = document.getElementById("luecke42").textContent;
+                var luecke43 = document.getElementById("luecke43").textContent; var luecke44 = document.getElementById("luecke44").textContent; // h3po4
+                var luecke44 = document.getElementById("luecke44").textContent; var luecke45 = document.getElementById("luecke45").textContent;                                                        
+                var luecke46 = document.getElementById("luecke46").textContent; var luecke47 = document.getElementById("luecke47").textContent;    
+                var luecke48 = document.getElementById("luecke48").textContent; var luecke49 = document.getElementById("luecke49").textContent;
+                var luecke410 = document.getElementById("luecke410").textContent; var luecke411 = document.getElementById("luecke411").textContent;
+
+                var luecke51 = document.getElementById("luecke51").textContent; var luecke52 = document.getElementById("luecke52").textContent;
+                var luecke53 = document.getElementById("luecke53").textContent; var luecke54 = document.getElementById("luecke54").textContent; 
+
+                var luecke55 = document.getElementById("luecke55").textContent; var luecke56 = document.getElementById("luecke56").textContent;  var luecke57 = document.getElementById("luecke57").textContent;
+                var luecke58 = document.getElementById("luecke58").textContent;  var luecke59 = document.getElementById("luecke59").textContent;
+                var luecke510 = document.getElementById("luecke510").textContent; var luecke511 = document.getElementById("luecke511").textContent;
+                var luecke512 = document.getElementById("luecke512").textContent; var luecke513 = document.getElementById("luecke513").textContent;
+
+                if (
+                   
+                        luecke1 === "0" && luecke2 === "0" && luecke3 === "0" && luecke4 === "0" && luecke5 === "0" && luecke6 === "0" && luecke7 === "0" // SChwefel ok
+                    && luecke21 === "+1" && luecke22 === "-2" && luecke23 === "+4" && luecke24 === "-2" && luecke25 === "+4" && luecke26 === "-2" && luecke27 === "-3" && luecke28 === "+1"  //Ammoniak ok
+                    && luecke29 === "+6" && luecke210 === "-2" && luecke211 === "+2" && luecke212 === "-2" && luecke213 === "+1" && luecke214 === "-2"   //  ZNO ok                                        
+                    && luecke31 === "+1" && luecke311 === "+4" && luecke3111 === "-2" && luecke32 === "+1" && luecke322 === "+6" && luecke3222 === "-2"                    
+                    && luecke33 === "+2" && luecke333 === "+4" && luecke3333 === "-2" && luecke34 === "+1" && luecke344 === "+6" && luecke3444 === "-2" 
+                    && luecke35 === "+1" && luecke355 === "+6" && luecke3555 === "-2" &&  luecke36 === "+1" && luecke366 === "+5" && luecke3666 === "-2"  //H3PO4 ok                    
+                    && luecke37 === "+3" && luecke377 === "+5" && luecke3777 === "-2"                   
+                    && luecke41 === "-2" && luecke42 === "+2" && luecke43 === "-1" && luecke44 === "-2" && luecke45 === "+1" && luecke46 === "+6" && luecke47 === "-2"
+                    && luecke48 === "+5" && luecke49 === "-2" && luecke410 === "+7" && luecke411 === "-2"  //MnO4-                                     
+                    && luecke51 === "-3" && luecke52 === "-3" && luecke53 === "-2" && luecke54 === "-2" && luecke55 === "-3" && luecke56 === "-2" && luecke57 === "-3"
+                    && luecke58 === "-3" && luecke59 === "-1" && luecke510 === "0" && luecke511 === "+2" && luecke512 === "-3" && luecke513 === "+1"
+                    
+                ) {
+                    ergebnis.textContent = "Super! Alles richtig!";
+                    ergebnis.style.color = "green";
+                } else {
+                    ergebnis.textContent = "Leider falsch. Versuche es noch einmal.";
+                    ergebnis.style.color = "red";
+                }
+            }
+
+            
+
+
+
+        </script>
+
+</body>
+                </html>
