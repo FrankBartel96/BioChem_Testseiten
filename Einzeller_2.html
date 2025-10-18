@@ -1,0 +1,860 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <META HTTP-EQUIV="Expires" CONTENT="0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Einzeller und Vielzeller</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #F6F8E2;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            /*align-items: center;*/
+            /* text-align: center;*/
+            margin: auto;
+            
+            background: #F6F8E9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+
+
+        table {
+            margin: auto; /*tabelle zemtriert*/
+            width: 900px;
+            thead: th;
+            background-color: #FFE4E1;
+            /* align-content: center;*/
+            /*Tabellenkopf*/
+        }
+
+
+        tbody tr:nth-child(odd) {
+            background-color: #F5FFFA;
+            /* text-align: center;*/
+            width: auto;
+            /*Hintergrund für ungerade Zeilen*/
+            /* height: 35px;*/
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #FFE4E1;
+            /* text-align: center;*/
+
+            width: auto;
+            /* Hintergrund für gerade Zeilen*/
+            /*  height: 30px;  */
+        }
+
+        h1 {
+            text-align: center;
+            color: #731768;
+        }
+
+        h2,h3 {
+            text-align: left;
+            color:  red;
+            margin: 10px;
+            /*  padding:30px; */
+        }
+
+
+        .question {
+            margin: 20px 0;
+        }
+
+        .options {
+            list-style-type: none;
+            padding: 0;
+        }
+
+            .options li {
+                margin: 10px 0;
+                text-align: center;
+            }
+
+
+
+        .luecke {
+            width: 250px;
+            height: 32px;
+            border: 1px solid #d2d2d7;
+            display: inline-block;
+            border-radius: 10px;
+            margin-right: 2px;
+            vertical-align: bottom;
+            background-color: #f9f9f9;
+            line-height: 32px;
+            margin-bottom: 4px; /* platz unter lücke*/
+            margin-top: 4px; /* platz über  lücke*/
+        }
+
+
+
+        .button {
+            display: block;
+            width: 40%;
+            padding: 10px;
+            background-color: #007aff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+           
+
+        }
+
+            .button:hover {
+                background-color: #005bb5;
+            }
+
+        .result {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- -->
+
+
+
+    <div class="container">
+        <h1>Einzeller und Vielzeller</h1>
+        <h3> Wähle die entsprechenen Felder aus. </h3>
+        <h3> Es können mehrere Sachen ausgewählt werden.   </h3>         
+        <form id="quizForm">
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>                            Organismus                        </th>
+                        <th>                            Pantoffeltier                     </th>
+                        <th>                            Amöbe                             </th>
+                        <th>                            Chlorella                         </th>
+                        <th>                            Euglena                           </th>
+                        <th>                            Volvox                            </th>
+                        <th>       Wähle 26 von 60 Möglichkeiten!                         </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+
+                    <tr>
+                        <td>
+                            1. Wimpern
+
+                        </td>
+
+
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                <input type="radio" name="q1" value="a">   1                            </li>
+                                </ul>
+                            </div>
+                        </td>
+
+
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                 <input type="radio" name="q11" value=""> 2                            </li>
+                                </ul>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                <input type="radio" name="q12" value="b"> 3                            </li>
+                                </ul>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                <input type="radio" name="q13" value="b"> 4                            </li>
+                                </ul>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                <input type="radio" name="q14" value="b"> 5                            </li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td>
+                             <INPUT TYPE="Text" class="luecke" NAME="q100" VALUE="">
+                        </td>
+
+
+                    </tr>
+
+
+
+                    <tr>
+                        <td>
+                            2. Zellkern
+
+                        </td>
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q21" value="b"> 1                                </li>
+                                </ul>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q22" value="b"> 2                                </li>
+                                </ul>
+                            </div>
+                        </td>
+
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q23" value="b"> 3                                </li>
+                                </ul>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q24" value="b"> 4                                </li>
+                                </ul>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q25" value="b"> 5                                </li>
+                                </ul>
+                            </div>
+                        </td>
+
+                        <td>
+                            <INPUT TYPE="Text" class="luecke" NAME="q110" VALUE="">
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>
+                            3. Chloroplasten
+
+                        </td>
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q31" value="b"> 1                                </li>
+                                </ul>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q32" value="b"> 2                                </li>
+                                </ul>
+                            </div>
+                        </td>
+
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q33" value="b"> 3                                </li>
+                                </ul>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q34" value="b"> 4                                </li>
+                                </ul>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q35" value="b"> 5                                </li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td>
+                            <INPUT TYPE="Text" class="luecke" NAME="q120" VALUE="">
+                        </td>
+
+
+
+                    </tr>
+
+
+
+
+                    <tr>
+                        <td>                                    4. Geissel                                </td>
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q41" value="b"> 1                                </li>
+                                </ul>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q42" value="b"> 2                                </li>
+                                </ul>
+                            </div>
+                        </td>
+
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q43" value="b"> 3                                </li>
+                                </ul>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q44" value="b"> 4                                </li>
+                                </ul>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q45" value="b"> 5                                </li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td>
+                            <INPUT TYPE="Text" class="luecke" NAME="q130" VALUE="">
+                        </td>
+
+
+                    </tr>
+
+
+
+                    <tr>
+                        <td>                                    5. Augenfleck                              </td>
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q51" value="b"> 1                                </li>
+                                </ul>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q52" value="b"> 2                                </li>
+                                </ul>
+                            </div>
+                        </td>
+
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q53" value="b"> 3                                </li>
+                                </ul>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q54" value="a"> 4                                </li>
+                                </ul>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q55" value="b"> 5                                </li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td>
+                            <INPUT TYPE="Text" class="luecke" NAME="q140" VALUE="">
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+                        <td>                                    6. Zellmund                                </td>
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q61" value="b"> 1                                </li>
+                                </ul>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q62" value="b"> 2                                </li>
+                                </ul>
+                            </div>
+                        </td>
+
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q63" value="b"> 3                                </li>
+                                </ul>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q64" value="b"> 4                                </li>
+                                </ul>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q65" value="b"> 5                                </li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td>
+                            <INPUT TYPE="Text" class="luecke" NAME="q150" VALUE="">
+                        </td>
+
+                    </tr>
+
+
+
+                    <tr>
+                        <td>                                    7. Scheinf&uuml;ßchen.                   </td>
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q71" value="b"> 1                                </li>
+                                </ul>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q72" value="b"> 2                                </li>
+                                </ul>
+                            </div>
+                        </td>
+
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q73" value="b"> 3                                </li>
+                                </ul>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q74" value="b"> 4                                </li>
+                                </ul>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q75" value="b"> 5                                </li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td>
+                            <INPUT TYPE="Text" class="luecke" NAME="q160" VALUE="">
+                        </td>
+
+                    </tr>
+
+                    <tr>
+                        <td>                                    8. Gallerth&uuml;lle                      </td>
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q81" value="b"> 1                                </li>
+                                </ul>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q82" value="b"> 2                                </li>
+                                </ul>
+                            </div>
+                        </td>
+
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q83" value="a"> 3                                </li>
+                                </ul>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q84" value="b"> 4                                </li>
+                                </ul>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q85" value="b"> 5                                </li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td>
+                            <INPUT TYPE="Text" class="luecke" NAME="q170" VALUE="">
+                        </td>
+
+
+                    </tr>
+
+
+
+                    <tr>
+                        <td>                                    9. Einzeller                              </td>
+
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q91" value="b"> 1                                </li>
+                                </ul>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q92" value="b"> 2                                </li>
+                                </ul>
+                            </div>
+                        </td>
+
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q93" value="b"> 3                                </li>
+                                </ul>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q94" value="b"> 4                                </li>
+                                </ul>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q95" value="a"> 5                                </li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td>
+                            <INPUT TYPE="Text" class="luecke" NAME="q180" VALUE="">
+                        </td>
+
+
+                    </tr>
+
+
+                    <tr>
+                        <td>                                    10. Vielzeller                            </td>
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q010" value="b"> 1                                </li>
+                                </ul>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q020" value="b"> 2                                </li>
+                                </ul>
+                            </div>
+                        </td>
+
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q030" value="b"> 3                                </li>
+                                </ul>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q040" value="b"> 4                                </li>
+                                </ul>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q050" value="b"> 5                                </li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td>
+                            <INPUT TYPE="Text" class="luecke" NAME="q190" VALUE="">
+                        </td>
+
+                    </tr>
+
+
+
+                    <tr>
+                        <td>                                    11. heterotroph                           </td>
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q011" value="b"> 1                                </li>
+                                </ul>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q022" value="b"> 2                                </li>
+                                </ul>
+                            </div>
+                        </td>
+
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q033" value="b"> 3                                </li>
+                                </ul>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q044" value="b"> 4                                </li>
+                                </ul>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q055" value="b"> 5                                </li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td>
+                            <INPUT TYPE="Text" class="luecke" NAME="q200" VALUE="">
+                        </td>
+                    </tr>
+
+
+
+                    <tr>
+                        <td>                                    12. autotroph                             </td>
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q01" value="b"> 1                                </li>
+                                </ul>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q02" value="b"> 2                                </li>
+                                </ul>
+                            </div>
+                        </td>
+
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q03" value="b"> 3                                </li>
+                                </ul>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q04" value="b"> 4                                </li>
+                                </ul>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="question">
+                                <ul class="options">
+                                    <li>                                    <input type="radio" name="q05" value="b"> 5                                </li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td>
+                            <INPUT TYPE="Text" class="luecke" NAME="q210" VALUE="">
+                        </td>
+
+
+
+                    <tr  bgcolor=#AFDAB9 >
+                        <td   bgcolor=#AFDAB9 colspan="2" align=left>
+                            <button type="button" class="button" onclick="checkAnswers()">Lösung</button>
+
+                        </td>
+
+                        <td   bgcolor=#AFDAB9 colspan="4">
+
+                            <div class="result" id="result"></div>
+
+                        </td>
+
+                        <td   bgcolor=#AFDAB9 colspan="1" align=right>
+                            <!--  <button class="button" type="reset" ></button>    -->
+                            <button class="button" href="javascript:document.location.reload()">Nochmal </button>
+                        </td>
+
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+
+        </form>
+        <div class="result" id="result"></div>
+
+    </div>
+
+
+    <script>
+        function checkAnswers() {
+            
+            var q1;            
+
+            const answers = {
+                 q1: 'a', q11: 'b', q12: 'b', q13: 'b', q14: 'b',
+                q21: 'b', q22: 'b', q23: 'b', q24: 'b', q25: 'b',
+                q31: 'a', q32: 'a', q33: 'b', q34: 'b', q35: 'b',
+                q41: 'a', q42: 'a', q43: 'b', q44: 'b', q45: 'a',
+                q51: 'a', q52: 'a', q53: 'a', q54: 'a', q55: 'a',
+                q61: 'b', q62: 'a', q63: 'a', q64: 'a', q65: 'a',
+                q71: 'a', q72: 'b', q73: 'a', q74: 'a', q75: 'a',
+                q81: 'a', q82: 'a', q83: 'a', q84: 'a', q85: 'a',
+                q91: 'b', q92: 'b', q93: 'b', q94: 'b', q95: 'b',
+                q010: 'a', q020: 'a', q030: 'a', q040: 'a', q050: 'b',
+                q011: 'b', q022: 'b', q033: 'a', q044: 'b', q055: 'a',
+                q01: 'a', q02: 'a', q03: 'b', q04: 'b', q05: 'b'
+
+                //es müssen 27 richtige sein; ab Einzelller zählt er falsch
+
+            };
+                    let score = 0;
+                    const totalQuestions = Object.keys(answers).length;
+
+            for (const [question, answer] of Object.entries(answers))
+            {
+                        const userAnswer = document.querySelector(`input[name="${question}"]:checked`);
+                        if (userAnswer && userAnswer.value === answer)
+                            {
+                            score++; 
+                            }
+            }
+
+                        const resultDiv = document.getElementById('result');
+                        resultDiv.style.display = 'block';
+            resultDiv.innerHTML = `Du hast ${score} von ${totalQuestions} Möglichkeiten richtig .`;
+
+           // if (score == score++) { quizForm.q100.value = "Fehler Score" +score }
+            quizForm.q100.value = "Pantoffeltier";
+            quizForm.q110.value = "alle haben einen Zellkern";
+            quizForm.q120.value = "Chlorella, Euglena, Volvox";
+            quizForm.q130.value = "Chlorella, Euglena";
+            quizForm.q140.value = "Euglena";
+            quizForm.q150.value = "Pantoffeltier";
+            quizForm.q160.value = "Amöbe";
+            quizForm.q170.value = "Chlorella";
+            quizForm.q180.value = "Pantoffeltier, Amöbe, Chlorella, Euglena";
+            quizForm.q190.value = "Volvox"; 
+            quizForm.q200.value = "Pantoffeltier, Amöbe, Euglena";
+            quizForm.q210.value = "Chlorella, Euglena, Volvox";
+            // quizForm.q210.value = "Chlorella, Euglena, Volvox Score" + score;
+
+        }
+
+
+    </script>
+
+</body>
+        </html>

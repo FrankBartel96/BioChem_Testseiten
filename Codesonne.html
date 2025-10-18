@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Codesonne mit Drag-and-Drop</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #F6F8E2;
+            color: #1d1d1f;
+            text-align: left;
+            padding-top: 50px;
+        }
+
+        h2, h3 {
+            font-weight: 600;
+        }
+
+        .container {
+            width: 1200px;
+            margin: 0 auto;
+            background-color: #F6F8E9;
+            padding: 10px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .luecke {
+            width: 30px;
+            height: 40px;
+            border: 1px solid #d2d2d7;
+            display: inline-block;
+            border-radius: 10px;
+            margin-right: 2px;
+            vertical-align: bottom;
+            background-color: #f9f9f9;
+            line-height: 32px;
+        }
+
+
+        .luecke2 {
+            width: 50px;
+            height: 45px;
+            border: 1px solid #d2d2d7;
+            display: inline-block;
+            border-radius: 10px;
+            margin-right: 2px;
+            vertical-align: bottom;
+            background-color: #f9f9f9;
+            line-height: 32px;
+        }
+
+
+
+
+        .wortspeicher {
+            margin-top: 10px;
+        }
+
+        .wort {
+            width: 26px;
+            padding: 5px;
+            margin: 5px;
+            border: 1px solid #d2d2d7;
+            border-radius: 10px;
+            background-color: #e1e1e3;
+            display: inline-block;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .wort:hover {
+            background-color: #f5f5f7;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            padding: 12px 24px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 12px;
+            background-color: #0071e3;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #005bb5;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+        }
+
+        p#ergebnis {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        p#ergebnis2 {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <div class="container">
+        <h2 style="color:#731768">&nbsp;Arbeiten mit der Codesonne</h2>
+        
+        <h3 style="color:red" font-family:'Courier New'">&nbsp;   1. Bestimme vom vorliegenden Ausschnitt der DNA:</h3>
+        <h3 style="color:red" font-family:'Courier New'">&nbsp;      Codogen, Codon, Anticodon, Aminosäuresequenz</h3>
+
+        <table width=1200px align="center" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+                <td width=1200px  colspan="4" bgcolor=#F0E68C valign=top>
+                    <font size="7">___________&nbsp;  G A A&nbsp;&nbsp;   T G G&nbsp;&nbsp;   T T A</font>
+                    <h1>
+                        ______Codogen: &nbsp;       <span class="luecke" id="luecke1" ondrop="drop(event)" ondragover="allowDrop(event)"> </span>
+                        <span class="luecke" id="luecke2" ondrop="drop(event)" ondragover="allowDrop(event)"> </span>
+                        <span class="luecke" id="luecke3" ondrop="drop(event)" ondragover="allowDrop(event)"></span>&nbsp;&nbsp;&nbsp;
+                        <span class="luecke" id="luecke4" ondrop="drop(event)" ondragover="allowDrop(event)"> </span>
+                        <span class="luecke" id="luecke5" ondrop="drop(event)" ondragover="allowDrop(event)"> </span>
+                        <span class="luecke" id="luecke6" ondrop="drop(event)" ondragover="allowDrop(event)"> </span>&nbsp;&nbsp;&nbsp;
+                        <span class="luecke" id="luecke7" ondrop="drop(event)" ondragover="allowDrop(event)"> </span>
+                        <span class="luecke" id="luecke8" ondrop="drop(event)" ondragover="allowDrop(event)"> </span>
+                        <span class="luecke" id="luecke9" ondrop="drop(event)" ondragover="allowDrop(event)"> </span> <font size="5">Tripetts des DNA-Strangs, der kopiert wird</font>
+                        <p>
+                            _________Codon: &nbsp;       <span class="luecke" id="luecke11" ondrop="drop(event)" ondragover="allowDrop(event)"> </span>
+                            <span class="luecke" id="luecke22" ondrop="drop(event)" ondragover="allowDrop(event)"> </span>
+                            <span class="luecke" id="luecke33" ondrop="drop(event)" ondragover="allowDrop(event)"></span>&nbsp;&nbsp;&nbsp;
+                            <span class="luecke" id="luecke44" ondrop="drop(event)" ondragover="allowDrop(event)"> </span>
+                            <span class="luecke" id="luecke55" ondrop="drop(event)" ondragover="allowDrop(event)"> </span>
+                            <span class="luecke" id="luecke66" ondrop="drop(event)" ondragover="allowDrop(event)"> </span>&nbsp;&nbsp;&nbsp;
+                            <span class="luecke" id="luecke77" ondrop="drop(event)" ondragover="allowDrop(event)"> </span>
+                            <span class="luecke" id="luecke88" ondrop="drop(event)" ondragover="allowDrop(event)"> </span>
+                            <span class="luecke" id="luecke99" ondrop="drop(event)" ondragover="allowDrop(event)"> </span> <font size="5">Tripetts des m-RNA-Strangs</font>
+                        </p>
+
+                        <p>
+                            __AS-Sequenz: &nbsp;
+                            ---<span class="luecke2" id="luecke111" ondrop="drop(event)" ondragover="allowDrop(event)"> </span>-------
+
+                            <span class="luecke2" id="luecke444" ondrop="drop(event)" ondragover="allowDrop(event)"> </span>-------
+
+                            <span class="luecke2" id="luecke777" ondrop="drop(event)" ondragover="allowDrop(event)"> </span>--- <font size="5">Aminosäuren von der t-RNA</font>
+                        </p>
+
+                        <p>
+                            ____Anticodon: &nbsp;       <span class="luecke" id="luecke1111" ondrop="drop(event)" ondragover="allowDrop(event)"> </span>
+                            <span class="luecke" id="luecke2222" ondrop="drop(event)" ondragover="allowDrop(event)"> </span>
+                            <span class="luecke" id="luecke3333" ondrop="drop(event)" ondragover="allowDrop(event)"></span>&nbsp;&nbsp;&nbsp;
+                            <span class="luecke" id="luecke4444" ondrop="drop(event)" ondragover="allowDrop(event)"> </span>
+                            <span class="luecke" id="luecke5555" ondrop="drop(event)" ondragover="allowDrop(event)"> </span>
+                            <span class="luecke" id="luecke6666" ondrop="drop(event)" ondragover="allowDrop(event)"> </span>&nbsp;&nbsp;&nbsp;
+                            <span class="luecke" id="luecke7777" ondrop="drop(event)" ondragover="allowDrop(event)"> </span>
+                            <span class="luecke" id="luecke8888" ondrop="drop(event)" ondragover="allowDrop(event)"> </span>
+                            <span class="luecke" id="luecke9999" ondrop="drop(event)" ondragover="allowDrop(event)"> </span> <font size="5">Tripetts des t-RNA-Strangs</font>
+                        </p>
+
+                    </h1>
+
+
+                </td>
+
+                
+            </tr>
+            <tr>
+
+                <td bgcolor=#AFDAB9 align=center>
+                    <img src="./Pics/Codesonne.png" align="middle">
+
+                </td>
+
+                <td bgcolor=#AFDAB9 width=300px>
+                   
+                    <div class="wortspeicher">
+
+                        <h3>Tripletts DNA</h3>
+
+                        <div class="wort" id="wort21" draggable="true" ondragstart="drag(event)">A</div>
+                        <div class="wort" id="wort22" draggable="true" ondragstart="drag(event)">C</div>
+                        <div class="wort" id="wort23" draggable="true" ondragstart="drag(event)">G</div>
+                        <div class="wort" id="wort24" draggable="true" ondragstart="drag(event)">T</div>
+                        <div class="wort" id="wort25" draggable="true" ondragstart="drag(event)">U</div>
+
+                        <h3>Aminosäuren</h3>
+                        <div class="wort" id="wort1" draggable="true" ondragstart="drag(event)">Phe</div>
+                        <div class="wort" id="wort2" draggable="true" ondragstart="drag(event)">Cys</div>
+                        <div class="wort" id="wort3" draggable="true" ondragstart="drag(event)">GlN</div>
+                        <div class="wort" id="wort4" draggable="true" ondragstart="drag(event)">Glu</div>
+                        <div class="wort" id="wort5" draggable="true" ondragstart="drag(event)">Gly</div>
+                        <div class="wort" id="wort6" draggable="true" ondragstart="drag(event)">Ala</div>
+                        <div class="wort" id="wort7" draggable="true" ondragstart="drag(event)">Trp</div>
+                        <div class="wort" id="wort8" draggable="true" ondragstart="drag(event)">Arg</div>
+                        <div class="wort" id="wort9" draggable="true" ondragstart="drag(event)">AsN</div>
+                        <div class="wort" id="wort10" draggable="true" ondragstart="drag(event)">Asp</div>
+                        <div class="wort" id="wort11" draggable="true" ondragstart="drag(event)">Ser</div>
+                        <div class="wort" id="wort12" draggable="true" ondragstart="drag(event)">Pro</div>
+                        <div class="wort" id="wort13" draggable="true" ondragstart="drag(event)">Ile</div>
+                        <div class="wort" id="wort14" draggable="true" ondragstart="drag(event)">Lys</div>
+
+                        <div class="wort" id="wort15" draggable="true" ondragstart="drag(event)">Thr</div>
+                        <div class="wort" id="wort16" draggable="true" ondragstart="drag(event)">Tyr</div>
+                        <div class="wort" id="wort17" draggable="true" ondragstart="drag(event)">His</div>
+                        <div class="wort" id="wort18" draggable="true" ondragstart="drag(event)">Meth</div>
+                        <div class="wort" id="wort19" draggable="true" ondragstart="drag(event)">Val</div>
+                        <div class="wort" id="wort20" draggable="true" ondragstart="drag(event)">Leu</div>
+
+                    </div>
+
+                </td>
+
+               
+
+                <td bgcolor=#AFDAB9>
+
+                    <button onclick="checkAnswers()">Überprüfen</button>
+                    <p>  </p> 
+                    <button onclick="location.reload()">Seite neu laden</button>
+                    <p id="ergebnis"></p>
+
+
+                </td>
+
+
+              
+            </tr>
+
+            <tr>
+               
+                <td colspan="4" bgcolor=#EEE8AA valign=top>
+                    Cool oder?
+                </td>
+            </tr>
+
+
+        </table>
+    </div> <!-- Container-->
+
+
+    <script>
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            ev.target.textContent = document.getElementById(data).textContent;
+        }
+
+        function checkAnswers() {
+            var ergebnis = document.getElementById("ergebnis");
+            //                         Codon                                                  Codogen                                                     AS
+            var luecke1 = document.getElementById("luecke1").textContent;  var luecke11 = document.getElementById("luecke11").textContent;      var luecke111 = document.getElementById("luecke111").textContent;
+            var luecke2 = document.getElementById("luecke2").textContent;  var luecke22 = document.getElementById("luecke22").textContent;
+            var luecke3 = document.getElementById("luecke3").textContent;  var luecke33 = document.getElementById("luecke33").textContent;
+            var luecke4 = document.getElementById("luecke4").textContent;  var luecke44 = document.getElementById("luecke44").textContent;      var luecke444 = document.getElementById("luecke444").textContent;
+            var luecke5 = document.getElementById("luecke5").textContent;  var luecke55 = document.getElementById("luecke55").textContent;
+            var luecke7 = document.getElementById("luecke7").textContent;  var luecke77 = document.getElementById("luecke77").textContent;      var luecke777 = document.getElementById("luecke777").textContent;
+            var luecke8 = document.getElementById("luecke8").textContent;  var luecke88 = document.getElementById("luecke88").textContent;
+            var luecke9 = document.getElementById("luecke9").textContent;  var luecke99 = document.getElementById("luecke99").textContent;
+            // Anticodon
+            var luecke1111 = document.getElementById("luecke1111").textContent; var luecke66 = document.getElementById("luecke66").textContent;
+            var luecke2222 = document.getElementById("luecke2222").textContent; var luecke6 = document.getElementById("luecke6").textContent;
+        var luecke3333 = document.getElementById("luecke3333").textContent;
+        var luecke4444 = document.getElementById("luecke4444").textContent;
+        var luecke5555 = document.getElementById("luecke5555").textContent;
+        var luecke6666 = document.getElementById("luecke6666").textContent;
+        var luecke7777 = document.getElementById("luecke7777").textContent;
+        var luecke8888 = document.getElementById("luecke8888").textContent;
+        var luecke9999 = document.getElementById("luecke9999").textContent;
+
+
+             if (
+
+                    luecke1 === "C" && luecke2 === "T" && luecke3 === "T" && luecke4 === "A" && luecke5 === "C" && luecke6 === "C"
+                 && luecke7 === "A" && luecke8 === "A" && luecke9 === "T" 
+                 && luecke11 === "G" && luecke22 === "A" && luecke33 === "A" 
+                 && luecke44 === "U" && luecke55 === "G" && luecke66 === "G" 
+                 && luecke77 === "U" && luecke88 === "U" && luecke99 === "A"
+                 && luecke111 === "Glu"  && luecke444 === "Trp" &&  luecke777 === "Leu"
+                 && luecke1111 === "C" && luecke2222 === "U" && luecke3333 === "U" && luecke4444 === "A" && luecke5555 === "C" && luecke6666 === "C" && luecke7777 === "A" && luecke8888 === "A" && luecke9999 === "U"
+
+            )
+
+
+            {
+                ergebnis.textContent = "Super! Alles richtig!";
+                ergebnis.style.color = "green";
+            } else {
+                ergebnis.textContent = "Leider falsch. Versuche es noch einmal.";
+                ergebnis.style.color = "red";
+            }
+        }
+
+
+
+
+
+    </script>
+
+</body>
+                </html>
