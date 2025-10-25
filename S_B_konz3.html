@@ -1,0 +1,378 @@
+﻿<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8 ">
+    <!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">  -->
+    <!-- /*Zoom*/-->
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=3.0, user-scalable=yes">
+    <title>Säure Base Konzept Brönsted 3</title>
+    <style>
+        :root {
+            --primary-bg: #F6F8E2;
+            --element-bg: #ffffff;
+            --element-border: #d1d1d6;
+            --text-color: #1c1c1e;
+            --accent-color: #007aff;
+            --success-color: #28a745;
+            --error-color: #f8d7da;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .zahlenliste { /* Feld mit Teilchen */
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+
+        .zahl { /*Felder der TEilcnen*/
+            padding: 10px 12px;
+            background-color: var(--element-bg);
+            border: 1px solid var(--element-border);
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            cursor: grab;
+            font-size: 16px;
+            text-align: center;
+        }
+
+
+            .zahl:hover { /* hovereffekt bei Teilchen*/
+                background-color: #f5f5f7;
+                box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+            }
+
+        .ionenfeld {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            align-items: center;
+            justify-content: center;
+            min-height: 40px;
+            min-width: 350px;
+            padding: 10px;
+            border: 2px dashed var(--element-border);
+            border-radius: 10px;
+            background-color: #f2f2f7;
+            margin-top: 10px;
+        }
+
+            .ionenfeld.correct {
+                border-color: var(--success-color);
+                background-color: #d4edda;
+            }
+
+            .ionenfeld.wrong {
+                border-color: var(--error-color);
+                background-color: #f8d7da;
+            }
+
+        .salz {
+            margin: 10px 0;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .gleichung span {
+            font-weight: bold;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 10px;
+            background-color: var(--accent-color);
+            color: white;
+            cursor: pointer;
+        }
+
+
+
+            button:hover {
+                background-color: #005bb5;
+                box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+            }
+
+        #auswertung {
+            margin-top: 20px;
+            font-weight: 500;
+            font-size: 16px;
+        }
+
+
+
+        .sketch-area1 { /*Rahmen */
+            border: 2px dashed #ccc;
+            border-radius: 20px;
+            padding: 5px;
+            width: 90%;
+            min-height: 170px;
+            /*display: flex;*/
+            /* flex-wrap: wrap; */
+            /* justify-content: center;   */
+            background-color: #e8aaf2;
+            height: 50px;
+            text-align: center;
+            font-size: 20px;
+        }
+
+
+        .sketch-area2 { /*Rahmen */
+            border: 2px dashed #ccc;
+            border-radius: 20px;
+            padding: 5px;
+            width: 630px;
+            min-height: 600px;
+            /*display: flex;*/
+            /* flex-wrap: wrap; */
+            /* justify-content: center; */
+            background-color: #abb3e8;
+            /* height: 50px; */
+            text-align: center;
+            /*  align-content:center;*/
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+
+    <!-- <div class="sketch-area1">-->
+    <h1>Einteilung von Teilchen nach dem Säure-Base-Konzept von Brönstedt</h1>
+    <div class="zahlenliste" id="zahlenliste">
+        <!-- Neutralsäuren  durch -->
+        <div class="zahl" draggable="true" id="1">H₃PO₄</div>
+        <div class="zahl" draggable="true" id="2">H₂SO₄</div>
+        <div class="zahl" draggable="true" id="3">H₂CO₃</div>
+        <div class="zahl" draggable="true" id="4">HCl</div>
+        <div class="zahl" draggable="true" id="5">HNO₃</div>
+
+        <!-- Anionsäuren  durch-->
+        <div class="zahl" draggable="true" id="7">HSO₄⁻</div>
+        <div class="zahl" draggable="true" id="8">H₂PO₄⁻</div>
+        <div class="zahl" draggable="true" id="9">HSO₃⁻</div>
+        <div class="zahl" draggable="true" id="10">HPO₄²⁻</div>
+        <div class="zahl" draggable="true" id="11">HS⁻</div>
+
+        <!-- Kationensäuren  durch -->
+        <div class="zahl" draggable="true" id="12">H₃O⁺</div>
+        <div class="zahl" draggable="true" id="13">NH₄⁺</div>
+        <div class="zahl" draggable="true" id="14">FeCl₃</div>
+        <div class="zahl" draggable="true" id="15">[Fe(H₂O)6]³⁺</div>
+        <!--   <div class="zahl" draggable="true" id="15">[Al(H₂O)6]³⁺</div>-->
+        <!-- Neutralbasen  durch-->
+        <div class="zahl" draggable="true" id="21">NH₃</div>
+        <div class="zahl" draggable="true" id="22">H₂O</div>
+
+        <!--
+                <div class="zahl" draggable="true" id="23">NO₃⁻</div>
+                <div class="zahl" draggable="true" id="24">NB4</div>
+                <div class="zahl" draggable="true" id="25">NB5</div>
+        -->
+        <!-- Anionbasen durch -->
+        <div class="zahl" draggable="true" id="26">PO₄³⁻</div>
+        <div class="zahl" draggable="true" id="27">CO₃²⁻</div>
+        <div class="zahl" draggable="true" id="28">NO₃⁻</div>
+        <div class="zahl" draggable="true" id="29">SO₄²⁻</div>
+        <div class="zahl" draggable="true" id="30">O²⁻</div>
+        <div class="zahl" draggable="true" id="31">OH⁻</div>
+        <!-- Kationenbasen -->
+
+        <div class="zahl" draggable="true" id="32">Al³⁺</div>
+        <div class="zahl" draggable="true" id="33">[Al(OH)(H₂O)5]²⁺</div>
+        <!--  <div class="zahl" draggable="true" id="34">KB4</div>-->
+        <!-- Ampholyte
+                <div class="zahl" draggable="true" id="35">HCO₃⁻</div>
+                <div class="zahl" draggable="true" id="36">H₂O</div>
+                <div class="zahl" draggable="true" id="37">H₂S</div>
+                <div class="zahl" draggable="true" id="38">A4</div>
+                <div class="zahl" draggable="true" id="39">A5</div>
+        -->
+
+    </div>
+
+    <!--  </div> -->
+
+    <h3>Ziehe die Teilchen in die richtigen Felder.</h3>
+
+    <div class="sketch-area2">
+
+        <div class="dissoziation" id="dissoziation"></div>
+
+        <button onclick="location.reload()">Neu laden</button>
+        <div id="auswertung"></div>
+        <button onclick="openQRCode()">QR-Code anzeigen</button>
+
+    </div>
+
+    <script>
+        const salze = [
+            "Neutralsäuren",
+            "Anionsäuren",
+            "Kationensäuren",
+            "Neutralbasen",
+            "Anionbasen",
+            "Kationenbasen",
+            //"Ampholyte"
+        ];
+
+        const loesungen = [
+            ["1", "2", "3", "4", "5"], //neutralsre
+            ["7", "8", "9", "10", "11"], //anionsre
+            ["12", "13", "14", "15"], //katsre
+            ["21", "22"],  //Neutralba
+            ["26", "27", "28", "29", "30", "31"], //Anionba
+            ["32", "33"] //Kationba
+            // ["35", "36", "37", "38", "39"]  ampho
+        ];
+
+        const container = document.getElementById("dissoziation");
+
+        // Gruppen-Felder erzeugen
+        salze.forEach((salz, index) => {
+            const feld = document.createElement("div");
+            feld.className = "salz";
+            feld.innerHTML = `
+                                            <div class="gleichung" id="feld-${index}">
+                                                <!--   <span>${salz}:</span>  -->
+
+
+                                                <div class="ionenfeld" data-gruppe="${index}" ondrop="drop(event)" ondragover="allowDrop(event)"> ${salz}:</div>
+                                            </div>
+                                        `;
+            container.appendChild(feld);
+        });
+
+        // Drag-Ereignisse
+        document.querySelectorAll('.zahl').forEach(el => {
+            el.addEventListener('dragstart', ev => {
+                ev.dataTransfer.setData("text", ev.target.id);
+            });
+        });
+
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            const id = ev.dataTransfer.getData("text");
+            const draggedEl = document.getElementById(id);
+            const target = ev.target;
+
+            if (target.classList.contains("ionenfeld")) {
+                target.appendChild(draggedEl);
+                checkAuswertung();
+            }
+        }
+
+        function checkAuswertung() {
+            let alleKorrekt = true;
+
+            document.querySelectorAll('.ionenfeld').forEach(feld => {
+                const gruppe = feld.dataset.gruppe;
+                const korrektIDs = loesungen[gruppe];
+                const kinder = Array.from(feld.children).map(el => el.id);
+
+                const korrektPlatziert = kinder.every(id => korrektIDs.includes(id)) && kinder.length === korrektIDs.length;
+
+                if (korrektPlatziert) {
+                    feld.classList.add("correct");
+                    feld.classList.remove("wrong");
+                } else {
+                    feld.classList.add("wrong");
+                    feld.classList.remove("correct");
+                    alleKorrekt = false;
+                }
+            });
+
+            document.getElementById("auswertung").innerText = alleKorrekt
+                ? "Alle Felder korrekt! 🎉"
+                : "";
+        }
+    </script>
+
+
+
+
+    <script>
+        function openQRCode() {
+            const currentUrl = window.location.href;
+            const qrWin = window.open("", "_blank", "width=520,height=600,resizable=yes,scrollbars=no");
+
+            qrWin.document.write(`
+               <html lang="de">
+               <head>
+                 <meta charset="UTF-8">
+                 <title>QR-Code</title>
+                 <style>
+                   body {
+                     font-family: Arial, sans-serif;
+                     text-align: center;
+                     background: #fff;
+                     padding: 30px;
+                   }
+                   #qrcode { margin-top: 40px; }
+                   button {
+                     margin-top: 40px;
+                     background: #0071e3;
+                     color: #fff;
+                     border: none;
+                     border-radius: 10px;
+                     font-size: 16px;
+                     padding: 10px 20px;
+                     cursor: pointer;
+                   }
+                   button:hover { background: #005bb5; }
+                 </style>
+               </head>
+               <body>
+                 <h2>QR-Code zu dieser Seite</h2>
+                 <div id="qrcode"></div>
+                 <button onclick="window.close()">Fenster schließen</button>
+                 <script src="libs/qrcode.min.js"><\/script>
+                 <script>
+                   window.addEventListener('load', function() {
+                     new QRCode(document.getElementById("qrcode"), {
+                       text: "${currentUrl}",
+                       width: 220,
+                       height: 220,
+                       correctLevel: QRCode.CorrectLevel.H
+                     });
+                   });
+                 <\/script>
+               </body>
+               </html>
+             `);
+
+            qrWin.document.close();
+        }
+    </script>
+
+
+
+</body>
+</html>
+

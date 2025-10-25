@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8 ">
+    <!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">  -->
+    <!-- /*Zoom*/-->
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=3.0, user-scalable=yes">
+    <title>Säure-Base-Paare</title>
+    <style>
+        :root {
+            --base-color: #58bdde;
+            --saure-color: #ef9191;
+            --teilchen-color: #d2d2d7;
+        }
+
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #F6F8E2;
+            color: #1d1d1f;
+            text-align: left;
+            padding-top: 50px;
+        }
+
+        h2, h3 {
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: #F6F8E9;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+
+        .luecke {
+            width: 70px;
+            height: 25px;
+            border: 1px solid #d2d2d7;
+            /*   */ display: inline-block;
+            border-radius: 5px; /*Lücke runde Ecken*/
+            margin-right: 5px;
+            /* margin: 1px; */
+            /*vertical-align: middle;  */
+            background-color: var(--teilchen-color);
+            text-align: center;
+            padding: 2px; /*größe/Form Lücke*/
+            /* line-height: 32px; */
+            cursor: pointer;
+        }
+
+
+            .luecke:hover {
+                background-color: #f5f5f7;
+                box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+            }
+
+
+        .luecke1 {
+            width: 70px;
+            height: 25px;
+            border: 1px solid #d2d2d7;
+            /*   */ display: inline-block;
+            border-radius: 5px; /*Lücke runde Ecken*/
+            margin-right: -5px;
+            /* margin: 1px; */
+            /*vertical-align: middle;  */
+            background-color: var(--saure-color);
+            text-align: center;
+            padding: 0px; /*größe/Form Lücke*/
+            /* line-height: 32px; */
+        }
+
+
+        .luecke2 {
+            width: 70px;
+            height: 25px;
+            border: 1px solid #d2d2d7;
+            /*   */ display: inline-block;
+            border-radius: 5px; /*Lücke runde Ecken*/
+            margin-right: -5px;
+            /* margin: 1px; */
+            /*vertical-align: middle;  */
+            background-color: var(--base-color);
+            text-align: center;
+            padding: 0px; /*größe/Form Lücke*/
+            /* line-height: 32px; */
+        }
+
+
+        .wort {
+            width: 26px;
+            padding: 5px;
+            margin: 5px;
+            border: 1px solid #d2d2d7;
+            border-radius: 10px;
+            background-color: #e1e1e3;
+            display: inline-block;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+            .wort:hover {
+                background-color: #f5f5f7;
+                box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+            }
+
+        .base {
+            width: 25px;
+            height: 25px;
+            border: 1px solid #d2d2d7;
+            display: inline-block;
+            border-radius: 20px;
+            margin: 5px;
+            margin-right: 5px;
+            vertical-align: middle;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            background-color: var(--metal-color);
+        }
+
+        .saure {
+            width: 25px;
+            height: 25px;
+            border: 1px solid #d2d2d7;
+            display: inline-block;
+            border-radius: 20px;
+            margin: 5px;
+            margin-right: 5px;
+            vertical-align: middle;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            background-color: var(--saure-color);
+        }
+
+
+
+
+        button {
+            padding: 12px 24px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 12px;
+            background-color: #0071e3;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+            button:hover {
+                background-color: #005bb5;
+                box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+            }
+
+        p#ergebnis {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <!-- -->
+
+    <div class="container">
+        <h2 style="color:#731768">&nbsp;Korrespondierende Säure-Base-Paare nach Brönstedt </h2>
+        <h3>Ergänze die Säure-Base-Paare.  Ziehe die Teilchen in die entsprechenden Felder.</h3>
+        <h3>Tipp: Die beiden unterscheiden sich nur in einem Proton.</h3>
+
+        <div>
+            <table align="center" border="0" cellpadding="0" cellspacing="0">
+
+                <tr align="center">
+                    <th>  </th>
+
+                </tr>
+                <tr bgcolor=#F0A88D align="center">
+                    <td width=10px>  Nr.     </td>
+                    <td width=150px> Säure             </td>
+                    <td width=160px> Base              </td>
+                    <td width=150px> Säure             </td>
+                    <td width=160px> Base              </td>
+
+
+                    <td width=250px rowspan="10" bgcolor=#EEE8AA>
+                        <!-- <div class="wortspeicher">-->
+                        <p> Teilchen  </p>
+                        <div class="luecke" id="wort1" draggable="true" ondragstart="drag(event)">H₃PO₄</div>
+                        <div class="luecke" id="wort2" draggable="true" ondragstart="drag(event)">H₂SO₄</div>
+                        <div class="luecke" id="wort3" draggable="true" ondragstart="drag(event)">H₂CO₃</div>
+                        <div class="luecke" id="wort4" draggable="true" ondragstart="drag(event)">HCl</div>
+                        <div class="luecke" id="wort5" draggable="true" ondragstart="drag(event)">HNO₃</div>
+                        <div class="luecke" id="wort6" draggable="true" ondragstart="drag(event)">HSO₄⁻</div>
+                        <div class="luecke" id="wort7" draggable="true" ondragstart="drag(event)">H₂PO₄⁻</div>
+                        <div class="luecke" id="wort8" draggable="true" ondragstart="drag(event)">HS⁻</div>
+                        <div class="luecke" id="wort9" draggable="true" ondragstart="drag(event)">H₃O⁺</div>
+                        <div class="luecke" id="wort10" draggable="true" ondragstart="drag(event)">NH₄⁺</div>
+                        <div class="luecke" id="wort11" draggable="true" ondragstart="drag(event)">NH₃</div>
+
+
+
+                        <div class="luecke" id="wort12" draggable="true" ondragstart="drag(event)">H₂O</div>
+                        <div class="luecke" id="wort13" draggable="true" ondragstart="drag(event)">PO₄³⁻</div>
+                        <div class="luecke" id="wort14" draggable="true" ondragstart="drag(event)">CO₃²⁻</div>
+
+                        <div class="luecke" id="wort15" draggable="true" ondragstart="drag(event)">NO₃⁻</div>
+                        <div class="luecke" id="wort16" draggable="true" ondragstart="drag(event)">SO₄²⁻</div>
+                        <div class="luecke" id="wortK" draggable="true" ondragstart="drag(event)">O²⁻</div>
+
+                        <div class="luecke" id="wort17" draggable="true" ondragstart="drag(event)">HSO₄⁻</div>
+                        <div class="luecke" id="wort18" draggable="true" ondragstart="drag(event)">HPO₄²⁻</div>
+                        <div class="luecke" id="wort19" draggable="true" ondragstart="drag(event)">H₂PO₄⁻</div>
+
+
+
+                        <div class="luecke" id="wort20" draggable="true" ondragstart="drag(event)">H₂S</div>
+                        <div class="luecke" id="wort21" draggable="true" ondragstart="drag(event)">Cl⁻</div>
+                        <div class="luecke" id="wort22" draggable="true" ondragstart="drag(event)">H₃COOH </div>
+                        <div class="luecke" id="wort23" draggable="true" ondragstart="drag(event)">H₃COO⁻ </div>
+                        <div class="luecke" id="wort24" draggable="true" ondragstart="drag(event)">HCO₃⁻ </div>
+                        <div class="luecke" id="wort25" draggable="true" ondragstart="drag(event)">OH⁻ </div>
+
+                        <!-- </div>-->
+                    </td>
+                </tr>
+                <tr bgcolor=#EEE8AA>
+                    <td align="center">  1   </td>
+
+                    <td align="center">  <span class="luecke1" id="lueckeO1" ondrop="drop(event)" ondragover="allowDrop(event)">HCl </span>&nbsp;&harr;  </td>
+                    <td align="center">  <span class="luecke2" id="lueckecl" ondrop="drop(event)" ondragover="allowDrop(event)"> </span> +H<sup>+</sup> </td>
+                    <td align="center">  <span class="luecke1" id="lueckeNHO3" ondrop="drop(event)" ondragover="allowDrop(event)"> </span>&nbsp;&harr;  </td>
+                    <td align="center">  <span class="luecke2" id="luecke02" ondrop="drop(event)" ondragover="allowDrop(event)">NO₃⁻   </span>  +H<sup>+</sup>  </td>
+
+                </tr>
+
+                <tr bgcolor=#F0A88D>
+                    <td align="center">  2  </td>
+                    <td align="center">  <span class="luecke1" id="lueckeH2S" ondrop="drop(event)" ondragover="allowDrop(event)"> </span>&nbsp;&harr;  </td>
+                    <td align="center">  <span class="luecke2" id="lueckeN1" ondrop="drop(event)" ondragover="allowDrop(event)">HS⁻ </span> +H<sup>+</sup> </td>
+                    <td align="center">  <span class="luecke1" id="lueckeH1" ondrop="drop(event)" ondragover="allowDrop(event)">H₃COOH </span> &nbsp;&harr; </td>
+                    <td align="center">  <span class="luecke2" id="lueckeH3COO" ondrop="drop(event)" ondragover="allowDrop(event)">  </span>    +H<sup>+</sup> </td>
+
+                </tr>
+
+                <tr bgcolor=#FFEAA5>
+                    <td align="center">  3 </td>
+
+                    <td align="center">  <span class="luecke1" id="lueckeN1" ondrop="drop(event)" ondragover="allowDrop(event)">NH₄⁺ </span> &nbsp;&harr; </td>
+                    <td align="center">  <span class="luecke2" id="lueckeNH3" ondrop="drop(event)" ondragover="allowDrop(event)"> </span>  +H<sup>+</sup></td>
+                    <td align="center">  <span class="luecke1" id="lueckeHSO4" ondrop="drop(event)" ondragover="allowDrop(event)"> </span> &nbsp;&harr; </td>
+                    <td align="center">  <span class="luecke2" id="lueckeN1" ondrop="drop(event)" ondragover="allowDrop(event)">SO₄²⁻   </span>  +H<sup>+</sup>   </td>
+
+
+                </tr>
+
+                <tr bgcolor=#F0A88D>
+                    <td align="center">  4 </td>
+
+                    <td align="center">  <span class="luecke1" id="lueckeH2PO4" ondrop="drop(event)" ondragover="allowDrop(event)"> </span> &nbsp;&harr; </td>
+                    <td align="center">  <span class="luecke2" id="lueckeN1" ondrop="drop(event)" ondragover="allowDrop(event)">HPO₄²⁻ </span> +H<sup>+</sup> </td>
+                    <td align="center">  <span class="luecke1" id="lueckeHCO3" ondrop="drop(event)" ondragover="allowDrop(event)">   </span> &nbsp;&harr; </td>
+                    <td align="center">  <span class="luecke2" id="lueckeN1" ondrop="drop(event)" ondragover="allowDrop(event)">CO₃²⁻    </span>   +H<sup>+</sup>  </td>
+
+                </tr>
+
+
+                <tr bgcolor=#EEE8AA>
+                    <td align="center">  5   </td>
+                    <td align="center">  <span class="luecke1" id="lueckeO1" ondrop="drop(event)" ondragover="allowDrop(event)">H₂O </span> &nbsp;&harr; </td>
+                    <td align="center">  <span class="luecke2" id="lueckeOH" ondrop="drop(event)" ondragover="allowDrop(event)">  </span> +H<sup>+</sup> </td>
+                    <td align="center">  <span class="luecke1" id="lueckeH3O" ondrop="drop(event)" ondragover="allowDrop(event)"> </span> &nbsp;&harr; </td>
+                    <td align="center">  <span class="luecke2" id="lueckeCl1" ondrop="drop(event)" ondragover="allowDrop(event)">H₂O   </span> +H<sup>+</sup>    </td>
+
+
+                </tr>
+
+                <tr bgcolor=#F0A88D>
+                    <td align="center"> 6  </td>
+                    <td align="center">  <span class="luecke1" id="lueckeH2CO3" ondrop="drop(event)" ondragover="allowDrop(event)"> </span> &nbsp;&harr; </td>
+                    <td align="center">  <span class="luecke2" id="lueckeN1" ondrop="drop(event)" ondragover="allowDrop(event)">HCO₃⁻ </span> +H<sup>+</sup> </td>
+                    <td align="center">  <span class="luecke1" id="lueckeN1" ondrop="drop(event)" ondragover="allowDrop(event)">H₂SO₄ </span> &nbsp;&harr; </td>
+                    <td align="center">  <span class="luecke2" id="lueckeHSO44" ondrop="drop(event)" ondragover="allowDrop(event)">  </span>   +H<sup>+</sup>  </td>
+
+
+                </tr>
+
+                <tr bgcolor=#EEE8AA>
+                    <td align="center"> 7   </td>
+                    <td align="center">  <span class="luecke1" id="lueckeNH4" ondrop="drop(event)" ondragover="allowDrop(event)"> </span> &nbsp;&harr; </td>
+                    <td align="center">  <span class="luecke2" id="lueckeN1" ondrop="drop(event)" ondragover="allowDrop(event)">NH₃  </span>  +H<sup>+</sup></td>
+                    <td align="center">  <span class="luecke1" id="lueckeOH1" ondrop="drop(event)" ondragover="allowDrop(event)"> </span> &nbsp;&harr; </td>
+                    <td align="center">  <span class="luecke2" id="lueckeN1" ondrop="drop(event)" ondragover="allowDrop(event)">O²⁻   </span>  +H<sup>+</sup>   </td>
+                </tr>
+
+                <tr bgcolor=#F0A88D>
+                    <td align="center"> 8 </td>
+                    <td align="center">  <span class="luecke1" id="lueckeO1" ondrop="drop(event)" ondragover="allowDrop(event)">H₃PO₄  </span> &nbsp;&harr; </td>
+                    <td align="center">  <span class="luecke2" id="lueckeH2PO44" ondrop="drop(event)" ondragover="allowDrop(event)"> </span>  +H<sup>+</sup></td>
+                    <td align="center">  <span class="luecke1" id="lueckeH2O" ondrop="drop(event)" ondragover="allowDrop(event)"> </span> &nbsp;&harr; </td>
+                    <td align="center">  <span class="luecke2" id="lueckeN1" ondrop="drop(event)" ondragover="allowDrop(event)">OH⁻   </span>  +H<sup>+</sup>   </td>
+                </tr>
+                <!--
+
+                 <tr bgcolor=#EEE8AA>
+                     <td align="center"> 6        </td>
+                     <td align="center">  <span class="luecke1" id="lueckeO1" ondrop="drop(event)" ondragover="allowDrop(event)"></span>  </td>
+                     <td align="center">  <span class="luecke2" id="lueckeN1" ondrop="drop(event)" ondragover="allowDrop(event)">  </span> +H<sup>+</sup> </td>
+                     <td align="center">  <span class="luecke1" id="lueckeH1" ondrop="drop(event)" ondragover="allowDrop(event)"> </span>  </td>
+                     <td align="center">  <span class="luecke2" id="lueckeCl1" ondrop="drop(event)" ondragover="allowDrop(event)"    </span>   +H<sup>+</sup>  </td>
+
+                 <tr bgcolor=#F0A88D>
+                     <td align="center"> --  </td>
+                      <td align="center"> 7                       </td>
+                      <td align="center">  <span class="luecke1" id="lueckeO1" ondrop="drop(event)" ondragover="allowDrop(event)"> </span>  </td>
+                      <td align="center">  <span class="luecke2" id="lueckeN1" ondrop="drop(event)" ondragover="allowDrop(event)">  </span> +H<sup>+</sup> </td>
+                      <td align="center">  <span class="luecke1" id="lueckeH1" ondrop="drop(event)" ondragover="allowDrop(event)"> </span>  </td>
+                      <td align="center">  <span class="luecke2" id="lueckeCl1" ondrop="drop(event)" ondragover="allowDrop(event)">   </span>  +H<sup>+</sup>   </td>
+                </tr>
+                 <tr bgcolor=#EEE8AA>
+                 </tr>
+
+                     -->
+                <tr>
+                    <td bgcolor=#AFDAB9 align=center colspan="5">
+                        <button onclick="checkAnswers()">Überprüfen</button>
+
+                        <button onclick="location.reload()">Seite neu laden</button>
+                        <button onclick="openQRCode()">QR-Code anzeigen</button>
+                        <p id="ergebnis"></p>
+                    </td>
+                </tr>
+
+
+            </table>
+        </div>
+
+
+    </div>
+
+    <script>
+    function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            ev.target.textContent = document.getElementById(data).textContent;
+        }
+
+        function checkAnswers() {
+            var ergebnis = document.getElementById("ergebnis");
+
+            var lueckecl = document.getElementById("lueckecl").textContent; var wort21 = document.getElementById("wort21").textContent; var lueckeNHO3 = document.getElementById("lueckeNHO3").textContent; var wort5 = document.getElementById("wort5").textContent;
+            var lueckeH2S = document.getElementById("lueckeH2S").textContent; var wort20 = document.getElementById("wort20").textContent; var lueckeH3COO = document.getElementById("lueckeH3COO").textContent; var wort23 = document.getElementById("wort23").textContent;
+            var lueckeNH3 = document.getElementById("lueckeNH3").textContent; var wort11 = document.getElementById("wort11").textContent; var lueckeHSO4 = document.getElementById("lueckeHSO4").textContent; var wort17 = document.getElementById("wort17").textContent;
+            var lueckeH2PO4 = document.getElementById("lueckeH2PO4").textContent; var wort19 = document.getElementById("wort19").textContent; var lueckeHCO3 = document.getElementById("lueckeHCO3").textContent; var wort24 = document.getElementById("wort24").textContent;
+            var lueckeH3O = document.getElementById("lueckeH3O").textContent; var wort25 = document.getElementById("wort25").textContent; var lueckeOH = document.getElementById("lueckeOH").textContent; var wort9 = document.getElementById("wort9").textContent;
+            var lueckeNH4 = document.getElementById("lueckeNH4").textContent; var wort10 = document.getElementById("wort10").textContent; var lueckeOH1 = document.getElementById("lueckeOH1").textContent; var wort25 = document.getElementById("wort25").textContent;
+            var lueckeH2PO44 = document.getElementById("lueckeH2PO44").textContent; var wort19 = document.getElementById("wort19").textContent; var lueckeH2O = document.getElementById("lueckeH2O").textContent; var wort12 = document.getElementById("wort12").textContent;
+            var lueckeH2CO3 = document.getElementById("lueckeH2CO3").textContent; var wort3 = document.getElementById("wort3").textContent; var lueckeHSO44 = document.getElementById("lueckeHSO44").textContent; var wort17 = document.getElementById("wort17").textContent;
+
+
+            if (
+
+                lueckecl === wort21 && lueckeNHO3 === wort5 &&
+                lueckeH2S === wort20 && lueckeH3COO === wort23 &&
+                lueckeNH3 === wort11 && lueckeHSO4 === wort17 &&
+                lueckeH2PO4 === wort19 && lueckeHCO3 === wort24 &&
+                lueckeOH === wort25 && lueckeH3O === wort9 &&
+
+                lueckeH2CO3 === wort3 && lueckeHSO44 === wort17 &&
+
+                lueckeNH4 === wort10 && lueckeOH1 === wort25 &&
+
+                lueckeH2PO44 === wort19 && lueckeH2O === wort12
+
+
+
+
+            ) {
+                ergebnis.textContent = "Super! Alles richtig!";
+                ergebnis.style.color = "green";
+            } else {
+                ergebnis.textContent = "Leider falsch. Versuche es noch einmal.";
+                ergebnis.style.color = "red";
+            }
+        }
+
+
+    </script>
+
+    <script>
+        function openQRCode() {
+            const currentUrl = window.location.href;
+            const qrWin = window.open("", "_blank", "width=520,height=600,resizable=yes,scrollbars=no");
+
+            qrWin.document.write(`
+            <html lang="de">
+            <head>
+              <meta charset="UTF-8">
+              <title>QR-Code</title>
+              <style>
+                body {
+                  font-family: Arial, sans-serif;
+                  text-align: center;
+                  background: #fff;
+                  padding: 30px;
+                }
+                #qrcode { margin-top: 40px; }
+                button {
+                  margin-top: 40px;
+                  background: #0071e3;
+                  color: #fff;
+                  border: none;
+                  border-radius: 10px;
+                  font-size: 16px;
+                  padding: 10px 20px;
+                  cursor: pointer;
+                }
+                button:hover { background: #005bb5; }
+              </style>
+            </head>
+            <body>
+              <h2>QR-Code zu dieser Seite</h2>
+              <div id="qrcode"></div>
+              <button onclick="window.close()">Fenster schließen</button>
+              <script src="libs/qrcode.min.js"><\/script>
+              <script>
+                window.addEventListener('load', function() {
+                  new QRCode(document.getElementById("qrcode"), {
+                    text: "${currentUrl}",
+                    width: 220,
+                    height: 220,
+                    correctLevel: QRCode.CorrectLevel.H
+                  });
+                });
+              <\/script>
+            </body>
+            </html>
+          `);
+
+            qrWin.document.close();
+        }
+    </script>
+
+
+</body>
+</html>

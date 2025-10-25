@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+
+
+    <meta charset="UTF-8">
+    <!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">  -->
+    <!-- /*Zoom*/-->
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=3.0, user-scalable=yes">
+    <title>Differenzierung Spezialisierung</title>
+    <meta name="author" content="Franks Bartel">
+    <meta name="editor" content="html-editor phase 5">
+    <script language="Javascript">
+
+        var adiff; spez;
+        // function Auswertung(adiff;aspez; )
+
+        function Auswertung() {
+            var a = 0;
+
+            //a=document.Formular.f1.value;
+            i = "richtig"; ii = "falsch";
+
+
+            x = document.Formular.W1.value; x11 = document.Formular.W11.value;
+            // x2=document.Formular.W1.value ; x22=document.Formular.W11.value  ;
+
+
+            spez = new Array(2);
+            spez[0] = x;
+            spez[1] = x11;
+
+            document.Formular.f1.value = x + x11 + spez[0] + spez[1];
+
+
+
+            // document.write(x+x11+ spez[0]+ spez[1]) ;
+
+
+            /*
+             x3=document.Formular.W3.value ; x33=document.Formular.W33.value  ;
+             x4=document.Formular.W4.value ; x44=document.Formular.W44.value  ;
+             x5=document.Formular.W5.value ; x55=document.Formular.W55.value  ;
+             x6=document.Formular.W6.value ; x66=document.Formular.W66.value  ;
+             x7=document.Formular.W7.value ; x77=document.Formular.W77.value  ;
+             x8=document.Formular.W8.value ; x88=document.Formular.W88.value  ;
+             x9=document.Formular.W9.value ; x99=document.Formular.W99.value  ;
+             x10=document.Formular.W100.value ; x110=document.Formular.W110.value  ;
+
+             */
+
+
+
+
+
+            /*
+            if ( x==0&& x11==0)    {document.Formular.f1.value=i;}    else {document.Formular.f1.value=ii;}
+            if (x2==1&& x22==1)    {document.Formular.f2.value=i;}    else {document.Formular.f2.value=ii;}
+
+             if (x3==6&& x33==6)    {document.Formular.f3.value=i;}    else {document.Formular.f3.value=ii;}
+             if (x4==2&& x44==2)    {document.Formular.f4.value=i;}    else {document.Formular.f4.value=ii;}
+             if (x5==5&& x55==5)    {document.Formular.f5.value=i;}    else {document.Formular.f5.value=ii;}
+             if (x6==3&& x66==3)    {document.Formular.f6.value=i;}    else {document.Formular.f6.value=ii;}
+             if (x7==11&& x77==11)    {document.Formular.f7.value=i;}    else {document.Formular.f7.value=ii;}
+             if (x8==10&& x88==10)    {document.Formular.f8.value=i;}    else {document.Formular.f8.value=ii;}
+             if (x9==9&& x99==9)    {document.Formular.f9.value=i;}    else {document.Formular.f9.value=ii;}
+             if (x10==7&& x110==7)    {document.Formular.f10.value=i;}  else {document.Formular.f10.value=ii;}
+           */
+        }
+
+
+    </script>
+
+</head>
+
+<body text="#000000" bgcolor="#F6F8E2" link="#FF0000" alink="#FF0000" vlink="#FF0000">
+    <h1 style="color:#731768"><p style="font-family:'Courier New'">&Uuml;bung Differenzierung und Spezialisierung </p></h1>
+    <!--<form name="Formular" action="mailto:bartel.frank66@gmail.com"  method="get" onsubmit="return pruefeEingaben()"enctype="text/plain" onSubmit="return chkFormular()">     -->
+
+    <form name="Formular" method="get" enctype="text/plain">
+        <h3 style="color:red"><p style="font-family:'Courier New'">Aufgaben</p></h3>
+        <h3 style="color:red"><p style="font-family:'Courier New'">1. Ordne zu.</p></h3>
+        <h3 style="color:red"><p style="font-family:'Courier New'">2. ....  </p></h3>
+
+
+        <table border="0" bgcolor=#CCC9C9 bordercolor=#CCC9C9>
+            <tr>                </tr>
+            <tr bgcolor=#CCC9C9>  <td align="center">Aufgabe:</td>  <td>Differenzierung</td> <td>Spezialisierung</td><td>L&ouml;sung</td> </tr>
+
+            <tr bgcolor=#F1ECEC>
+                <td align="center">Aufgabe 1:</td>
+                <td align="center">
+                    <select size="1" name="W1">
+                        <option value="RE" name="RE">Differenzierung</option>
+                        <option value=0 name="nerv">Nervenzelle</option>
+                        <option value=1 name="muskel">Muskelzelle</option>
+                        <option value=6 name="hand">Hand</option>
+                        <option value=2 name="magen">Magen</option>
+                        <option value=5 name="niere">Niere</option>
+                        <option value=3 name="fuss">Fu&szlig;</option>
+                        <option value=11 name="auge">Auge</option>
+                        <option value=10 name="blatt">Blatt</option>
+                        <option value=9 name="lunge">Lunge</option>
+                        <option value=7 name="ohr">Ohr</option>
+                    </select>
+
+                </td>
+                <td align="center">
+                    <select size="1" name="W11">
+                        <option value="REE" name="REE">Spezialisierung</option>
+                        <option value=0 name="nerv2">Informationsverarbeitung</option>
+                        <option value=1 name="muskel2">Bewegung</option>
+                        <option value=6 name="hand2">Greifen</option>
+                        <option value=2 name="magen2">Verdauung</option>
+                        <option value=5 name="niere2">Ausscheidung (Urin)</option>
+                        <option value=3 name="fuss2">Laufen</option>
+                        <option value=11 name="auge2">Sehen</option>
+                        <option value=10 name="blatt2">Fotosynthese</option>
+                        <option value=9 name="lunge2">Atmung</option>
+                        <option value=7 name="ohr2">H&ouml;ren</option>
+                    </select>
+                </td>
+                <td align="center"><input name="f1" type="text" value=""></td>
+            </tr>
+
+
+            <td align="center">Aufgabe 2:</td>
+            <td align="center">
+                <select size="1" name="W2">
+                    <option value="RE" name="RE">Differenzierung</option>
+                    <option value=0 name="nerv">Nervenzelle</option>
+                    <option value=1 name="muskel">Muskelzelle</option>
+                    <option value=6 name="hand">Hand</option>
+                    <option value=2 name="magen">Magen</option>
+                    <option value=5 name="niere">Niere</option>
+                    <option value=3 name="fuss">Fu&szlig;</option>
+                    <option value=11 name="auge">Auge</option>
+                    <option value=10 name="blatt">Blatt</option>
+                    <option value=9 name="lunge">Lunge</option>
+                    <option value=7 name="ohr">Ohr</option>
+                </select>
+
+            </td>
+            <td align="center">
+                <select size="1" name="W22">
+                    <option value="REE" name="REE">Spezialisierung</option>
+                    <option value=0 name="nerv2">Informationsverarbeitung</option>
+                    <option value=1 name="muskel2">Bewegung</option>
+                    <option value=6 name="hand2">Greifen</option>
+                    <option value=2 name="magen2">Verdauung</option>
+                    <option value=5 name="niere2">Ausscheidung (Urin)</option>
+                    <option value=3 name="fuss2">Laufen</option>
+                    <option value=11 name="auge2">Sehen</option>
+                    <option value=10 name="blatt2">Fotosynthese</option>
+                    <option value=9 name="lunge2">Atmung</option>
+                    <option value=7 name="ohr2">H&ouml;ren</option>
+                </select>
+            </td>
+            <td align="center"><input name="f2" type="text" value=""></td>
+            </tr>
+
+            <td align="center">Aufgabe 3:</td>
+            <td align="center">
+                <select size="1" name="W3">
+                    <option value="RE" name="RE">Differenzierung</option>
+                    <option value=0 name="nerv">Nervenzelle</option>
+                    <option value=1 name="muskel">Muskelzelle</option>
+                    <option value=6 name="hand">Hand</option>
+                    <option value=2 name="magen">Magen</option>
+                    <option value=5 name="niere">Niere</option>
+                    <option value=3 name="fuss">Fu&szlig;</option>
+                    <option value=11 name="auge">Auge</option>
+                    <option value=10 name="blatt">Blatt</option>
+                    <option value=9 name="lunge">Lunge</option>
+                    <option value=7 name="ohr">Ohr</option>
+                </select>
+
+            </td>
+            <td align="center">
+                <select size="1" name="W33">
+                    <option value="REE" name="REE">Spezialisierung</option>
+                    <option value=0 name="nerv2">Informationsverarbeitung</option>
+                    <option value=1 name="muskel2">Bewegung</option>
+                    <option value=6 name="hand2">Greifen</option>
+                    <option value=2 name="magen2">Verdauung</option>
+                    <option value=5 name="niere2">Ausscheidung (Urin)</option>
+                    <option value=3 name="fuss2">Laufen</option>
+                    <option value=11 name="auge2">Sehen</option>
+                    <option value=10 name="blatt2">Fotosynthese</option>
+                    <option value=9 name="lunge2">Atmung</option>
+                    <option value=7 name="ohr2">H&ouml;ren</option>
+                </select>
+            </td>
+            <td align="center"><input name="f3" type="text" value=""></td>
+            </tr>
+
+            <td align="center">Aufgabe 4:</td>
+            <td align="center">
+                <select size="1" name="W4">
+                    <option value="RE" name="RE">Differenzierung</option>
+                    <option value=0 name="nerv">Nervenzelle</option>
+                    <option value=1 name="muskel">Muskelzelle</option>
+                    <option value=6 name="hand">Hand</option>
+                    <option value=2 name="magen">Magen</option>
+                    <option value=5 name="niere">Niere</option>
+                    <option value=3 name="fuss">Fu&szlig;</option>
+                    <option value=11 name="auge">Auge</option>
+                    <option value=10 name="blatt">Blatt</option>
+                    <option value=9 name="lunge">Lunge</option>
+                    <option value=7 name="ohr">Ohr</option>
+                </select>
+
+            </td>
+            <td align="center">
+                <select size="1" name="W44">
+                    <option value="REE" name="REE">Spezialisierung</option>
+                    <option value=0 name="nerv2">Informationsverarbeitung</option>
+                    <option value=1 name="muskel2">Bewegung</option>
+                    <option value=6 name="hand2">Greifen</option>
+                    <option value=2 name="magen2">Verdauung</option>
+                    <option value=5 name="niere2">Ausscheidung (Urin)</option>
+                    <option value=3 name="fuss2">Laufen</option>
+                    <option value=11 name="auge2">Sehen</option>
+                    <option value=10 name="blatt2">Fotosynthese</option>
+                    <option value=9 name="lunge2">Atmung</option>
+                    <option value=7 name="ohr2">H&ouml;ren</option>
+                </select>
+            </td>
+            <td align="center"><input name="f4" type="text" value=""></td>
+            </tr>
+
+            <td align="center">Aufgabe 5:</td>
+            <td align="center">
+                <select size="1" name="W5">
+                    <option value="RE" name="RE">Differenzierung</option>
+                    <option value=0 name="nerv">Nervenzelle</option>
+                    <option value=1 name="muskel">Muskelzelle</option>
+                    <option value=6 name="hand">Hand</option>
+                    <option value=2 name="magen">Magen</option>
+                    <option value=5 name="niere">Niere</option>
+                    <option value=3 name="fuss">Fu&szlig;</option>
+                    <option value=11 name="auge">Auge</option>
+                    <option value=10 name="blatt">Blatt</option>
+                    <option value=9 name="lunge">Lunge</option>
+                    <option value=7 name="ohr">Ohr</option>
+                </select>
+
+            </td>
+            <td align="center">
+                <select size="1" name="W55">
+                    <option value="REE" name="REE">Spezialisierung</option>
+                    <option value=0 name="nerv2">Informationsverarbeitung</option>
+                    <option value=1 name="muskel2">Bewegung</option>
+                    <option value=6 name="hand2">Greifen</option>
+                    <option value=2 name="magen2">Verdauung</option>
+                    <option value=5 name="niere2">Ausscheidung (Urin)</option>
+                    <option value=3 name="fuss2">Laufen</option>
+                    <option value=11 name="auge2">Sehen</option>
+                    <option value=10 name="blatt2">Fotosynthese</option>
+                    <option value=9 name="lunge2">Atmung</option>
+                    <option value=7 name="ohr2">H&ouml;ren</option>
+                </select>
+            </td>
+            <td align="center"><input name="f5" type="text" value=""></td>
+            </tr>
+
+            <td align="center">Aufgabe 6:</td>
+            <td align="center">
+                <select size="1" name="W6">
+                    <option value="RE" name="RE">Differenzierung</option>
+                    <option value=0 name="nerv">Nervenzelle</option>
+                    <option value=1 name="muskel">Muskelzelle</option>
+                    <option value=6 name="hand">Hand</option>
+                    <option value=2 name="magen">Magen</option>
+                    <option value=5 name="niere">Niere</option>
+                    <option value=3 name="fuss">Fu&szlig;</option>
+                    <option value=11 name="auge">Auge</option>
+                    <option value=10 name="blatt">Blatt</option>
+                    <option value=9 name="lunge">Lunge</option>
+                    <option value=7 name="ohr">Ohr</option>
+                </select>
+
+            </td>
+            <td align="center">
+                <select size="1" name="W66">
+                    <option value="REE" name="REE">Spezialisierung</option>
+                    <option value=0 name="nerv2">Informationsverarbeitung</option>
+                    <option value=1 name="muskel2">Bewegung</option>
+                    <option value=6 name="hand2">Greifen</option>
+                    <option value=2 name="magen2">Verdauung</option>
+                    <option value=5 name="niere2">Ausscheidung (Urin)</option>
+                    <option value=3 name="fuss2">Laufen</option>
+                    <option value=11 name="auge2">Sehen</option>
+                    <option value=10 name="blatt2">Fotosynthese</option>
+                    <option value=9 name="lunge2">Atmung</option>
+                    <option value=7 name="ohr2">H&ouml;ren</option>
+                </select>
+            </td>
+            <td align="center"><input name="f6" type="text" value=""></td>
+            </tr>
+
+
+            <td align="center">Aufgabe 7:</td>
+            <td align="center">
+                <select size="1" name="W7">
+                    <option value="RE" name="RE">Differenzierung</option>
+                    <option value=0 name="nerv">Nervenzelle</option>
+                    <option value=1 name="muskel">Muskelzelle</option>
+                    <option value=6 name="hand">Hand</option>
+                    <option value=2 name="magen">Magen</option>
+                    <option value=5 name="niere">Niere</option>
+                    <option value=3 name="fuss">Fu&szlig;</option>
+                    <option value=11 name="auge">Auge</option>
+                    <option value=10 name="blatt">Blatt</option>
+                    <option value=9 name="lunge">Lunge</option>
+                    <option value=7 name="ohr">Ohr</option>
+                </select>
+
+            </td>
+            <td align="center">
+                <select size="1" name="W77">
+                    <option value="REE" name="REE">Spezialisierung</option>
+                    <option value=0 name="nerv2">Informationsverarbeitung</option>
+                    <option value=1 name="muskel2">Bewegung</option>
+                    <option value=6 name="hand2">Greifen</option>
+                    <option value=2 name="magen2">Verdauung</option>
+                    <option value=5 name="niere2">Ausscheidung (Urin)</option>
+                    <option value=3 name="fuss2">Laufen</option>
+                    <option value=11 name="auge2">Sehen</option>
+                    <option value=10 name="blatt2">Fotosynthese</option>
+                    <option value=9 name="lunge2">Atmung</option>
+                    <option value=7 name="ohr2">H&ouml;ren</option>
+                </select>
+            </td>
+            <td align="center"><input name="f7" type="text" value=""></td>
+            </tr>
+
+
+            <td align="center">Aufgabe 8:</td>
+            <td align="center">
+                <select size="1" name="W8">
+                    <option value="RE" name="RE">Differenzierung</option>
+                    <option value=0 name="nerv">Nervenzelle</option>
+                    <option value=1 name="muskel">Muskelzelle</option>
+                    <option value=6 name="hand">Hand</option>
+                    <option value=2 name="magen">Magen</option>
+                    <option value=5 name="niere">Niere</option>
+                    <option value=3 name="fuss">Fu&szlig;</option>
+                    <option value=11 name="auge">Auge</option>
+                    <option value=10 name="blatt">Blatt</option>
+                    <option value=9 name="lunge">Lunge</option>
+                    <option value=7 name="ohr">Ohr</option>
+                </select>
+
+            </td>
+            <td align="center">
+                <select size="1" name="W88">
+                    <option value="REE" name="REE">Spezialisierung</option>
+                    <option value=0 name="nerv2">Informationsverarbeitung</option>
+                    <option value=1 name="muskel2">Bewegung</option>
+                    <option value=6 name="hand2">Greifen</option>
+                    <option value=2 name="magen2">Verdauung</option>
+                    <option value=5 name="niere2">Ausscheidung (Urin)</option>
+                    <option value=3 name="fuss2">Laufen</option>
+                    <option value=11 name="auge2">Sehen</option>
+                    <option value=10 name="blatt2">Fotosynthese</option>
+                    <option value=9 name="lunge2">Atmung</option>
+                    <option value=7 name="ohr2">H&ouml;ren</option>
+                </select>
+            </td>
+            <td align="center"><input name="f8" type="text" value=""></td>
+            </tr>
+
+            <td align="center">Aufgabe 9:</td>
+            <td align="center">
+                <select size="1" name="W9">
+                    <option value="RE" name="RE">Differenzierung</option>
+                    <option value=0 name="nerv">Nervenzelle</option>
+                    <option value=1 name="muskel">Muskelzelle</option>
+                    <option value=6 name="hand">Hand</option>
+                    <option value=2 name="magen">Magen</option>
+                    <option value=5 name="niere">Niere</option>
+                    <option value=3 name="fuss">Fu&szlig;</option>
+                    <option value=11 name="auge">Auge</option>
+                    <option value=10 name="blatt">Blatt</option>
+                    <option value=9 name="lunge">Lunge</option>
+                    <option value=7 name="ohr">Ohr</option>
+                </select>
+
+            </td>
+            <td align="center">
+                <select size="1" name="W99">
+                    <option value="REE" name="REE">Spezialisierung</option>
+                    <option value=0 name="nerv2">Informationsverarbeitung</option>
+                    <option value=1 name="muskel2">Bewegung</option>
+                    <option value=6 name="hand2">Greifen</option>
+                    <option value=2 name="magen2">Verdauung</option>
+                    <option value=5 name="niere2">Ausscheidung (Urin)</option>
+                    <option value=3 name="fuss2">Laufen</option>
+                    <option value=11 name="auge2">Sehen</option>
+                    <option value=10 name="blatt2">Fotosynthese</option>
+                    <option value=9 name="lunge2">Atmung</option>
+                    <option value=7 name="ohr2">H&ouml;ren</option>
+                </select>
+            </td>
+            <td align="center"><input name="f9" type="text" value=""></td>
+            </tr>
+
+
+            <td align="center">Aufgabe 10:</td>
+            <td align="center">
+                <select size="1" name="W100">
+                    <option value="RE" name="RE">Differenzierung</option>
+                    <option value=0 name="nerv">Nervenzelle</option>
+                    <option value=1 name="muskel">Muskelzelle</option>
+                    <option value=6 name="hand">Hand</option>
+                    <option value=2 name="magen">Magen</option>
+                    <option value=5 name="niere">Niere</option>
+                    <option value=3 name="fuss">Fu&szlig;</option>
+                    <option value=11 name="auge">Auge</option>
+                    <option value=10 name="blatt">Blatt</option>
+                    <option value=9 name="lunge">Lunge</option>
+                    <option value=7 name="ohr">Ohr</option>
+                </select>
+
+            </td>
+            <td align="center">
+                <select size="1" name="W110">
+                    <option value="REE" name="REE">Spezialisierung</option>
+                    <option value=0 name="nerv2">Informationsverarbeitung</option>
+                    <option value=1 name="muskel2">Bewegung</option>
+                    <option value=6 name="hand2">Greifen</option>
+                    <option value=2 name="magen2">Verdauung</option>
+                    <option value=5 name="niere2">Ausscheidung (Urin)</option>
+                    <option value=3 name="fuss2">Laufen</option>
+                    <option value=11 name="auge2">Sehen</option>
+                    <option value=10 name="blatt2">Fotosynthese</option>
+                    <option value=9 name="lunge2">Atmung</option>
+                    <option value=7 name="ohr2">H&ouml;ren</option>
+                </select>
+            </td>
+            <td align="center"><input name="f10" type="text" value=""></td>
+            </tr>
+
+        </table>
+        <!--Datum -->
+        <!-- <a href="javascript:Auswertung()">Lösung</a>  -->
+        <!--        <a href="javascript:Auswertung(document.Formular.W1.options[document.Formular.W1.selectedIndex].value,document.Formular.W11.options[document.Formular.W11.selectedIndex].value)">Lösungen2</a>     -->
+        <a href="javascript:Auswertung(document.Formular.W1.options[document.Formular.W1.selectedIndex].value) ">L&ouml;sungen1</a>
+    </form>
+    Ihr k&ouml;nnt das ruhig mehrmals probieren.  Klappt nur in der richtigen reihenfolge!!!
+    <button onclick="openQRCode()">QR-Code anzeigen</button>
+
+
+
+
+
+    <script>
+        function openQRCode() {
+            const currentUrl = window.location.href;
+            const qrWin = window.open("", "_blank", "width=520,height=600,resizable=yes,scrollbars=no");
+
+            qrWin.document.write(`
+               <html lang="de">
+               <head>
+                 <meta charset="UTF-8">
+                 <title>QR-Code</title>
+                 <style>
+                   body {
+                     font-family: Arial, sans-serif;
+                     text-align: center;
+                     background: #fff;
+                     padding: 30px;
+                   }
+                   #qrcode { margin-top: 40px; }
+                   button {
+                     margin-top: 40px;
+                     background: #0071e3;
+                     color: #fff;
+                     border: none;
+                     border-radius: 10px;
+                     font-size: 16px;
+                     padding: 10px 20px;
+                     cursor: pointer;
+                   }
+                   button:hover { background: #005bb5; }
+                 </style>
+               </head>
+               <body>
+                 <h2>QR-Code zu dieser Seite</h2>
+                 <div id="qrcode"></div>
+                 <button onclick="window.close()">Fenster schließen</button>
+                 <script src="libs/qrcode.min.js"><\/script>
+                 <script>
+                   window.addEventListener('load', function() {
+                     new QRCode(document.getElementById("qrcode"), {
+                       text: "${currentUrl}",
+                       width: 220,
+                       height: 220,
+                       correctLevel: QRCode.CorrectLevel.H
+                     });
+                   });
+                 <\/script>
+               </body>
+               </html>
+             `);
+
+            qrWin.document.close();
+        }
+    </script>
+
+</body>
+
+</html>

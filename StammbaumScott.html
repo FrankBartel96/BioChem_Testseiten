@@ -1,0 +1,409 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8 ">
+    <!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">  -->
+    <!-- /*Zoom*/-->
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=3.0, user-scalable=yes">
+    <title>Stammbaum Scott</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #F6F8E2;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 1200px;
+            /* max-width: 900px; */
+            background-color: #F6F8E9;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+
+        button {
+            padding: 12px 24px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 12px;
+            background-color: #0071e3;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+            button:hover {
+                background-color: #005bb5;
+                box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+            }
+
+        p#ergebnis {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+
+
+        table {
+            margin: auto; /*;tabelle zemtriert*/
+            width: 1000px;
+            thead: th;
+            background-color: #FFE4E1;
+            /* align-content: baseline;*/
+            text-align: center;
+            /*Tabellenkopf*/
+        }
+
+
+        tbody tr:nth-child(odd) {
+            background-color: #F5FFFA;
+            text-align: left;
+            /*   width: auto; */
+            /*Hintergrund f�r ungerade Zeilen*/
+            /* height: 35px;*/
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #FFE4E1;
+            /* text-align: center;*/
+            /* Hintergrund f�r gerade Zeilen*/
+            /*  height: 30px;  */
+        }
+
+
+
+        h1 {
+            font-size: 24px;
+            color: #731768;
+        }
+
+        .cat-image {
+            position: relative; /* relative */
+            width: auto;
+            margin: auto; /* 50px */
+        }
+
+            .cat-image img {
+                width: 100%;
+                height: 100%;
+                border-radius: 12px;
+            }
+
+        .label {
+            position: absolute; /*page oder absolute reingeschobene wörter */
+
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 13px;
+            padding: 8px;
+            font-weight: bold;
+            font-size: 15px;
+            font-variant-position: normal;
+            cursor: pointer; /* pointer */
+        }
+
+
+
+
+        .wordlist {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+            .wordlist span {
+                padding: 10px 15px;
+                background-color: #007aff;
+                color: white;
+                border-radius: 25px;
+                cursor: pointer;
+                user-select: none;
+                font-size: 16px;
+                margin: 5px;
+            }
+
+                .wordlist span.dragging {
+                    opacity: 0.5;
+                }
+
+                .wordlist span.over {
+                    background-color: #34c759;
+                }
+
+
+
+                .wordlist span:hover {
+                    background-color: #005bb5;
+                    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+                }
+
+
+
+        .feedback {
+            margin-top: 30px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .result {
+            font-size: 20px;
+            color: green;
+        }
+
+        .error {
+            font-size: 20px;
+            color: red;
+        }
+
+        .completed {
+            background-color: #d1ffd6;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Ermittle die Genotypen im Stammbaum: Ziehe die Kombinationen in  die Felder</h1>
+        <table>
+            <thead>
+                <tr>
+
+                    <th>  <h1>  Stammbaum  Scott  Rot-Grün-Blindheit X-chromosomal rezessiv </h1>  </th>
+
+                </tr>
+
+                <tr>
+
+
+                    <td colspan="2">
+                        <h1>  Verwandtschaft </h1>
+                        <div class="wordlist">
+                            <span draggable="true" class="draggable" id="word-Scott"> Scott</span>
+                            <span draggable="true" class="draggable" id="word-Mutter"> Mutter</span>
+                            <span draggable="true" class="draggable" id="word-Vater"> Vater</span>
+                            <span draggable="true" class="draggable" id="word-SohneSw">Söhne (Schwester)</span>
+                            <span draggable="true" class="draggable" id="word-BruMu"> Bruder(Mutter)</span>
+                            <span draggable="true" class="draggable" id="word-KinderScott"> Kinder Scott</span>
+
+                        </div>
+                    </td>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+
+
+                    <td>
+                        <div class="cat-image">
+                            <img src="./Pics/Scott22.png" align="middle" height="700" width="300" alt="Katze" id="catImage">  <!--  height="1200" width="60" -->
+                        </div>
+
+                        <!-- betroffen xxy /xxxx, Überträger xxx-->
+                        <div class="cat-image">
+
+                            <div class="label" id="label-BruMu" style="top: -500px; left: 20px;">(a)</div>
+                            <div class="label" id="label-Mutter" style="top: -500px; left: 240px;">(b)</div>
+                            <div class="label" id="label-Vater" style="top: -500px; left: 425px;">(c)</div>
+                            <div class="label" id="label-Scott" style="top: -320px; left: 480px;">(d)</div>
+                            <div class="label" id="label-KinderScott" style="top: -40px; left: 480px;">(dd)</div>
+                            <div class="label" id="label-SohneSw" style="top: -40px; left: 150px;">(e)</div>
+
+                            <div class="label" id="label-xxy" style="top: -390px; left: 55px;">(1)</div>
+                            <div class="label" id="label-xxx" style="top: -390px; left: 240px;">(2)</div>
+                            <div class="label" id="label-xxy" style="top: -390px; left: 425px;">(3)</div>
+
+                            <div class="label" id="label-xy" style="top: -240px; left: 60px;">(4)</div>
+                            <div class="label" id="label-xxxx" style="top: -240px; left: 250px;">(5)</div>
+                            <div class="label" id="label-xxx" style="top: -240px; left: 335px;">(6)</div>
+                            <div class="label" id="label-xxy" style="top: -240px; left: 425px;">(7)</div>
+                            <div class="label" id="label-xx" style="top: -240px; left: 610px;">(8)</div>
+
+                            <div class="label" id="label-xxy" style="top: -80px; left: 65px;">(9)</div>
+                            <div class="label" id="label-xxy" style="top: -80px; left: 150px;">(10)</div>
+                            <div class="label" id="label-xxx" style="top: -80px; left: 240px;">(11)</div>
+                            <div class="label" id="label-xy" style="top: -80px; left: 425px;">(12)</div>
+                            <div class="label" id="label-xxx" style="top: -80px; left: 610px;">(13)</div>
+                            <div class="label" id="label-xy" style="top: -80px; left: 800px;">(14)</div>
+
+                        </div>
+                    </td>
+
+
+                    <td width=40px>
+                        <b1>  Genotypen  </b1>
+                        <div class="wordlist">
+                            <span draggable="true" class="draggable" id="word-xy"> xy</span>
+                            <span draggable="true" class="draggable" id="word-xx"> xx</span>
+                            <span draggable="true" class="draggable" id="word-xxy"> x*y</span>
+                            <span draggable="true" class="draggable" id="word-xxx"> x*x</span>
+                            <span draggable="true" class="draggable" id="word-xxxx"> x*x*</span>
+                        </div>
+
+                        <button onclick="location.reload()">Seite neu laden</button>
+                        <button onclick="openQRCode()">QR-Code anzeigen</button>
+                    </td>
+
+
+
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="feedback">
+                            <p id="feedback"></p>
+                            <p class="result" id="result"></p>
+                            <p class="error" id="error"></p>
+                        </div>
+
+                    </td>
+
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <script>
+        const draggableItems = document.querySelectorAll('.draggable');
+        const labels = document.querySelectorAll('.label');
+        const feedback = document.getElementById('feedback');
+        const result = document.getElementById('result');
+        const error = document.getElementById('error');
+
+        let correctAnswers = 0;
+        let totalAnswers = 20; /*Anzahl der Bschriftung */
+
+
+
+        // Safari-sicher: globale Standardaktionen verhindern
+        window.addEventListener('dragover', e => e.preventDefault());
+        window.addEventListener('drop', e => e.preventDefault());
+
+        draggableItems.forEach(item => {
+            item.addEventListener('dragstart', (e) => {
+                e.dataTransfer.setData('text', e.target.id);
+                e.target.classList.add('dragging');
+            });
+
+            item.addEventListener('dragend', () => {
+                item.classList.remove('dragging');
+            });
+        });
+
+
+        labels.forEach(label => {
+            label.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                e.target.classList.add('over');
+                e.dataTransfer.dropEffect = 'move';
+            });
+
+            label.addEventListener('dragleave', () => {
+                label.classList.remove('over');
+            });
+
+            label.addEventListener('drop', (e) => {
+                e.preventDefault();
+                const draggedId = e.dataTransfer.getData('text');
+                const draggedElement = document.getElementById(draggedId);
+                const targetLabel = e.target;
+
+                if (draggedElement.id === `word-${targetLabel.id.split('-')[1]}`) {
+                    targetLabel.textContent = draggedElement.textContent;
+                    targetLabel.classList.add('completed');
+                    // draggedElement.style.visibility = 'hidden';  /* blaues Item verschwindet */
+                    correctAnswers++;
+
+                    if (correctAnswers === totalAnswers) {
+                        feedback.textContent = 'Herzlichen Glückwunsch! Alle Antworten sind richtig.';
+                        // result.textContent = 'Erfolg!';
+                        result.style.color = 'green' + correctAnswers;
+                        error.textContent = 'Super';
+                    }
+                }
+
+                else {
+                    feedback.textContent = 'Leider ist das nicht korrekt. Versuche es noch einmal!';
+                    error.textContent = 'Da war was nicht richtig.!';
+                    error.style.color = 'red';
+                    result.textContent = 'Schade';
+                }
+                label.classList.remove('over');
+            });
+        });
+    </script>
+
+    <script>
+        function openQRCode() {
+            const currentUrl = window.location.href;
+            const qrWin = window.open("", "_blank", "width=520,height=600,resizable=yes,scrollbars=no");
+
+            qrWin.document.write(`
+            <html lang="de">
+            <head>
+              <meta charset="UTF-8">
+              <title>QR-Code</title>
+              <style>
+                body {
+                  font-family: Arial, sans-serif;
+                  text-align: center;
+                  background: #fff;
+                  padding: 30px;
+                }
+                #qrcode { margin-top: 40px; }
+                button {
+                  margin-top: 40px;
+                  background: #0071e3;
+                  color: #fff;
+                  border: none;
+                  border-radius: 10px;
+                  font-size: 16px;
+                  padding: 10px 20px;
+                  cursor: pointer;
+                }
+                button:hover { background: #005bb5; }
+              </style>
+            </head>
+            <body>
+              <h2>QR-Code zu dieser Seite</h2>
+              <div id="qrcode"></div>
+              <button onclick="window.close()">Fenster schließen</button>
+              <script src="libs/qrcode.min.js"><\/script>
+              <script>
+                window.addEventListener('load', function() {
+                  new QRCode(document.getElementById("qrcode"), {
+                    text: "${currentUrl}",
+                    width: 220,
+                    height: 220,
+                    correctLevel: QRCode.CorrectLevel.H
+                  });
+                });
+              <\/script>
+            </body>
+            </html>
+          `);
+
+            qrWin.document.close();
+        }
+    </script>
+
+
+</body>
+</html>

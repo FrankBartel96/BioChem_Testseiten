@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8 ">
+    <!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">  -->
+    <!-- /*Zoom*/-->
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=3.0, user-scalable=yes">
+    <title>Früchte und Samen – Drag & Drop</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "San Francisco", Arial, sans-serif;
+            background: #f6f8e2;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1, h2 {
+            text-align: center;
+            margin: 6px 0;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            background: #007aff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 16px;
+            max-width: 1100px;
+            background: #eee8aa;
+            border-radius: 12px;
+            padding: 15px;
+            width: 100%;
+        }
+
+        .bserie {
+            background: white;
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .dropzone {
+            width: 150px;
+            height: 100px;
+            border: 2px dashed #ccc;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 6px auto;
+            transition: 0.2s;
+            overflow: hidden;
+        }
+
+            .dropzone.dragover {
+                border-color: #007aff;
+                background: #e6f0ff;
+            }
+
+        .image {
+            width: 100px;
+            border-radius: 8px;
+            cursor: grab;
+        }
+
+        .correct {
+            background: #34c759 !important;
+            color: white;
+        }
+
+        .incorrect {
+            background: #ff3b30 !important;
+            color: white;
+        }
+
+        #images-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Früchte und Samen</h1>
+    <h2>Ziehe die Bilder in die passenden Felder</h2>
+
+    <div class="buttons">
+        <button class="btn" onclick="checkResults()">Auswerten</button>
+        <button class="btn" onclick="resetFields()">Zurücksetzen</button>
+        <button class="btn" onclick="openQRCode()">QR-Code anzeigen</button>
+    </div>
+
+    <div class="grid" id="grid"></div>
+    <div id="images-container"></div>
+
+    <script>
+        const grid = document.getElementById("grid");
+        const imagesContainer = document.getElementById("images-container");
+
+        const serien = [
+            { id: 1, name: "Schote 1" },
+            { id: 2, name: "Hülse 2" },
+            { id: 3, name: "Nussfrucht 3" },
+            { id: 4, name: "Kapsel 4" },
+            { id: 5, name: "Steinfrucht 5" },
+            { id: 6, name: "Beere 6" },
+            { id: 7, name: "Sammelsteinfrucht 7" },
+            { id: 8, name: "Sammelnussfrucht 8" },
+            { id: 9, name: "Sammelbalgfrucht 9" },
+            { id: 10, name: "Spaltfrucht 10" },
+            { id: 11, name: "Klause 11" },
+            { id: 12, name: "Karyopse 12" }
+        ];
+
+        // Raster erzeugen
+        serien.forEach(s => {
+            const card = document.createElement("div");
+            card.className = "bserie";
+            card.dataset.bserie = s.id;
+            card.innerHTML = `
+                <h3>${s.name}</h3>
+                <div class="dropzone" data-position="1">Bild</div>
+                <div class="dropzone" data-position="2">Vertreter</div>
+              `;
+            grid.appendChild(card);
+        });
+
+        // Bilder erstellen
+        const imagesArray = [];
+        serien.forEach(s => {
+            for (let pos = 1; pos <= 2; pos++) {
+                imagesArray.push({
+                    src: `images/Bserie/bserie${s.id}_${pos}.jpg`,
+                    bserie: s.id,
+                    position: pos
+                });
+            }
+        });
+
+        // Shuffle (Fisher-Yates)
+        for (let i = imagesArray.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [imagesArray[i], imagesArray[j]] = [imagesArray[j], imagesArray[i]];
+        }
+
+        // Bilder anzeigen
+        imagesArray.forEach(imgData => {
+            const img = document.createElement("img");
+            img.src = imgData.src;
+            img.className = "image";
+            img.draggable = true;
+            img.dataset.bserie = imgData.bserie;
+            img.dataset.position = imgData.position;
+            img.addEventListener("dragstart", dragStart);
+            imagesContainer.appendChild(img);
+        });
+
+        function dragStart(e) {
+            e.dataTransfer.setData("bserie", e.target.dataset.bserie);
+            e.dataTransfer.setData("position", e.target.dataset.position);
+            e.dataTransfer.setData("src", e.target.src);
+            e.dataTransfer.effectAllowed = "move";
+        }
+
+        document.querySelectorAll(".dropzone").forEach(zone => {
+            zone.addEventListener("dragover", e => {
+                e.preventDefault();
+                zone.classList.add("dragover");
+            });
+
+            zone.addEventListener("dragleave", () => zone.classList.remove("dragover"));
+
+            zone.addEventListener("drop", e => {
+                e.preventDefault();
+                zone.classList.remove("dragover");
+
+                const bserie = e.dataTransfer.getData("bserie");
+                const position = e.dataTransfer.getData("position");
+                const src = e.dataTransfer.getData("src");
+
+                if (!zone.querySelector("img")) {
+                    // Neues Bild in Dropzone einfügen
+                    const img = document.createElement("img");
+                    img.src = src;
+                    img.className = "image";
+                    img.draggable = true;
+                    img.dataset.bserie = bserie;
+                    img.dataset.position = position;
+                    img.addEventListener("dragstart", dragStart);
+                    zone.innerHTML = "";
+                    zone.appendChild(img);
+
+                    // Bild aus unterem Bereich entfernen
+                    const originalImg = [...imagesContainer.querySelectorAll("img")].find(i => i.src === src);
+                    if (originalImg) originalImg.remove();
+                }
+            });
+        });
+
+        function checkResults() {
+            document.querySelectorAll(".dropzone").forEach(zone => {
+                zone.classList.remove("correct", "incorrect");
+                const img = zone.querySelector("img");
+                if (!img) return;
+                const correctSerie = zone.parentElement.dataset.bserie;
+                const correctPosition = zone.dataset.position;
+                if (img.dataset.bserie === correctSerie && img.dataset.position === correctPosition) {
+                    zone.classList.add("correct");
+                } else {
+                    zone.classList.add("incorrect");
+                }
+            });
+        }
+
+        function resetFields() {
+            document.querySelectorAll(".dropzone").forEach(zone => {
+                zone.innerHTML = zone.dataset.position == "1" ? "Bild" : "Vertreter";
+                zone.classList.remove("correct", "incorrect");
+            });
+
+            // Alle Bilder unten wiederherstellen
+            imagesContainer.innerHTML = "";
+            imagesArray.forEach(imgData => {
+                const img = document.createElement("img");
+                img.src = imgData.src;
+                img.className = "image";
+                img.draggable = true;
+                img.dataset.bserie = imgData.bserie;
+                img.dataset.position = imgData.position;
+                img.addEventListener("dragstart", dragStart);
+                imagesContainer.appendChild(img);
+            });
+        }
+
+        // 🟢 Touch-Unterstützung (für iPad)
+        let draggedTouch = null;
+        let currentZone = null;
+
+        function enableTouchDrag(img) {
+            img.addEventListener("touchstart", e => {
+                draggedTouch = e.target;
+            });
+
+            img.addEventListener("touchmove", e => {
+                const touch = e.touches[0];
+                const elem = document.elementFromPoint(touch.clientX, touch.clientY);
+                if (elem && elem.classList.contains("dropzone")) {
+                    currentZone = elem;
+                    elem.classList.add("dragover");
+                }
+            });
+
+            img.addEventListener("touchend", e => {
+                if (currentZone) {
+                    const zone = currentZone;
+                    const src = draggedTouch.src;
+                    const bserie = draggedTouch.dataset.bserie;
+                    const position = draggedTouch.dataset.position;
+
+                    if (!zone.querySelector("img")) {
+                        const newImg = document.createElement("img");
+                        newImg.src = src;
+                        newImg.className = "image";
+                        newImg.dataset.bserie = bserie;
+                        newImg.dataset.position = position;
+                        newImg.draggable = true;
+                        newImg.addEventListener("dragstart", dragStart);
+                        enableTouchDrag(newImg);
+                        zone.innerHTML = "";
+                        zone.appendChild(newImg);
+                        // Bild unten entfernen
+                        const originalImg = [...imagesContainer.querySelectorAll("img")].find(i => i.src === src);
+                        if (originalImg) originalImg.remove();
+                    }
+                    zone.classList.remove("dragover");
+                }
+                draggedTouch = null;
+                currentZone = null;
+            });
+        }
+
+        // Touch-Events aktivieren
+        document.querySelectorAll(".image").forEach(enableTouchDrag);
+    </script>
+
+    <script>
+        function openQRCode() {
+            const currentUrl = window.location.href;
+            const qrWin = window.open("", "_blank", "width=520,height=600,resizable=yes,scrollbars=no");
+
+            qrWin.document.write(`
+            <html lang="de">
+            <head>
+              <meta charset="UTF-8">
+              <title>QR-Code</title>
+              <style>
+                body {
+                  font-family: Arial, sans-serif;
+                  text-align: center;
+                  background: #fff;
+                  padding: 30px;
+                }
+                #qrcode { margin-top: 40px; }
+                button {
+                  margin-top: 40px;
+                  background: #0071e3;
+                  color: #fff;
+                  border: none;
+                  border-radius: 10px;
+                  font-size: 16px;
+                  padding: 10px 20px;
+                  cursor: pointer;
+                }
+                button:hover { background: #005bb5; }
+              </style>
+            </head>
+            <body>
+              <h2>QR-Code zu dieser Seite</h2>
+              <div id="qrcode"></div>
+              <button onclick="window.close()">Fenster schließen</button>
+              <script src="libs/qrcode.min.js"><\/script>
+              <script>
+                window.addEventListener('load', function() {
+                  new QRCode(document.getElementById("qrcode"), {
+                    text: "${currentUrl}",
+                    width: 220,
+                    height: 220,
+                    correctLevel: QRCode.CorrectLevel.H
+                  });
+                });
+              <\/script>
+            </body>
+            </html>
+          `);
+
+            qrWin.document.close();
+        }
+    </script>
+
+
+</body>
+</html>

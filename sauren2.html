@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+
+    <meta charset="UTF-8 /">
+    <!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">  -->
+    <!-- /*Zoom*/-->
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=3.0, user-scalable=yes">
+
+
+
+    <title>Zusammensetzung Saeuren</title>
+    <meta name="author" content="Franks Bartel">
+    <meta name="editor" content="html-editor phase 5">
+    <script language="Javascript">
+
+        var ee; ee = document.Formular.f1.value;
+        function Auswertung(ee, zz, zzz) {
+            var n = document.Formular.W1.value; nn = document.Formular.W2.value;
+            p = document.Formular.W1a.value; pp = document.Formular.W2a.value;
+            st = document.Formular.W1b.value; stt = document.Formular.W2b.value;
+            hc = document.Formular.W1c.value; hcc = document.Formular.W2c.value;
+            co = document.Formular.W1d.value; coo = document.Formular.W2d.value;
+            so3 = document.Formular.W1e.value; so33 = document.Formular.W2e.value;
+            no2 = document.Formular.W1f.value; no22 = document.Formular.W2f.value;
+
+            if (n == 6) { document.Formular.f1.value = "Salpeter / richtig"; } else { document.Formular.f1.value = "falsch"; }
+            if (nn == 6) { document.Formular.f2.value = "Nitrat-Ion / richtig"; } else { document.Formular.f2.value = "falsch"; }
+
+            if (p == 1) { document.Formular.f1a.value = "Phosphor / richtig"; } else { document.Formular.f1a.value = "falsch"; }
+            if (pp == 1) { document.Formular.f2a.value = "Phosphat-Ion / richtig"; } else { document.Formular.f2a.value = "falsch"; }
+
+            if (st == 0) { document.Formular.f1b.value = "Schweflige / richtig"; } else { document.Formular.f1b.value = "falsch"; }
+            if (stt == 0) { document.Formular.f2b.value = "Sulfit-Ion / richtig"; } else { document.Formular.f2b.value = "falsch"; }
+
+            if (hc == 3) { document.Formular.f1c.value = "Salz / richtig"; } else { document.Formular.f1c.value = "falsch"; }
+            if (hcc == 3) { document.Formular.f2c.value = "Chlorid-Ion / richtig"; } else { document.Formular.f2c.value = "falsch"; }
+            /**/
+            if (co == 4) { document.Formular.f1d.value = "Kohlen / richtig"; } else { document.Formular.f1d.value = "falsch"; }
+            if (coo == 4) { document.Formular.f2d.value = "Carbonat-Ion / richtig"; } else { document.Formular.f2d.value = "falsch"; }
+
+            if (so3 == 5) { document.Formular.f1e.value = "Schwefel / richtig"; } else { document.Formular.f1e.value = "falsch"; }
+            if (so33 == 5) { document.Formular.f2e.value = "Sulfat-Ion / richtig"; } else { document.Formular.f2e.value = "falsch"; }
+
+            if (no2 == 2) { document.Formular.f1f.value = "Salpetrige / richtig"; } else { document.Formular.f1f.value = "falsch"; }
+            if (no22 == 2) { document.Formular.f2f.value = "Nitrit-Ion / richtig"; } else { document.Formular.f2f.value = "falsch"; }
+
+        }
+
+    </script>
+
+
+
+
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #F6F8E2;
+            color: #1d1d1f;
+            text-align: left;
+            padding-top: 50px;
+        }
+
+
+        table, th, caption {
+            /*border: thin solid #a0a0a0;  border: 0;  */
+            width: auto;
+            align-content: center;
+            /* padding: none;*/
+            margin-left: auto;
+            margin-right: auto;
+            text-align: left;
+            /* padding: 10px; */
+            /* height: 20px; */
+        }
+
+
+        table {
+            thead: th;
+            background-color: #FFE4E1;
+            /*Tabellenkopf*/
+        }
+
+        tbody tr:nth-child(odd) {
+            background-color: #F5FFFA;
+            /*Hintergrund für ungerade Zeilen*/
+            /* height: 35px;*/
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #FFE4E1;
+            /* Hintergrund für gerade Zeilen*/
+            /*  height: 30px;  */
+        }
+
+        h1 {
+            text-align: center;
+            color: #731768;
+        }
+
+        h2, h3 {
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background-color: #F6F8E9;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+
+        button {
+            padding: 12px 24px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 12px;
+            background-color: #0071e3;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+            button:hover {
+                background-color: #005bb5;
+                box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+            }
+    </style>
+
+</head>
+
+<body text="#000000" bgcolor="#F6F8E2">
+
+    <div class="container">
+        <h2 style="color:#731768">Zusammensetzung von S&auml;uren  - S&auml;urerestionen</h2>
+        <!--<form name="Formular" action="mailto:bartel.frank66@gmail.com"  method="get" onsubmit="return pruefeEingaben()"enctype="text/plain" onSubmit="return chkFormular()">     -->
+
+        <form name="Formular" method="get" enctype="text/plain">
+            <h3 style="color:red">1.Setze die S&auml;uren zusammen.</h3>
+            <h3 style="color:red">2.Finde das richtige S&auml;urerestion.</h3>
+
+            <table border="0" bgcolor=#CCC9C9 bordercolor=#CCC9C9>
+                <tr>                </tr>
+                <tr bgcolor=#CCC9C9>  <td align="center">Formel</td>  <td align="center">Name </td><td align="center">   </td> <td align="center">Name S&auml;urerestion</td><td align="center">L&ouml;sung</td> </tr>
+                <!--  <tr bgcolor=#CCC9C9>  <td>Aufgabe 1:</td>    </tr>   -->
+                <tr bgcolor=#F1ECEC>
+                    <td><font size="5">HNO</font>3</td>
+                    <td align="center">
+                        <select size="1" name="W1">
+                            <option value="RE" name="RE">Vorsilbe</option>
+
+                            <option value=4 name="Kohlen">Kohlen</option>
+                            <option value=5 name="Schwefel">Schwefel</option>
+                            <option value=3 name="Salz">Salz</option>
+                            <option value=1 name="Phosphor">Phosphor</option>
+                            <option value=2 name="Salpetrige">Salpetrige</option>
+                            <option value=6 name="Salpeter">Salpeter</option>
+                            <option value=0 name="Schweflige">Schweflige</option>
+                        </select>
+                    </td>
+
+                    <td align="center"><font size="5">s&auml;ure</font> </td>
+                    <td align="center">
+                        <select size="1" name="W2">
+                            <option value="RE" name="RE">S&auml;urerest-Ion</option>
+                            <option value=4 name="carbonat">Carbonat-Ion</option>
+                            <option value=5 name="sulfat">Sulfat-Ion</option>
+                            <option value=3 name="chlorid">Chlorid-Ion</option>
+                            <option value=6 name="nitrat">Nitrat-Ion</option>
+                            <option value=1 name="phosphat">Phosphat-Ion</option>
+                            <option value=2 name="nitrit">Nitrit-Ion</option>
+                            <option value=0 name="sulfit">Sulfit-Ion</option>
+                        </select>
+                    </td>
+                    <td align="center"><input name="f1" type="text" value=""></td>
+                    <td align="center"><input name="f2" type="text" value=""></td>
+                </tr>
+                <!--Datum -->
+                <tr>
+                    <td><font size="5">H</font>3<font size="5">PO</font>4</td>
+                    <td align="center">
+                        <select size="1" name="W1a">
+                            <option value="RE" name="RE">Vorsilbe</option>
+
+                            <option value=4 name="Kohlen">Kohlen</option>
+                            <option value=5 name="Schwefel">Schwefel</option>
+                            <option value=3 name="Salz">Salz</option>
+                            <option value=1 name="Phosphor">Phosphor</option>
+                            <option value=2 name="Salpetrige">Salpetrige</option>
+                            <option value=6 name="Salpeter">Salpeter</option>
+                            <option value=0 name="Schweflige">Schweflige</option>
+                        </select>
+                    </td>
+
+                    <td align="center"><font size="5">s&auml;ure</font> </td>
+                    <td align="center">
+                        <select size="1" name="W2a">
+                            <option value="RE" name="RE">S&auml;urerest-Ion</option>
+                            <option value=4 name="carbonat">Carbonat-Ion</option>
+                            <option value=5 name="sulfat">Sulfat-Ion</option>
+                            <option value=3 name="chlorid">Chlorid-Ion</option>
+                            <option value=6 name="nitrat">Nitrat-Ion</option>
+                            <option value=1 name="phosphat">Phosphat-Ion</option>
+                            <option value=2 name="nitrit">Nitrit-Ion</option>
+                            <option value=0 name="sulfit">Sulfit-Ion</option>
+                        </select>
+                    </td>
+                    <td align="center"><input name="f1a" type="text" value=""></td>
+                    <td align="center"><input name="f2a" type="text" value=""></td>
+                </tr>
+                <tr>
+                    <td><font size="5">H</font>2<font size="5">SO</font>3</td>
+                    <td align="center">
+                        <select size="1" name="W1b">
+                            <option value="RE" name="RE">Vorsilbe</option>
+
+                            <option value=4 name="Kohlen">Kohlen</option>
+                            <option value=5 name="Schwefel">Schwefel</option>
+                            <option value=3 name="Salz">Salz</option>
+                            <option value=1 name="Phosphor">phosphor</option>
+                            <option value=2 name="Salpetrige">Salpetrige</option>
+                            <option value=6 name="Salpeter">Salpeter</option>
+                            <option value=0 name="Schweflige">Schweflige</option>
+                        </select>
+                    </td>
+
+                    <td align="center"><font size="5">s&auml;ure</font> </td>
+                    <td align="center">
+                        <select size="1" name="W2b">
+                            <option value="RE" name="RE">S&auml;urerest-Ion</option>
+                            <option value=4 name="carbonat">Carbonat-Ion</option>
+                            <option value=5 name="sulfat">Sulfat-Ion</option>
+                            <option value=3 name="chlorid">Chlorid-Ion</option>
+                            <option value=6 name="nitrat">Nitrat-Ion</option>
+                            <option value=1 name="phosphat">Phosphat-Ion</option>
+                            <option value=2 name="nitrit">Nitrit-Ion</option>
+                            <option value=0 name="sulfit">Sulfit-Ion</option>
+                        </select>
+                    </td>
+                    <td align="center"><input name="f1b" type="text" value=""></td>
+                    <td align="center"><input name="f2b" type="text" value=""></td>
+                </tr>
+
+                <tr>
+                    <td><font size="5">HCl</font></td>
+                    <td align="center">
+                        <select size="1" name="W1c">
+                            <option value="RE" name="RE">Vorsilbe</option>
+                            <option value=4 name="Kohlen">Kohlen</option>
+                            <option value=5 name="Schwefel">Schwefel</option>
+                            <option value=3 name="Salz">Salz</option>
+                            <option value=1 name="Phosphor">Phosphor</option>
+                            <option value=2 name="Salpetrige">Salpetrige</option>
+                            <option value=6 name="Salpeter">Salpeter</option>
+                            <option value=0 name="Schweflige">Schweflige</option>
+                        </select>
+                    </td>
+
+                    <td align="center"><font size="5">s&auml;ure</font> </td>
+                    <td align="center">
+                        <select size="1" name="W2c">
+                            <option value="RE" name="RE">S&auml;urerest-Ion</option>
+                            <option value=4 name="carbonat">Carbonat-Ion</option>
+                            <option value=5 name="sulfat">Sulfat-Ion</option>
+                            <option value=3 name="chlorid">Chlorid-Ion</option>
+                            <option value=6 name="nitrat">Nitrat-Ion</option>
+                            <option value=1 name="phosphat">Phosphat-Ion</option>
+                            <option value=2 name="nitrit">Nitrit-Ion</option>
+                            <option value=0 name="sulfit">Sulfit-Ion</option>
+                        </select>
+                    </td>
+                    <td align="center"><input name="f1c" type="text" value=""></td>
+                    <td align="center"><input name="f2c" type="text" value=""></td>
+                </tr>
+
+                <tr>
+                    <td><font size="5">H</font>2<font size="5">CO</font>3</td>
+                    <td align="center">
+                        <select size="1" name="W1d">
+                            <option value="RE" name="RE">Vorsilbe</option>
+
+                            <option value=4 name="Kohlen">Kohlen</option>
+                            <option value=5 name="Schwefel">Schwefel</option>
+                            <option value=3 name="Salz">Salz</option>
+                            <option value=1 name="Phosphor">pPhosphor</option>
+                            <option value=2 name="Salpetrige">Salpetrige</option>
+                            <option value=6 name="Salpeter">Salpeter</option>
+                            <option value=0 name="Schweflige">Schweflige</option>
+                        </select>
+                    </td>
+
+                    <td align="center"><font size="5">s&auml;ure</font> </td>
+                    <td align="center">
+                        <select size="1" name="W2d">
+                            <option value="RE" name="RE">S&auml;urerest-Ion</option>
+                            <option value=4 name="carbonat">Carbonat-Ion</option>
+                            <option value=5 name="sulfat">Sulfat-Ion</option>
+                            <option value=3 name="chlorid">Chlorid-Ion</option>
+                            <option value=6 name="nitrat">Nitrat-Ion</option>
+                            <option value=1 name="phosphat">Phosphat-Ion</option>
+                            <option value=2 name="nitrit">Nitrit-Ion</option>
+                            <option value=0 name="sulfit">Sulfit-Ion</option>
+                        </select>
+                    </td>
+                    <td align="center"><input name="f1d" type="text" value=""></td>
+                    <td align="center"><input name="f2d" type="text" value=""></td>
+                </tr>
+                <tr>
+                    <td><font size="5">H</font>2<font size="5">SO</font>4</td>
+                    <td align="center">
+                        <select size="1" name="W1e">
+                            <option value="RE" name="RE">Vorsilbe</option>
+                            <option value=4 name="Kohlen">Kohlen</option>
+                            <option value=5 name="Schwefel">Schwefel</option>
+                            <option value=3 name="Salz">Salz</option>
+                            <option value=1 name="Phosphor">Phosphor</option>
+                            <option value=2 name="Salpetrige">Salpetrige</option>
+                            <option value=6 name="Salpeter">Salpeter</option>
+                            <option value=0 name="Schweflige">Schweflige</option>
+                        </select>
+                    </td>
+
+                    <td align="center"><font size="5">s&auml;ure</font> </td>
+                    <td align="center">
+                        <select size="1" name="W2e">
+                            <option value="RE" name="RE">S&auml;urerest-Ion</option>
+                            <option value=4 name="carbonat">Carbonat-Ion</option>
+                            <option value=5 name="sulfat">Sulfat-Ion</option>
+                            <option value=3 name="chlorid">Chlorid-Ion</option>
+                            <option value=6 name="nitrat">Nitrat-Ion</option>
+                            <option value=1 name="phosphat">Phosphat-Ion</option>
+                            <option value=2 name="nitrit">Nitrit-Ion</option>
+                            <option value=0 name="sulfit">Sulfit-Ion</option>
+                        </select>
+                    </td>
+                    <td align="center"><input name="f1e" type="text" value=""></td>
+                    <td align="center"><input name="f2e" type="text" value=""></td>
+                </tr>
+
+                <tr>
+                    <td><font size="5">HNO</font>2</td>
+                    <td align="center">
+                        <select size="1" name="W1f">
+                            <option value="RE" name="RE">Vorsilbe</option>
+
+                            <option value=4 name="Kohlen">Kohlen</option>
+                            <option value=5 name="Schwefel">Schwefel</option>
+                            <option value=3 name="Salz">Salz</option>
+                            <option value=1 name="Phosphor">Phosphor</option>
+                            <option value=2 name="Salpetrige">Salpetrige</option>
+                            <option value=6 name="Salpeter">Salpeter</option>
+                            <option value=0 name="Schweflige">Schweflige</option>
+                        </select>
+                    </td>
+
+                    <td align="center"><font size="5">s&auml;ure</font> </td>
+                    <td align="center">
+                        <select size="1" name="W2f">
+                            <option value="RE" name="RE">S&auml;urerest-Ion</option>
+                            <option value=4 name="carbonat">Carbonat-Ion</option>
+                            <option value=5 name="sulfat">Sulfat-Ion</option>
+                            <option value=3 name="chlorid">Chlorid-Ion</option>
+                            <option value=6 name="nitrat">Nitrat-Ion</option>
+                            <option value=1 name="phosphat">Phosphat-Ion</option>
+                            <option value=2 name="nitrit">Nitrit-Ion</option>
+                            <option value=0 name="sulfit">Sulfit-Ion</option>
+                        </select>
+                    </td>
+                    <td align="center"><input name="f1f" type="text" value=""></td>
+                    <td align="center"><input name="f2f" type="text" value=""></td>
+                </tr>
+
+
+
+
+                <!--  -->
+            </table>
+
+            <a href="javascript:Auswertung(document.Formular.W1.options[document.Formular.W1.selectedIndex].value,document.Formular.W2.options[document.Formular.W2.selectedIndex].value)">L&ouml;sungen</a>
+            <!--   <button onclick="javascript:Auswertung(document.Formular.W1.options[document.Formular.W1.selectedIndex].value,document.Formular.W2.options[document.Formular.W2.selectedIndex].value)">L&ouml;sung</button> -->
+
+            <button onclick="location.reload()">Seite neu laden</button>
+            <button onclick="openQRCode()">QR-Code anzeigen</button>
+        </form>
+    </div>
+
+    
+
+
+    <script>
+        function openQRCode() {
+            const currentUrl = window.location.href;
+            const qrWin = window.open("", "_blank", "width=520,height=600,resizable=yes,scrollbars=no");
+
+            qrWin.document.write(`
+               <html lang="de">
+               <head>
+                 <meta charset="UTF-8">
+                 <title>QR-Code</title>
+                 <style>
+                   body {
+                     font-family: Arial, sans-serif;
+                     text-align: center;
+                     background: #fff;
+                     padding: 30px;
+                   }
+                   #qrcode { margin-top: 40px; }
+                   button {
+                     margin-top: 40px;
+                     background: #0071e3;
+                     color: #fff;
+                     border: none;
+                     border-radius: 10px;
+                     font-size: 16px;
+                     padding: 10px 20px;
+                     cursor: pointer;
+                   }
+                   button:hover { background: #005bb5; }
+                 </style>
+               </head>
+               <body>
+                 <h2>QR-Code zu dieser Seite</h2>
+                 <div id="qrcode"></div>
+                 <button onclick="window.close()">Fenster schließen</button>
+                 <script src="libs/qrcode.min.js"><\/script>
+                 <script>
+                   window.addEventListener('load', function() {
+                     new QRCode(document.getElementById("qrcode"), {
+                       text: "${currentUrl}",
+                       width: 220,
+                       height: 220,
+                       correctLevel: QRCode.CorrectLevel.H
+                     });
+                   });
+                 <\/script>
+               </body>
+               </html>
+             `);
+
+            qrWin.document.close();
+        }
+    </script>
+
+
+</body>
+</html>

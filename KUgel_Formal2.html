@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">  -->
+    <!-- /*Zoom*/-->
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=3.0, user-scalable=yes">
+    <title>Kugeln und Formelnn</title>
+    <style>
+              :root {
+                  --metal-color: #58bdde;
+                  --nonmetal-color: #78ee90;
+                  --Stickstoff-color: #f60a3c;
+                  --Wasserstoff-color: #14b20e;
+                  --Chlor-color: #ff6a00;
+                  --Schwefel-color: #f5ff01;
+                  --Kohlenstoff-color: #cb7f49;
+              }
+
+
+              body {
+                  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+                  margin: 0;
+                  padding: 0;
+                  background-color: #F6F8E2;
+                  color: #1d1d1f;
+                  text-align: left;
+                  padding-top: 50px;
+              }
+
+              h2, h3 {
+                  font-weight: 600;
+              }
+
+              .container {
+                  max-width: 1000px;
+                  margin: 0 auto;
+                  background-color: #F6F8E9;
+                  padding: 20px;
+                  border-radius: 12px;
+                  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+              }
+
+
+
+              .luecke1 {
+                  width: 25px;
+                  height: 25px;
+                  border: 1px solid #d2d2d7;
+                  /*   */ display: inline-block;
+                  border-radius: 20px; /*Lücke runde Ecken*/
+                  margin: -4px;
+                  margin-right: -1px;
+                  /*vertical-align: middle;  */
+                  background-color: var(--nonmetal-color);
+                  text-align: center;
+                  padding: 0px; /*größe/Form Lücke*/
+                  /* line-height: 32px; */
+              }
+
+
+              .luecke1s {
+                  width: 25px;
+                  height: 25px;
+                  border: 1px solid #d2d2d7;
+                  /*   */ display: inline-block;
+                  border-radius: 20px; /*runde Ecken*/
+                  margin-right: -5px;
+                  /*margin: 1px;*/
+                  /*vertical-align: middle;  */
+                  background-color: var(--metal-color);
+                  text-align: center;
+                  padding: 0px; /*größe Lücke*/
+                  /* line-height: 32px; */
+              }
+
+              .Stickstoff {
+                  width: 25px;
+                  height: 25px;
+                  border: 1px solid #d2d2d7;
+                  /*   */ display: inline-block;
+                  border-radius: 20px; /*runde Ecken*/
+                  margin-right: -5px;
+                  /*margin: 1px;*/
+                  /*vertical-align: middle;  */
+                  background-color: var(--Stickstoff-color);
+                  text-align: center;
+                  padding: 0px; /*größe Lücke*/
+                  /* line-height: 32px; */
+              }
+
+
+                  .Stickstoff:hover {
+                      background-color: #f8b8b8;
+                      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+                  }
+
+              .Wasserstoff {
+                  width: 25px;
+                  height: 25px;
+                  border: 1px solid #d2d2d7;
+                  /*   */ display: inline-block;
+                  border-radius: 20px; /*runde Ecken*/
+                  margin-right: -5px;
+                  /*margin: 1px;*/
+                  /*vertical-align: middle;  */
+                  background-color: var(--Wasserstoff-color);
+                  text-align: center;
+                  padding: 0px; /*größe Lücke*/
+                  /* line-height: 32px; */
+              }
+
+                  .Wasserstoff:hover {
+                      background-color: #bff7bd;
+                      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+                  }
+
+              .Chlor {
+                  width: 25px;
+                  height: 25px;
+                  border: 1px solid #d2d2d7;
+                  /*   */ display: inline-block;
+                  border-radius: 20px; /*runde Ecken*/
+                  margin-right: -5px;
+                  /*margin: 1px;*/
+                  /*vertical-align: middle;  */
+                  background-color: var(--Chlor-color);
+                  text-align: center;
+                  padding: 0px; /*größe Lücke*/
+                  /* line-height: 32px; */
+              }
+
+                  .Chlor:hover {
+                      background-color: #e6945a;
+                      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+                  }
+
+              .Schwefel {
+                  width: 25px;
+                  height: 25px;
+                  border: 1px solid #d2d2d7;
+                  /*   */ display: inline-block;
+                  border-radius: 20px; /*runde Ecken*/
+                  margin-right: -5px;
+                  /*margin: 1px;*/
+                  /*vertical-align: middle;  */
+                  background-color: var(--Schwefel-color);
+                  text-align: center;
+                  padding: 0px; /*größe Lücke*/
+                  /* line-height: 32px; */
+              }
+
+                  .Schwefel:hover {
+                      background-color: #e5ea6a;
+                      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+                  }
+
+              .Kohlenstoff {
+                  width: 25px;
+                  height: 25px;
+                  border: 1px solid #d2d2d7;
+                  /*   */ display: inline-block;
+                  border-radius: 20px; /*runde Ecken*/
+                  margin-right: -5px;
+                  /*margin: 1px;*/
+                  /*vertical-align: middle;  */
+                  background-color: var(--Kohlenstoff-color);
+                  text-align: center;
+                  padding: 0px; /*größe Lücke*/
+                  /* line-height: 32px; */
+              }
+
+                  .Kohlenstoff:hover {
+                      background-color: #efa875;
+                      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+                  }
+
+              .metal {
+                  width: 25px;
+                  height: 25px;
+                  border: 1px solid #d2d2d7;
+                  display: inline-block;
+                  border-radius: 20px;
+                  margin: 5px;
+                  margin-right: 5px;
+                  vertical-align: middle;
+                  text-align: center;
+                  cursor: pointer;
+                  font-weight: 500;
+                  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+                  background-color: var(--metal-color);
+              }
+
+                  .metal:hover {
+                      background-color: #83d6f1;
+                      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+                  }
+
+              .nonmetal { /*Sauerstoff*/
+                  width: 25px;
+                  height: 25px;
+                  border: 1px solid #d2d2d7;
+                  display: inline-block;
+                  border-radius: 20px;
+                  margin: 5px;
+                  margin-right: 5px;
+                  vertical-align: middle;
+                  text-align: center;
+                  cursor: pointer;
+                  font-weight: 500;
+                  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+                  background-color: var(--nonmetal-color);
+              }
+
+                  .nonmetal:hover {
+                      background-color: #60c273;
+                      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+                  }
+
+
+              .Stickstoff {
+                  width: 25px;
+                  height: 25px;
+                  border: 1px solid #d2d2d7;
+                  display: inline-block;
+                  border-radius: 20px;
+                  margin: 5px;
+                  margin-right: 5px;
+                  vertical-align: middle;
+                  text-align: center;
+                  cursor: pointer;
+                  font-weight: 500;
+                  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+                  background-color: var(--Stickstoff-color);
+              }
+
+              .lueckeStickstoff {
+                  width: 25px;
+                  height: 25px;
+                  border: 1px solid #d2d2d7;
+                  display: inline-block;
+                  border-radius: 20px;
+                  margin: -4px;
+                  margin-right: -1px;
+                  vertical-align: middle;
+                  text-align: center;
+                  cursor: pointer;
+                  font-weight: 500;
+                  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+                  background-color: var(--Stickstoff-color);
+              }
+
+
+              .Wasserstoff {
+                  width: 25px;
+                  height: 25px;
+                  border: 1px solid #d2d2d7;
+                  display: inline-block;
+                  border-radius: 20px;
+                  margin: -4px;
+                  margin-right: -1px;
+                  vertical-align: middle;
+                  text-align: center;
+                  cursor: pointer;
+                  font-weight: 500;
+                  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+                  background-color: var(--Wasserstoff-color);
+              }
+
+              .lueckeWasserstoff {
+                  width: 25px;
+                  height: 25px;
+                  border: 1px solid #d2d2d7;
+                  display: inline-block;
+                  border-radius: 20px;
+                  margin: -4px;
+                  margin-right: -1px;
+                  vertical-align: middle;
+                  text-align: center;
+                  cursor: pointer;
+                  font-weight: 500;
+                  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+                  background-color: var(--Wasserstoff-color);
+              }
+
+              .Chlor {
+                  width: 25px;
+                  height: 25px;
+                  border: 1px solid #d2d2d7;
+                  display: inline-block;
+                  border-radius: 20px;
+                  margin: 5px;
+                  margin-right: 5px;
+                  vertical-align: middle;
+                  text-align: center;
+                  cursor: pointer;
+                  font-weight: 500;
+                  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+                  background-color: var(--Chlor-color);
+              }
+
+              .lueckeChlor {
+                  width: 25px;
+                  height: 25px;
+                  border: 1px solid #d2d2d7;
+                  display: inline-block;
+                  border-radius: 20px;
+                  margin: -4px;
+                  margin-right: -1px;
+                  vertical-align: middle;
+                  text-align: center;
+                  cursor: pointer;
+                  font-weight: 500;
+                  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+                  background-color: var(--Chlor-color);
+              }
+
+
+
+              .Schwefel {
+                  width: 25px;
+                  height: 25px;
+                  border: 1px solid #d2d2d7;
+                  display: inline-block;
+                  border-radius: 20px;
+                  margin: 5px;
+                  margin-right: 5px;
+                  vertical-align: middle;
+                  text-align: center;
+                  cursor: pointer;
+                  font-weight: 500;
+                  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+                  background-color: var(--Schwefel-color);
+              }
+
+              .lueckeSchwefel {
+                  width: 25px;
+                  height: 25px;
+                  border: 1px solid #d2d2d7;
+                  display: inline-block;
+                  border-radius: 20px;
+                  margin: -4px;
+                  margin-right: -1px;
+                  vertical-align: middle;
+                  text-align: center;
+                  cursor: pointer;
+                  font-weight: 500;
+                  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+                  background-color: var(--Schwefel-color);
+              }
+
+              .Kohlenstoff {
+                  width: 25px;
+                  height: 25px;
+                  border: 1px solid #d2d2d7;
+                  display: inline-block;
+                  border-radius: 20px;
+                  margin: 5px;
+                  margin-right: 5px;
+                  vertical-align: middle;
+                  text-align: center;
+                  cursor: pointer;
+                  font-weight: 500;
+                  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+                  background-color: var(--Kohlenstoff-color);
+              }
+
+              .lueckeKohlenstoff {
+                  width: 25px;
+                  height: 25px;
+                  border: 1px solid #d2d2d7;
+                  display: inline-block;
+                  border-radius: 20px;
+                  margin: -4px;
+                  margin-right: -1px;
+                  vertical-align: middle;
+                  text-align: center;
+                  cursor: pointer;
+                  font-weight: 500;
+                  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+                  background-color: var(--Kohlenstoff-color);
+              }
+
+
+
+              /*
+              .wort {
+                  width: 20px;
+                  height: 20px;
+                  padding: 5px;
+                  margin: 5px;
+                  border: 1px solid #d2d2d7;
+                  border-radius: 10px;
+                  background-color: #e1e1e3;
+                  display: inline-block;
+                  cursor: pointer;
+                  font-weight: 500;
+                  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+              }
+
+
+              .wort:hover {
+                  background-color: #f5f5f7;
+                  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+              }
+        */
+
+              button {
+                  padding: 12px 24px;
+                  margin-top: 20px;
+                  border: none;
+                  border-radius: 12px;
+                  background-color: #0071e3;
+                  color: white;
+                  font-size: 16px;
+                  cursor: pointer;
+                  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+              }
+
+                  button:hover {
+                      background-color: #005bb5;
+                      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+                  }
+
+              p#ergebnis {
+                  margin-top: 20px;
+                  font-size: 18px;
+                  font-weight: 500;
+              }
+    </style>
+</head>
+<body>
+    <!-- -->
+
+    <div class="container">
+        <h2 style="color:#731768">&nbsp;Chemische Formeln und Kugelteilchenmodell</h2>
+        <h3>&nbsp;Bilde aus der Formel das passende Kugelteilchenmodell.&nbsp;Legende: grün - Nichtmetall ; blau -  Metall. </h3>
+
+        <div>
+            <table align="center" border="0" cellpadding="0" cellspacing="0">
+
+                <tr align="center">
+                    <th>  </th>
+
+                </tr>
+
+
+
+
+                <tr bgcolor=#F0A88D align="center">
+
+                    <td width=10px>  Nr.     </td>
+
+                    <td width=200px> O<sub>2</sub>                </td>
+                    <td width=200px> N<sub>2</sub>                </td>
+                    <td width=200px> H<sub>2</sub>                </td>
+                    <td width=200px> Cl<sub>2</sub>               </td>
+
+
+                    <td rowspan="14" bgcolor=#FFEAA5>
+                        <div class="wortspeicher2">
+                            <div class="nonmetal" id="wortO" draggable="true" ondragstart="drag(event)">O</div>
+                            <div class="Stickstoff" id="wortN" draggable="true" ondragstart="drag(event)">N</div>
+                            <div class="Wasserstoff" id="wortH" draggable="true" ondragstart="drag(event)">H</div>
+                            <div class="metal" id="wortNa" draggable="true" ondragstart="drag(event)">Na</div>
+                            <div class="metal" id="wortAl" draggable="true" ondragstart="drag(event)">Al</div>
+                            <div class="Chlor" id="wortCl" draggable="true" ondragstart="drag(event)">Cl</div>
+                            <div class="Schwefel" id="wortS" draggable="true" ondragstart="drag(event)">S</div>
+                            <div class="metal" id="wortMg" draggable="true" ondragstart="drag(event)">Mg</div>
+                            <div class="metal" id="wortFe" draggable="true" ondragstart="drag(event)">Fe</div>
+                            <div class="Kohlenstoff" id="wortC" draggable="true" ondragstart="drag(event)">C</div>
+                            <div class="metal" id="wortK" draggable="true" ondragstart="drag(event)">K</div>
+
+
+                        </div>
+                    </td>
+                </tr>
+                <tr bgcolor=#EEE8AA>
+                    <td align="center">  1   </td>
+
+                    <td align="center">  <span class="luecke1" id="lueckeO1" ondrop="drop(event)" ondragover="allowDrop(event)"> </span> <span class="luecke1" id="lueckeO2" ondrop="drop(event)" ondragover="allowDrop(event)"> </span>   </td>
+                    <td align="center">  <span class="lueckeStickstoff" id="lueckeN1" ondrop="drop(event)" ondragover="allowDrop(event)"> </span> <span class="lueckeStickstoff" id="lueckeN2" ondrop="drop(event)" ondragover="allowDrop(event)"></span>    </td>
+                    <td align="center">  <span class="lueckeWasserstoff" id="lueckeH1" ondrop="drop(event)" ondragover="allowDrop(event)"> </span> <span class="lueckeWasserstoff" id="lueckeH2" ondrop="drop(event)" ondragover="allowDrop(event)">  </span>    </td>
+                    <td align="center">  <span class="lueckeChlor" id="lueckeCl1" ondrop="drop(event)" ondragover="allowDrop(event)"> </span> <span class="lueckeChlor" id="lueckeCl2" ondrop="drop(event)" ondragover="allowDrop(event)">  </span>   </td>
+
+                </tr>
+
+
+                <tr bgcolor=#F0A88D>
+                    <td align="center">   -- </td>
+                    <td align="center" width=200px>  H<sub>2</sub>O               </td>
+                    <td align="center" width=200px> H<sub>2</sub>S                </td>
+                    <td align="center" width=200px> CO<sub>2</sub>,               </td>
+                    <td align="center" width=200px> SO<sub>2</sub>,               </td>
+                </tr>
+
+                <tr bgcolor=#FFEAA5>
+                    <td align="center">  2 </td>
+
+                    <td align="center">
+                        <span class="lueckeWasserstoff" id="lueckeHH1" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="luecke1" id="lueckeOO1" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="lueckeWasserstoff" id="lueckeHH2" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                    </td>
+
+
+                    <td align="center">
+                        <span class="lueckeWasserstoff" id="lueckeSH1" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="lueckeSchwefel" id="lueckeSS1" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="lueckeWasserstoff" id="lueckeSHH2" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+
+                    </td>
+
+
+                    <td align="center">
+                        <span class="luecke1" id="lueckeCO1" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="lueckeKohlenstoff" id="lueckeC1" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="luecke1" id="lueckeCOO2" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                    </td>
+
+                    <td align="center">
+                        <span class="luecke1" id="lueckeSO1" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="lueckeSchwefel" id="lueckeS1" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="luecke1" id="lueckeSOO2" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                    </td>
+                </tr>
+
+
+
+                <tr bgcolor=#F0A88D>
+                    <td align="center">   -- </td>
+                    <td align="center" width=200px>  NaCl              </td>
+                    <td align="center" width=200px>  CO                </td>
+                    <td align="center" width=200px>  MgO               </td>
+                    <td align="center" width=200px>  FeS               </td>
+                </tr>
+
+
+                <tr bgcolor=#EEE8AA>
+                    <td width=200px align="center"> 3 </td>
+
+                    <td width=200px align="center">
+                        <span class="luecke1s" id="lueckeNa" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="lueckeChlor" id="lueckeCl" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                    </td>
+                    <td width=200px align="center">
+                        <span class="lueckeKohlenstoff" id="lueckeC" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="luecke1" id="lueckeCO" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+
+                    </td>
+                    <td width=200px align="center">
+                        <span class="luecke1s" id="lueckeMg" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="luecke1" id="lueckeMgO" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+
+
+                    <td width=200px align="center">
+                        <span class="luecke1s" id="lueckeFe" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="lueckeSchwefel" id="lueckeFeS" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+
+                    </td>
+                </tr>
+
+
+
+                <tr bgcolor=#F0A88D>
+                    <td align="center">  -- </td>
+                    <td align="center">NaOH  </td>
+                    <td align="center"> KOH  </td>
+                    <td align="center"> NaCN   </td>
+                    <td align="center"> --   </td>
+
+                </tr>
+
+                <tr bgcolor=#EEE8AA>
+                    <td align="center">  4   </td>
+                    <td align="center">
+                        <span class="luecke1s" id="lueckeNaO" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="luecke1" id="lueckeOH" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="lueckeWasserstoff" id="lueckeOHH" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                    </td>
+                    <td align="center">
+                        <span class="luecke1s" id="lueckeKK" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="luecke1" id="lueckeKO" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="lueckeWasserstoff" id="lueckeKOH" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                    </td>
+                    <td align="center">
+                        <span class="luecke1s" id="lueckeNNa" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="lueckeKohlenstoff" id="lueckeCCN" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="lueckeStickstoff" id="lueckeCNN" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                    </td>
+                    <td align="center"> --   </td>
+                </tr>
+
+                <tr bgcolor=#F0A88D>
+                    <td align="center"> -   </td>
+                    <td align="center"> SO<sub>3</sub>   </td>
+                    <td align="center">NH<sub>3</sub>    </td>
+                    <td align="center"> AlCl<sub>3</sub>   </td>
+                    <td align="center"> --   </td>
+                </tr>
+                <tr bgcolor=#EEE8AA>
+                    <td align="center"> 5   </td>
+                    <td align="center">
+                        <span class="lueckeSchwefel" id="lueckeSSO" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="luecke1" id="lueckeSSO1" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="luecke1" id="lueckeSSO2" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="luecke1" id="lueckeSSO3" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+
+                    </td>
+
+                    <td align="center">
+                        <span class="lueckeStickstoff" id="lueckeNNO" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="lueckeWasserstoff" id="lueckeNNO1" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="lueckeWasserstoff" id="lueckeNNO2" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="lueckeWasserstoff" id="lueckeNNO3" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+
+                    </td>
+
+                    <td align="center">
+                        <span class="luecke1s" id="lueckeAlCl" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="lueckeChlor" id="lueckeAlCl1" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="lueckeChlor" id="lueckeAlCl2" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="lueckeChlor" id="lueckeAlCl3" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                    </td>
+                    <td align="center"> --   </td>
+                </tr>
+
+
+
+                <tr bgcolor=#F0A88D>
+                    <td align="center"> -- </td>
+                    <td align="center">H<sub>2</sub>O<sub>2</sub>   </td>
+                    <td align="center">N<sub>2</sub>O<sub>2</sub>   </td>
+                    <td align="center"> NaNO<sub>3</sub> </td>
+                    <td align="center"> --   </td>
+
+                </tr>
+                <tr bgcolor=#EEE8AA>
+                    <td align="center"> 6        </td>
+                    <td align="center">
+                        <span class="lueckeWasserstoff" id="lueckeHHO1" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="luecke1" id="lueckeHOOH" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="luecke1" id="lueckeHOOOH" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="lueckeWasserstoff" id="lueckeOOH" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+
+                    </td>
+                    <td align="center">
+                        <span class="luecke1" id="lueckeNNOO1" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="lueckeStickstoff" id="lueckeNOON" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="lueckeStickstoff" id="lueckeNOOON" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="luecke1" id="lueckeOON" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+
+                    </td>
+                    <td align="center">
+                        <span class="luecke1s" id="lueckeNaOO" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="lueckeStickstoff" id="lueckeNaNN" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="luecke1" id="lueckeNaNO" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="luecke1" id="lueckeNaNO2" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="luecke1" id="lueckeNaNO3" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                    </td>
+                    <td align="center"> --                       </td>
+                </tr>
+
+                <tr bgcolor=#F0A88D>
+                    <td align="center"> --  </td>
+                    <td align="center"> H<sub>2</sub>CO<sub>3</sub>  </td>
+                    <td align="center"> Al<sub>2</sub>O<sub>3</sub>, </td>
+                    <td align="center">     Fe<sub>2</sub>O<sub>3</sub> </td>
+                    <td align="center"> --                       </td>
+                </tr>
+                <tr bgcolor=#EEE8AA>
+                    <td align="center"> 7                       </td>
+                    <td align="center">
+                        <span class="lueckeWasserstoff" id="lueckeHCO" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="luecke1" id="lueckeOCO" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="lueckeKohlenstoff" id="lueckeOCOO" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="luecke1" id="lueckeH2CO" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="luecke1" id="lueckeH2CO2" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="lueckeWasserstoff" id="lueckeH2CO3" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                    </td>
+                    <td align="center">
+                        <span class="luecke1" id="lueckeOAl" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="luecke1s" id="lueckeOAlO" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="luecke1" id="lueckeAlOAl" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="luecke1s" id="lueckeAl2O2" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="luecke1" id="lueckeAl2O3" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                    </td>
+
+                    <td align="center">
+                        <span class="luecke1" id="lueckeOFe" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="luecke1s" id="lueckeOFeO" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="luecke1" id="lueckeFeOFe" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="luecke1s" id="lueckeFeOFeO" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+                        <span class="luecke1" id="lueckeFeO" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+
+                    </td>
+                    <td align="center"> --                       </td>
+                </tr>
+
+
+
+
+
+
+                <tr>
+                    <td bgcolor=#AFDAB9 align=center colspan="6">
+                        <button onclick="checkAnswers()">Überprüfen</button>
+
+                        <button onclick="location.reload()">Seite neu laden</button>
+                        <button onclick="openQRCode()">QR-Code anzeigen</button>
+                        <p id="ergebnis"></p>
+                    </td>
+                </tr>
+
+
+            </table>
+        </div>
+
+
+    </div>
+
+    <script>
+    function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            ev.target.textContent = document.getElementById(data).textContent;
+        }
+
+        function checkAnswers() {
+            var ergebnis = document.getElementById("ergebnis");
+
+            var lueckeO1 = document.getElementById("lueckeO1").textContent; var lueckeO2 = document.getElementById("lueckeO2").textContent; var wortO = document.getElementById("wortO").textContent;
+            var lueckeN1 = document.getElementById("lueckeN1").textContent; var lueckeN2 = document.getElementById("lueckeN2").textContent; var wortN = document.getElementById("wortN").textContent;
+            var lueckeH1 = document.getElementById("lueckeH1").textContent; var lueckeH2 = document.getElementById("lueckeH2").textContent; var wortH = document.getElementById("wortH").textContent;
+            var lueckeCl1 = document.getElementById("lueckeCl1").textContent; var lueckeCl2 = document.getElementById("lueckeCl2").textContent; var wortCl = document.getElementById("wortCl").textContent;
+
+            var wortS = document.getElementById("wortS").textContent;
+            var wortC = document.getElementById("wortC").textContent;
+            var wortNa = document.getElementById("wortNa").textContent;
+            var wortMg = document.getElementById("wortMg").textContent;
+            var wortFe = document.getElementById("wortFe").textContent;
+            var wortK = document.getElementById("wortK").textContent;
+            var wortAl = document.getElementById("wortAl").textContent;
+
+            var lueckeHH1 = document.getElementById("lueckeHH1").textContent; var lueckeHH2 = document.getElementById("lueckeHH2").textContent;
+            var lueckeOO1 = document.getElementById("lueckeOO1").textContent;
+
+            var lueckeCO1 = document.getElementById("lueckeCO1").textContent; var lueckeCOO2 = document.getElementById("lueckeCOO2").textContent;
+            var lueckeC1 = document.getElementById("lueckeC1").textContent;
+
+            var lueckeSH1 = document.getElementById("lueckeSH1").textContent; var lueckeSHH2 = document.getElementById("lueckeSHH2").textContent;
+            var lueckeSS1 = document.getElementById("lueckeSS1").textContent;
+
+            var lueckeSO1 = document.getElementById("lueckeSO1").textContent; var lueckeSOO2 = document.getElementById("lueckeSOO2").textContent;
+            var lueckeS1 = document.getElementById("lueckeS1").textContent;
+
+            var lueckeNa = document.getElementById("lueckeNa").textContent; var lueckeCl = document.getElementById("lueckeCl").textContent;
+
+            var lueckeC = document.getElementById("lueckeC").textContent; var lueckeCO = document.getElementById("lueckeCO").textContent;
+
+            var lueckeMg = document.getElementById("lueckeMg").textContent; var lueckeMgO = document.getElementById("lueckeMgO").textContent;
+
+            var lueckeFe = document.getElementById("lueckeFe").textContent; var lueckeFeS = document.getElementById("lueckeFeS").textContent;
+
+            var lueckeNaO = document.getElementById("lueckeNaO").textContent; var lueckeOH = document.getElementById("lueckeOH").textContent;
+            var lueckeOHH = document.getElementById("lueckeOHH").textContent;
+
+            var lueckeKO = document.getElementById("lueckeKO").textContent; var lueckeKK = document.getElementById("lueckeKK").textContent;
+            var lueckeKOH = document.getElementById("lueckeKOH").textContent;
+
+            var lueckeNNa = document.getElementById("lueckeNNa").textContent; var lueckeCCN = document.getElementById("lueckeCCN").textContent;
+            var lueckeCNN = document.getElementById("lueckeCNN").textContent;
+
+            var lueckeSSO = document.getElementById("lueckeSSO").textContent; var lueckeSSO1 = document.getElementById("lueckeSSO1").textContent;
+            var lueckeSSO2 = document.getElementById("lueckeSSO2").textContent; var lueckeSSO3 = document.getElementById("lueckeSSO3").textContent;
+
+            var lueckeNNO = document.getElementById("lueckeNNO").textContent; var lueckeNNO1 = document.getElementById("lueckeNNO1").textContent;
+            var lueckeNNO2 = document.getElementById("lueckeNNO2").textContent; var lueckeNNO3 = document.getElementById("lueckeNNO3").textContent;
+
+
+            var lueckeAlCl = document.getElementById("lueckeAlCl").textContent; var lueckeAlCl1 = document.getElementById("lueckeAlCl1").textContent;
+            var lueckeAlCl2 = document.getElementById("lueckeAlCl2").textContent; var lueckeAlCl3 = document.getElementById("lueckeAlCl3").textContent;
+
+
+
+            var lueckeHHO1 = document.getElementById("lueckeHHO1").textContent; var lueckeHOOH = document.getElementById("lueckeHOOH").textContent;
+            var lueckeHOOOH = document.getElementById("lueckeHOOOH").textContent; var lueckeOOH = document.getElementById("lueckeOOH").textContent;
+
+            var lueckeNNOO1 = document.getElementById("lueckeNNOO1").textContent; var lueckeNOON = document.getElementById("lueckeNOON").textContent;
+            var lueckeNOOON = document.getElementById("lueckeNOOON").textContent; var lueckeOON = document.getElementById("lueckeOON").textContent;
+
+
+            var lueckeNaOO = document.getElementById("lueckeNaOO").textContent; var lueckeNaNN = document.getElementById("lueckeNaNN").textContent;
+            var lueckeNaNO = document.getElementById("lueckeNaNO").textContent; var lueckeNaNO2 = document.getElementById("lueckeNaNO2").textContent; var lueckeNaNO3 = document.getElementById("lueckeNaNO3").textContent;
+
+            var lueckeHCO = document.getElementById("lueckeHCO").textContent; var lueckeOCO = document.getElementById("lueckeOCO").textContent; var lueckeOCOO = document.getElementById("lueckeOCOO").textContent;
+            var lueckeH2CO = document.getElementById("lueckeH2CO").textContent; var lueckeH2CO2 = document.getElementById("lueckeH2CO2").textContent; var lueckeH2CO3 = document.getElementById("lueckeH2CO3").textContent;
+
+
+            var lueckeOAl = document.getElementById("lueckeOAl").textContent; var lueckeOAlO = document.getElementById("lueckeOAlO").textContent;
+            var lueckeAlOAl = document.getElementById("lueckeAlOAl").textContent; var lueckeAl2O2 = document.getElementById("lueckeAl2O2").textContent; var lueckeAl2O3 = document.getElementById("lueckeAl2O3").textContent;
+
+            var lueckeOFe = document.getElementById("lueckeOFe").textContent; var lueckeOFeO = document.getElementById("lueckeOFeO").textContent;
+            var lueckeFeOFe = document.getElementById("lueckeFeOFe").textContent; var lueckeFeOFeO = document.getElementById("lueckeFeOFeO").textContent; var lueckeFeO = document.getElementById("lueckeFeO").textContent;
+
+            if (
+
+                lueckeO1 === wortO && lueckeO2 === wortO
+                && lueckeN1 === wortN && lueckeN2 === wortN
+                && lueckeH1 === wortH && lueckeH2 === wortH
+                && lueckeCl1 === wortCl && lueckeCl2 === wortCl
+
+                && lueckeOO1 === wortO && lueckeHH1 === wortH && lueckeHH2 === wortH
+                && lueckeSH1 === wortH && lueckeSS1 === wortS && lueckeSHH2 === wortH
+                && lueckeCO1 === wortO && lueckeC1 === wortC && lueckeCOO2 === wortO
+                && lueckeSO1 === wortO && lueckeS1 === wortS && lueckeSOO2 === wortO
+
+                && lueckeNa === wortNa && lueckeCl === wortCl
+                && lueckeC === wortC && lueckeCO === wortO
+                && lueckeMg === wortMg && lueckeMgO === wortO
+                && lueckeFe === wortFe
+
+                && lueckeFeS === wortS
+
+                && lueckeNaO === wortNa && lueckeOH === wortO && lueckeOHH === wortH
+                && lueckeKK === wortK && lueckeKO === wortO && lueckeKOH === wortH
+                && lueckeNNa === wortNa && lueckeCCN === wortC && lueckeCNN === wortN
+                && lueckeSSO === wortS && lueckeSSO1 === wortO && lueckeSSO2 === wortO && lueckeSSO3 === wortO
+                && lueckeNNO === wortN && lueckeNNO1 === wortH && lueckeNNO2 === wortH && lueckeNNO3 === wortH
+                && lueckeHHO1 === wortH && lueckeHOOH === wortO && lueckeHOOOH === wortO && lueckeOOH === wortH
+                && lueckeNNOO1 === wortO && lueckeNOON === wortN && lueckeNOOON === wortN && lueckeOON === wortO
+
+
+                && lueckeAlCl === wortAl && lueckeAlCl1 === wortCl && lueckeAlCl2 === wortCl && lueckeAlCl3 === wortCl
+
+                && lueckeNaOO === wortNa && lueckeNaNN === wortN && lueckeNaNO === wortO && lueckeNaNO2 === wortO && lueckeNaNO2 === wortO
+                && lueckeHCO === wortH && lueckeOCO === wortO && lueckeOCOO === wortC && lueckeH2CO === wortO && lueckeH2CO2 === wortO && lueckeH2CO3 === wortH
+                && lueckeOAl === wortO && lueckeOAlO === wortAl && lueckeAlOAl === wortO && lueckeAl2O2 === wortAl && lueckeAl2O3 === wortO
+                && lueckeOFe === wortO && lueckeOFeO === wortFe && lueckeFeOFe === wortO && lueckeFeOFeO === wortFe && lueckeFeO === wortO
+
+            ) {
+                ergebnis.textContent = "Super! Alles richtig!";
+                ergebnis.style.color = "green";
+            } else {
+                ergebnis.textContent = "Leider falsch. Versuche es noch einmal.";
+                ergebnis.style.color = "red";
+            }
+        }
+
+
+    </script>
+
+
+    <script>
+        function openQRCode() {
+            const currentUrl = window.location.href;
+            const qrWin = window.open("", "_blank", "width=520,height=600,resizable=yes,scrollbars=no");
+
+            qrWin.document.write(`
+               <html lang="de">
+               <head>
+                 <meta charset="UTF-8">
+                 <title>QR-Code</title>
+                 <style>
+                   body {
+                     font-family: Arial, sans-serif;
+                     text-align: center;
+                     background: #fff;
+                     padding: 30px;
+                   }
+                   #qrcode { margin-top: 40px; }
+                   button {
+                     margin-top: 40px;
+                     background: #0071e3;
+                     color: #fff;
+                     border: none;
+                     border-radius: 10px;
+                     font-size: 16px;
+                     padding: 10px 20px;
+                     cursor: pointer;
+                   }
+                   button:hover { background: #005bb5; }
+                 </style>
+               </head>
+               <body>
+                 <h2>QR-Code zu dieser Seite</h2>
+                 <div id="qrcode"></div>
+                 <button onclick="window.close()">Fenster schließen</button>
+                 <script src="libs/qrcode.min.js"><\/script>
+                 <script>
+                   window.addEventListener('load', function() {
+                     new QRCode(document.getElementById("qrcode"), {
+                       text: "${currentUrl}",
+                       width: 220,
+                       height: 220,
+                       correctLevel: QRCode.CorrectLevel.H
+                     });
+                   });
+                 <\/script>
+               </body>
+               </html>
+             `);
+
+            qrWin.document.close();
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,407 @@
+﻿<
+<!DOCTYPE html>
+<html lang="de">
+<head>
+   
+    <meta charset="UTF-8">
+    <!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">  -->
+    <!-- /*Zoom*/-->
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=3.0, user-scalable=yes">
+
+    
+        <title>Aktionspotenzial mit Refraktärzeit</title>
+        <style>
+            body {
+                font-family: sans-serif;
+                background-color: #F6F8E2;
+                color: #333;
+                margin: 0;
+                padding: 20px;
+            }
+
+            .container {
+                max-width: 1000px;
+                background-color: #F6F8E9;
+                padding: 20px;
+                border-radius: 12px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                text-align: center;
+            }
+
+            canvas {
+                margin-top: 30px;
+                border: 1px solid #ccc;
+                transition: opacity 0.4s ease-in-out;
+                opacity: 0; /* wird später eingeblendet */
+            }
+
+            button {
+                padding: 10px 20px;
+                margin: 5px;
+                border: none;
+                border-radius: 8px;
+                background-color: #0071e3;
+                color: white;
+                font-size: 14px;
+                cursor: pointer;
+            }
+
+                button:hover {
+                    background-color: #005bb5;
+                }
+
+            .controls {
+                margin-bottom: 20px;
+            }
+
+            select,
+            input[type="number"] {
+                font-size: 14px;
+                padding: 6px;
+                border-radius: 8px;
+                border: 1px solid #ccc;
+                margin-right: 10px;
+            }
+
+            textarea {
+                width: 95%;
+                height: 180px;
+                padding: 12px;
+                font-size: 0.95rem;
+                border-radius: 12px;
+                border: 1px solid #ccc;
+                background: #fff;
+            }
+        </style>
+    </head>
+<body>
+    <div class="container">
+        <h2>Aktionspotenzial mit Refraktärzeit, Reizintervall & Reizstärke</h2>
+
+        <div class="controls">
+            <label>
+                Reizintervall (ms) [1–200]:
+                <input type="number" id="interval" value="8" min="1" max="200" />
+            </label>
+
+            <label>
+                Reizstärke:
+                <select id="stimulusStrength">
+                    <option value="0.2">20 %</option>
+                    <option value="0.3">30 %</option>
+                    <option value="0.4">40 %</option>
+                    <option value="0.5">50 %</option>
+                    <option value="0.7">70 %</option>
+                    <option value="1" selected>100 %</option>
+                    <option value="1.5">150 %</option>
+                    <option value="2">200 %</option>
+                </select>
+            </label>
+
+            <label>
+                Schwellwert (mV):
+                <select id="thresholdSelect">
+                    <option value="-50" selected>-50 mV</option>
+                    <option value="-55">-55 mV</option>
+                    <option value="-30">-30 mV</option>
+                </select>
+            </label>
+        </div>
+
+        <button onclick="setExample(2)">Beispiel: 2 ms</button>
+        <button onclick="setExample(4)">Beispiel: 4 ms</button>
+        <button onclick="setExample(8)">Beispiel: 8 ms</button>
+        <button onclick="setSubthresholdExample()">Beispiel: 2x subschwellig, 1x AP</button>
+
+        <button onclick="updateGraph()">Aktualisieren</button>
+        <button onclick="resetGraph()">Canvas leeren</button>
+
+        <canvas id="apChart" width="1000" height="450"></canvas>
+
+        <strong>Erklärung:</strong>
+        <textarea readonly>
+Werte in der Simulation:
+Reizintervalle: abhängig von der Reizstärke
+bei 100%
+ < 3 ms: kein Aktionspotenzial (absolute Refraktärzeit)
+ 4–5 ms: Nur reduzierte oder keine Erregung – abhängig von Reizstärke
+ ≥ 7 ms: volle Erregung möglich – abhängig vom Reiz
+ Subschwellige Reize erreichen den Schwellwert nicht und lösen keine vollständige Depolarisation aus.
+ ...
+    </textarea>
+
+        <button onclick="openQRCode()">QR-Code anzeigen</button>
+    </div>
+
+    <script>
+        const canvas = document.getElementById("apChart");
+        const ctx = canvas.getContext("2d");
+        const ionIntra = { Na: 50, K: 400, Cl: 108 };
+
+        function calculateRestingPotential(naOut = 440, kOut = 20, clOut = 560) {
+            const P_K = 1.0, P_Na = 0.04, P_Cl = 0.45;
+            const top = (P_K * kOut) + (P_Na * naOut) + (P_Cl * ionIntra.Cl);
+            const bottom = (P_K * ionIntra.K) + (P_Na * ionIntra.Na) + (P_Cl * clOut);
+            return Math.round(61 * Math.log10(top / bottom) * 10) / 10;
+        }
+
+        function generateAPSeriesMulti(threshold, stimulusList, naOut = 440, kOut = 20, clOut = 560) {
+            const totalTime = 200;
+            const sampleRate = 0.2;
+            const absRef = 3;
+            const relRef = 4;
+            const spikeDuration = 8;
+
+            const restV = calculateRestingPotential(naOut, kOut, clOut);
+            const time = [], voltage = [];
+
+            for (let t = 0; t <= totalTime; t += sampleRate) {
+                let v = restV;
+
+                for (let i = 0; i < stimulusList.length; i++) {
+                    const { time: stimTime, strength } = stimulusList[i];
+                    const prevTime = i > 0 ? stimulusList[i - 1].time : -Infinity;
+                    const sinceLast = stimTime - prevTime;
+                    const diff = t - stimTime;
+
+                    if (diff >= 0 && diff < spikeDuration) {
+                        let amp = 0;
+
+                        if (sinceLast < absRef) {
+                            amp = 0;
+                        } else if (sinceLast < absRef + relRef) {
+                            const refractoryFactor = Math.max(0, (sinceLast - absRef) / relRef);
+                            const relativeStrength = strength * refractoryFactor;
+                            const targetPeak = restV + 105 * Math.min(relativeStrength, 1);
+                            amp = targetPeak > threshold
+                                ? Math.min(1, (targetPeak - restV) / 105)
+                                : Math.max(0, (targetPeak - restV) / 105);
+                        } else {
+                            const targetPeak = restV + 105 * strength;
+                            amp = targetPeak > threshold ? Math.min(1, (targetPeak - restV) / 105) : 0;
+                        }
+
+                        if (diff < 1) v = restV;
+                        else if (diff < 2) v = restV + (diff - 1) * 105 * amp;
+                        else if (diff < 3) v = restV + 105 * amp;
+                        else if (diff < 5) v = restV + 105 * amp - (diff - 3) * 87.5 * amp;
+                        else if (diff < 6.5) v = -70 - (diff - 5) * 10 * amp;
+                        else v = -85 + (diff - 6.5) * 10 * amp;
+
+                        break;
+                    }
+                }
+
+                time.push(t);
+                voltage.push(Math.round(v * 10) / 10);
+            }
+
+            return { time, voltage };
+        }
+
+        function mapTimeToX(t) {
+            const minX = 50, maxX = 950;
+            return minX + (t / 200) * (maxX - minX);
+        }
+
+        function mapVoltageToY(v) {
+            const minV = -100, maxV = 50, minY = 350, maxY = 50;
+            return minY - ((v - minV) / (maxV - minV)) * (minY - maxY);
+        }
+
+        function drawAxes() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.strokeStyle = "black";
+            ctx.lineWidth = 1;
+
+            ctx.beginPath();
+            ctx.moveTo(50, 350);
+            ctx.lineTo(950, 350);
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.moveTo(50, 50);
+            ctx.lineTo(50, 350);
+            ctx.stroke();
+
+            ctx.fillStyle = "black";
+            ctx.font = "14px sans-serif";
+            ctx.fillText("Zeit (ms)", 900, 400);
+
+            ctx.save();
+            ctx.translate(20, 200);
+            ctx.rotate(-Math.PI / 2);
+            ctx.fillText("Membranpotenzial (mV)", 10, 23);
+            ctx.restore();
+
+            for (let v = -100; v <= 50; v += 25) {
+                const y = mapVoltageToY(v);
+                ctx.fillText(v.toString(), 10, y + 5);
+                ctx.beginPath();
+                ctx.moveTo(45, y);
+                ctx.lineTo(50, y);
+                ctx.stroke();
+            }
+
+            for (let t = 0; t <= 200; t += 40) {
+                const x = mapTimeToX(t);
+                ctx.fillText(t.toString(), x - 10, 370);
+                ctx.beginPath();
+                ctx.moveTo(x, 345);
+                ctx.lineTo(x, 350);
+                ctx.stroke();
+            }
+        }
+
+        function drawThresholdLine(value) {
+            const y = mapVoltageToY(value);
+            ctx.strokeStyle = "purple";
+            ctx.setLineDash([5, 5]);
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.moveTo(50, y);
+            ctx.lineTo(950, y);
+            ctx.stroke();
+            ctx.setLineDash([]);
+            ctx.fillStyle = "purple";
+            ctx.font = "12px sans-serif";
+            ctx.fillText(`Schwelle (${value} mV)`, 60, y - 5);
+        }
+
+        function drawAPPeakLine() {
+            const y = mapVoltageToY(35);
+            ctx.strokeStyle = "green";
+            ctx.setLineDash([5, 3]);
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.moveTo(50, y);
+            ctx.lineTo(950, y);
+            ctx.stroke();
+            ctx.setLineDash([]);
+            ctx.fillStyle = "green";
+            ctx.font = "12px sans-serif";
+            ctx.fillText("Aktionspotenzialspitze (+35 mV)", 60, y - 5);
+        }
+
+        function drawCurve(data, threshold) {
+            drawAxes();
+            drawThresholdLine(threshold);
+            drawAPPeakLine();
+
+            ctx.strokeStyle = "blue";
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            for (let i = 0; i < data.time.length; i++) {
+                const x = mapTimeToX(data.time[i]);
+                const y = mapVoltageToY(data.voltage[i]);
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+        }
+
+        function updateGraph() {
+            const interval = parseFloat(document.getElementById("interval").value);
+            const threshold = parseFloat(document.getElementById("thresholdSelect").value);
+            const stimulusStrength = parseFloat(document.getElementById("stimulusStrength").value);
+
+            const stimulusList = [];
+            for (let t = 0; t < 200; t += interval) {
+                stimulusList.push({ time: t, strength: stimulusStrength });
+            }
+
+            const data = generateAPSeriesMulti(threshold, stimulusList);
+            drawCurve(data, threshold);
+        }
+
+        function setExample(ms) {
+            document.getElementById("interval").value = ms;
+            updateGraph();
+        }
+
+        function setSubthresholdExample() {
+            const threshold = parseFloat(document.getElementById("thresholdSelect").value);
+            const stimulusList = [
+                { time: 10, strength: 0.5 },
+                { time: 40, strength: 0.5 },
+                { time: 80, strength: 1.0 }
+            ];
+            const data = generateAPSeriesMulti(threshold, stimulusList);
+            drawCurve(data, threshold);
+        }
+
+        function resetGraph() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawAxes();
+        }
+
+        // 🧩 Safari-Fix: Canvas erst nach vollständigem Layout zeichnen
+        window.addEventListener("load", () => {
+            setTimeout(() => {
+                updateGraph();
+                canvas.style.opacity = "1";
+            }, 60);
+        });
+    </script>
+
+
+
+    <script>
+        function openQRCode() {
+            const currentUrl = window.location.href;
+            const qrWin = window.open("", "_blank", "width=520,height=600,resizable=yes,scrollbars=no");
+
+            qrWin.document.write(`
+               <html lang="de">
+               <head>
+                 <meta charset="UTF-8">
+                 <title>QR-Code</title>
+                 <style>
+                   body {
+                     font-family: Arial, sans-serif;
+                     text-align: center;
+                     background: #fff;
+                     padding: 30px;
+                   }
+                   #qrcode { margin-top: 40px; }
+                   button {
+                     margin-top: 40px;
+                     background: #0071e3;
+                     color: #fff;
+                     border: none;
+                     border-radius: 10px;
+                     font-size: 16px;
+                     padding: 10px 20px;
+                     cursor: pointer;
+                   }
+                   button:hover { background: #005bb5; }
+                 </style>
+               </head>
+               <body>
+                 <h2>QR-Code zu dieser Seite</h2>
+                 <div id="qrcode"></div>
+                 <button onclick="window.close()">Fenster schließen</button>
+                 <script src="libs/qrcode.min.js"><\/script>
+                 <script>
+                   window.addEventListener('load', function() {
+                     new QRCode(document.getElementById("qrcode"), {
+                       text: "${currentUrl}",
+                       width: 220,
+                       height: 220,
+                       correctLevel: QRCode.CorrectLevel.H
+                     });
+                   });
+                 <\/script>
+               </body>
+               </html>
+             `);
+
+            qrWin.document.close();
+        }
+    </script>
+
+
+
+</body>
+</html>

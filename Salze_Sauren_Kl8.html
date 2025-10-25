@@ -1,0 +1,478 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//DE" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>S&auml;uren und Salze</title>
+    <meta name="author" content="Franks Bartel">
+    <meta name="editor" content="html-editor phase 5">
+    <script language="Javascript">
+
+        var ee; ee = document.Formular.f1.value;
+
+
+
+        function Auswertung(ee, zz, zzz) {
+            var
+                xa = document.Formular.W1a.value; x2a = document.Formular.W2a.value; x3a = document.Formular.W3a.value;
+            x5a = document.Formular.W5a.value; x6a = document.Formular.W6a.value; x4a = document.Formular.W4a.value;
+
+            x = document.Formular.W1.value; x2 = document.Formular.W2.value; x3 = document.Formular.W3.value;
+            x5 = document.Formular.W5.value; x6 = document.Formular.W6.value; x4 = document.Formular.W4.value;
+
+            if ((xa == 4) && (x == 1)) { document.Formular.f1.value = "Kaliumcarbonat / richtig"; } else { document.Formular.f1.value = "falsch"; }
+            if ((x2a == 2) && (x2 == 0)) { document.Formular.f2.value = "Magnesiumnitrat / richtig"; } else { document.Formular.f2.value = "falsch"; }
+            if ((x3a == 1) && (x3 == 3)) { document.Formular.f3.value = "Natriumsulfat / richtig"; } else { document.Formular.f3.value = "falsch"; }
+            if ((x4a == 4) && (x4 == 3)) { document.Formular.f4.value = "Kaliumsulfat / richtig"; } else { document.Formular.f4.value = "falsch"; }
+            if ((x5a == 1) && (x5 == 4)) { document.Formular.f5.value = "Natrimphosphat / richtig"; } else { document.Formular.f5.value = "falsch"; }
+            if ((x6a == 3) && (x6 == 1)) { document.Formular.f6.value = "Calciumcarbonat / richtig"; } else { document.Formular.f6.value = "falsch"; }
+
+
+        }
+
+
+        function Auswertung_2() {
+            var
+                ya = document.Formular.W1s.value; y2a = document.Formular.W2s.value; y3a = document.Formular.W3s.value;
+            y5a = document.Formular.W5s.value; y6a = document.Formular.W6s.value; y4a = document.Formular.W4s.value;
+
+            if (ya == 2) { document.Formular.saure1.value = "Kohlensäure / richtig"; } else { document.Formular.saure1.value = "falsch"; }
+            if (y2a == 4) { document.Formular.saure2.value = "Salpetersäure/ richtig"; } else { document.Formular.saure2.value = "falsch"; }
+            if (y3a == 0) { document.Formular.saure3.value = "Schwefelsäure / richtig"; } else { document.Formular.saure3.value = "falsch"; }
+            if (y4a == 0) { document.Formular.saure4.value = "Schwefelsäure / richtig"; } else { document.Formular.saure4.value = "falsch"; }
+            if (y5a == 3) { document.Formular.saure5.value = "Phosphorsäure / richtig"; } else { document.Formular.saure5.value = "falsch"; }
+            if (y6a == 2) { document.Formular.saure6.value = "Kohlensäure / richtig"; } else { document.Formular.saure6.value = "falsch"; }
+
+        }
+
+
+        function neu() {
+            var      //Kationen
+            xa = 5; document.Formular.W1a.value = xa;
+            x2a = 5; document.Formular.W2a.value = x2a;
+            x3a = 5; document.Formular.W3a.value = x3a;
+            x4a = 5; document.Formular.W4a.value = x4a;
+            x5a = 5; document.Formular.W5a.value = x5a;
+            x6a = 5; document.Formular.W6a.value = x6a;
+            //Anionen
+            x = 8; document.Formular.W1.value = x;
+            x2 = 8; document.Formular.W2.value = x2;
+            x3 = 8; document.Formular.W3.value = x3;
+            x4 = 8; document.Formular.W4.value = x4;
+            x5 = 8; document.Formular.W5.value = x5;
+            x6 = 8; document.Formular.W6.value = x6;
+
+            //sauren
+            ya = 5; document.Formular.W1s.value = ya;
+            y2a = 5; document.Formular.W2s.value = y2a;
+            y3a = 5; document.Formular.W3s.value = y3a;
+            y4a = 5; document.Formular.W4s.value = y4a;
+            y5a = 5; document.Formular.W5s.value = y5a;
+            y6a = 5; document.Formular.W6s.value = y6a;
+
+            document.Formular.f1.value = ""; document.Formular.f2.value = ""; document.Formular.f3.value = "";
+            document.Formular.f4.value = ""; document.Formular.f5.value = ""; document.Formular.f6.value = "";
+
+            document.Formular.saure1.value = ""; document.Formular.saure2.value = ""; document.Formular.saure3.value = "";
+            document.Formular.saure4.value = ""; document.Formular.saure5.value = ""; document.Formular.saure6.value = "";
+
+
+
+        }
+
+    </script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #F6F8E2;
+            color: #1d1d1f;
+            text-align: left;
+            padding-top: 50px;
+        }
+
+        h2, h3 {
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 770px;
+            margin: 0 auto;
+            background-color: #F6F8E9;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+
+
+        table {
+            thead: th;
+            background-color: #FFE4E1;
+            /*Tabellenkopf*/
+        }
+
+        tbody tr:nth-child(odd) {
+            background-color: #F5FFFA;
+            /*Hintergrund für ungerade Zeilen*/
+            /* height: 35px;*/
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #FFE4E1;
+            /* Hintergrund für gerade Zeilen*/
+            /*  height: 30px;  */
+        }
+
+        button {
+            padding: 12px 24px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 12px;
+            background-color: #0071e3;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+            button:hover {
+                background-color: #005bb5;
+                box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+            }
+    </style>
+
+</head>
+
+<body text="#000000" bgcolor="#F6F8E2">
+    <div class="container">
+        <h1 style="color:#731768">&Uuml;bung Salze und verwandte S&auml;uren </h1>
+        <!--<form name="Formular" action="mailto:bartel.frank66@gmail.com"  method="get" onsubmit="return pruefeEingaben()"enctype="text/plain" onSubmit="return chkFormular()">     -->
+
+        <form name="Formular" method="get" enctype="text/plain">
+            <h3 style="color:red">Aufgaben</h3>
+            <h3 style="color:red">1. Setze die Salze zusammen.</h3>
+            <h3 style="color:red">2. Finde die verwandte S&auml;ure.</h3>
+
+            <table border="0" bgcolor=#CCC9C9 bordercolor=#CCC9C9>
+                <tr>                </tr>
+                <tr bgcolor=#CCC9C9>  <td align="center">Aufgabe:</td>  <td>Kation</td> <td>S&auml;urerest</td><td align="center">L&ouml;sung 1</td> <td>S&auml;ure</td><td align="center">L&ouml;sung 2</td></tr>
+                <tr bgcolor=#CCC9C9>  <td>Aufgabe 1:</td>    </tr>
+                <tr bgcolor=#F1ECEC>
+                    <td><font size="5">K</font>2<font size="5">CO</font>3</td>
+                    <td align="center">
+                        <select size="1" name="W1a">
+                            <option value=5 name="Kation">Kation</option>
+                            <option value=0 name="Aluminium">Aluminium</option>
+                            <option value=1 name="Natrium">Natrium</option>
+                            <option value=4 name="Kalium">Kalium</option>
+                            <option value=2 name="Magnesium">Magnesium</option>
+                            <option value=3 name="Calcium">Calcium</option>
+                        </select>
+                    </td>
+
+                    <td align="center">
+                        <select size="1" name="W1">
+                            <option value=8 name="Anion">Anion</option>
+                            <option value=0 name="nitrat">nitrat</option>
+                            <option value=1 name="carbonat">carbonat</option>
+                            <option value=2 name="chlorid">chlorid</option>
+                            <option value=7 name="fluorid">fluorid</option>
+                            <option value=4 name="phosphat">phosphat</option>
+                            <option value=3 name="sulfat">sulfat</option>
+                            <option value=6 name="Bromid">bromid</option>
+                            <option value=5 name="Iodit">iodit</option>
+                        </select>
+                    </td>
+                    <td align="center"><input name="f1" type="text" value=""></td>
+
+                    <td align="center">
+                        <select size="1" name="W1s">
+                            <option value=5 name="S&auml;ure">S&auml;ure</option>
+                            <option value=0 name="Schwefels&auml;ure">Schwefels&auml;ure</option>
+                            <option value=1 name="Salzs&auml;ure">Salzs&auml;ure</option>
+                            <option value=4 name="Salpeters&auml;ure">Salpeters&auml;ure</option>
+                            <option value=2 name="Kohlens&auml;ure">Kohlens&auml;ure</option>
+                            <option value=3 name="Phosphors&auml;ure">Phosphors&auml;ure</option>
+                        </select>
+                    </td>
+                    <td align="center"><input name="saure1" type="text" value=""></td>
+                </tr>
+
+
+                <tr bgcolor=#CCC9C9>  <td>Aufgabe 2:</td>    </tr>
+                <tr bgcolor=#F1ECEC>
+                    <td><font size="5"> Mg(</font><font size="5">NO</font>3<font size="5">)</font>2</td>
+                    <td align="center">
+                        <select size="1" name="W2a">
+                            <option value=5 name="Kation">Kation</option>
+                            <option value=0 name="Aluminium">Aluminium</option>
+                            <option value=1 name="Natrium">Natrium</option>
+                            <option value=4 name="Kalium">Kalium</option>
+                            <option value=2 name="Magnesium">Magnesium</option>
+                            <option value=3 name="Calcium">Calcium</option>
+                        </select>
+                    </td>
+                    <td align="center">
+                        <select size="1" name="W2">
+                            <option value=8 name="Anion">Anion</option>
+                            <option value=0 name="nitrat">nitrat</option>
+                            <option value=1 name="carbonat">carbonat</option>
+                            <option value=2 name="chlorid">chlorid</option>
+                            <option value=7 name="fluorid">fluorid</option>
+                            <option value=4 name="phosphat">phosphat</option>
+                            <option value=3 name="sulfat">sulfat</option>
+                            <option value=6 name="Bromid">bromid</option>
+                            <option value=5 name="Iodit">iodit</option>
+                        </select>
+                    </td>
+                    <td align="center"><input name="f2" type="text" value=""></td>
+                    <td align="center">
+                        <select size="1" name="W2s">
+                            <option value=5 name="S&auml;ure">S&auml;ure</option>
+                            <option value=0 name="Schwefels&auml;ure">Schwefels&auml;ure</option>
+                            <option value=1 name="Salzs&auml;ure">Salzs&auml;ure</option>
+                            <option value=4 name="Salpeters&auml;ure">Salpeters&auml;ure</option>
+                            <option value=2 name="Kohlens&auml;ure">Kohlens&auml;ure</option>
+                            <option value=3 name="Phosphors&auml;ure">Phosphors&auml;ure</option>
+                        </select>
+                    </td>
+                    <td align="center"><input name="saure2" type="text" value=""></td>
+                </tr>
+
+
+                <tr bgcolor=#CCC9C9>  <td>Aufgabe 3:</td>    </tr>
+                <tr bgcolor=#F1ECEC>
+                    <td><font size="5">Na</font>2<font size="5">SO</font>4</td>
+                    <td align="center">
+                        <select size="1" name="W3a">
+                            <option value=5 name="Kation">Kation</option>
+                            <option value=0 name="Aluminium">Aluminium</option>
+                            <option value=1 name="Natrium">Natrium</option>
+                            <option value=4 name="Kalium">Kalium</option>
+                            <option value=2 name="Magnesium">Magnesium</option>
+                            <option value=3 name="Calcium">Calcium</option>
+                        </select>
+                    </td>
+                    <td align="center">
+                        <select size="1" name="W3">
+                            <option value=8 name="Anion">Anion</option>
+                            <option value=0 name="nitrat">nitrat</option>
+                            <option value=1 name="carbonat">carbonat</option>
+                            <option value=2 name="chlorid">chlorid</option>
+                            <option value=7 name="fluorid">fluorid</option>
+                            <option value=4 name="phosphat">phosphat</option>
+                            <option value=3 name="sulfat">sulfat</option>
+                            <option value=6 name="Bromid">bromid</option>
+                            <option value=5 name="Iodit">iodit</option>
+                        </select>
+                    </td>
+                    <td align="center"><input name="f3" type="text" value=""></td>
+                    <td align="center">
+                        <select size="1" name="W3s">
+                            <option value=5 name="S&auml;ure">S&auml;ure</option>
+                            <option value=0 name="Schwefels&auml;ure">Schwefels&auml;ure</option>
+                            <option value=1 name="Salzs&auml;ure">Salzs&auml;ure</option>
+                            <option value=4 name="Salpeters&auml;ure">Salpeters&auml;ure</option>
+                            <option value=2 name="Kohlens&auml;ure">Kohlens&auml;ure</option>
+                            <option value=3 name="Phosphors&auml;ure">Phosphors&auml;ure</option>
+                        </select>
+                    </td>
+                    <td align="center"><input name="saure3" type="text" value=""></td>
+                </tr>
+
+                <tr bgcolor=#CCC9C9>  <td>Aufgabe 4:</td>    </tr>
+                <tr bgcolor=#F1ECEC>
+                    <td><font size="5">K</font><font size="5"></font>2<font size="5">SO</font>4</td>
+                    <td align="center">
+                        <select size="1" name="W4a">
+                            <option value=5 name="Kation">Kation</option>
+                            <option value=0 name="Aluminium">Aluminium</option>
+                            <option value=1 name="Natrium">Natrium</option>
+                            <option value=4 name="Kalium">Kalium</option>
+                            <option value=2 name="Magnesium">Magnesium</option>
+                            <option value=3 name="Calcium">Calcium</option>
+                        </select>
+                    </td>
+                    <td align="center">
+                        <select size="1" name="W4">
+                            <option value=8 name="Anion">Anion</option>
+                            <option value=0 name="nitrat">nitrat</option>
+                            <option value=1 name="carbonat">carbonat</option>
+                            <option value=2 name="chlorid">chlorid</option>
+                            <option value=7 name="fluorid">fluorid</option>
+                            <option value=4 name="phosphat">phosphat</option>
+                            <option value=3 name="sulfat">sulfat</option>
+                            <option value=6 name="Bromid">bromid</option>
+                            <option value=5 name="Iodit">iodit</option>
+                        </select>
+                    </td>
+                    <td align="center"><input name="f4" type="text" value=""></td>
+                    <td align="center">
+                        <select size="1" name="W4s">
+                            <option value=5 name="S&auml;ure">S&auml;ure</option>
+                            <option value=0 name="Schwefels&auml;ure">Schwefels&auml;ure</option>
+                            <option value=1 name="Salzs&auml;ure">Salzs&auml;ure</option>
+                            <option value=4 name="Salpeters&auml;ure">Salpeters&auml;ure</option>
+                            <option value=2 name="Kohlens&auml;ure">Kohlens&auml;ure</option>
+                            <option value=3 name="Phosphors&auml;ure">Phosphors&auml;ure</option>
+                        </select>
+                    </td>
+                    <td align="center"><input name="saure4" type="text" value=""></td>
+                </tr>
+
+
+                <tr bgcolor=#CCC9C9>  <td>Aufgabe 5:</td>    </tr>
+                <tr bgcolor=#F1ECEC>
+                    <td><font size="5">Na</font>3<font size="5">PO</font>4</td>
+                    <td align="center">
+                        <select size="1" name="W5a">
+                            <option value=5 name="Kation">Kation</option>
+                            <option value=0 name="Aluminium">Aluminium</option>
+                            <option value=1 name="Natrium">Natrium</option>
+                            <option value=4 name="Kalium">Kalium</option>
+                            <option value=2 name="Magnesium">Magnesium</option>
+                            <option value=3 name="Calcium">Calcium</option>
+                        </select>
+                    </td>
+                    <td align="center">
+                        <select size="1" name="W5">
+                            <option value=8 name="Anion">Anion</option>
+                            <option value=0 name="nitrat">nitrat</option>
+                            <option value=1 name="carbonat">carbonat</option>
+                            <option value=2 name="chlorid">chlorid</option>
+                            <option value=7 name="fluorid">fluorid</option>
+                            <option value=4 name="phosphat">phosphat</option>
+                            <option value=3 name="sulfat">sulfat</option>
+                            <option value=6 name="Bromid">bromid</option>
+                            <option value=5 name="Iodit">iodit</option>
+                        </select>
+                    </td>
+                    <td align="center"><input name="f5" type="text" value=""></td>
+                    <td align="center">
+                        <select size="1" name="W5s">
+                            <option value=5 name="S&auml;ure">S&auml;ure</option>
+                            <option value=0 name="Schwefels&auml;ure">Schwefels&auml;ure</option>
+                            <option value=1 name="Salzs&auml;ure">Salzs&auml;ure</option>
+                            <option value=4 name="Salpeters&auml;ure">Salpeters&auml;ure</option>
+                            <option value=2 name="Kohlens&auml;ure">Kohlens&auml;ure</option>
+                            <option value=3 name="Phosphors&auml;ure">Phosphors&auml;ure</option>
+                        </select>
+                    </td>
+                    <td align="center"><input name="saure5" type="text" value=""></td>
+                </tr>
+
+
+                <tr bgcolor=#CCC9C9>  <td>Aufgabe 6:</td>    </tr>
+                <tr bgcolor=#F1ECEC>
+                    <td><font size="5">CaCO</font>3</td>
+                    <td align="center">
+                        <select size="1" name="W6a">
+                            <option value=5 name="Kation">Kation</option>
+                            <option value=0 name="Aluminium">Aluminium</option>
+                            <option value=1 name="Natrium">Natrium</option>
+                            <option value=4 name="Kalium">Kalium</option>
+                            <option value=2 name="Magnesium">Magnesium</option>
+                            <option value=3 name="Calcium">Calcium</option>
+                        </select>
+                    </td>
+                    <td align="center">
+                        <select size="1" name="W6">
+                            <option value=8 name="Anion">Anion</option>
+                            <option value=0 name="nitrat">nitrat</option>
+                            <option value=1 name="carbonat">carbonat</option>
+                            <option value=2 name="chlorid">chlorid</option>
+                            <option value=7 name="fluorid">fluorid</option>
+                            <option value=4 name="phosphat">phosphat</option>
+                            <option value=3 name="sulfat">sulfat</option>
+                            <option value=6 name="Bromid">bromid</option>
+                            <option value=5 name="Iodit">iodit</option>
+                        </select>
+                    </td>
+                    <td align="center"><input name="f6" type="text" value=""></td>
+                    <td align="center">
+                        <select size="1" name="W6s">
+                            <option value=5 name="S&auml;ure">S&auml;ure</option>
+                            <option value=0 name="Schwefels&auml;ure">Schwefels&auml;ure</option>
+                            <option value=1 name="Salzs&auml;ure">Salzs&auml;ure</option>
+                            <option value=4 name="Salpeters&auml;ure">Salpeters&auml;ure</option>
+                            <option value=2 name="Kohlens&auml;ure">Kohlens&auml;ure</option>
+                            <option value=3 name="Phosphors&auml;ure">Phosphors&auml;ure</option>
+                        </select>
+                    </td>
+                    <td align="center"><input name="saure6" type="text" value=""></td>
+                </tr>
+
+                <tr>
+                    <td align="center"> </td>
+                    <td> </td>
+                    <td>  </td>
+                    <td align="center"><a href="javascript:Auswertung(document.Formular.W1.options[document.Formular.W1.selectedIndex].value)">L&ouml;sung 1</a></td>
+                    <td> </td>
+                    <td align="center"><a href="javascript:Auswertung_2(document.Formular.W1s.options[document.Formular.W1s.selectedIndex].value)">L&ouml;sung 2</a></td>
+                </tr>
+
+            </table>
+           
+
+            <button onclick="location.reload()">Seite neu laden</button>
+            <button onclick="openQRCode()">QR-Code anzeigen</button>
+        </form>
+    </div>
+
+    <script>
+        function openQRCode() {
+            const currentUrl = window.location.href;
+            const qrWin = window.open("", "_blank", "width=520,height=600,resizable=yes,scrollbars=no");
+
+            qrWin.document.write(`
+            <html lang="de">
+            <head>
+              <meta charset="UTF-8">
+              <title>QR-Code</title>
+              <style>
+                body {
+                  font-family: Arial, sans-serif;
+                  text-align: center;
+                  background: #fff;
+                  padding: 30px;
+                }
+                #qrcode { margin-top: 40px; }
+                button {
+                  margin-top: 40px;
+                  background: #0071e3;
+                  color: #fff;
+                  border: none;
+                  border-radius: 10px;
+                  font-size: 16px;
+                  padding: 10px 20px;
+                  cursor: pointer;
+                }
+                button:hover { background: #005bb5; }
+              </style>
+            </head>
+            <body>
+              <h2>QR-Code zu dieser Seite</h2>
+              <div id="qrcode"></div>
+              <button onclick="window.close()">Fenster schließen</button>
+              <script src="libs/qrcode.min.js"><\/script>
+              <script>
+                window.addEventListener('load', function() {
+                  new QRCode(document.getElementById("qrcode"), {
+                    text: "${currentUrl}",
+                    width: 220,
+                    height: 220,
+                    correctLevel: QRCode.CorrectLevel.H
+                  });
+                });
+              <\/script>
+            </body>
+            </html>
+          `);
+
+            qrWin.document.close();
+        }
+    </script>
+
+
+</body>
+</html>

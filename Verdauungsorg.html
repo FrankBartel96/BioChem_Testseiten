@@ -1,0 +1,392 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+
+    <meta charset="UTF-8 ">
+    <!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">  -->
+    <!-- /*Zoom*/-->
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=3.0, user-scalable=yes">
+
+    <title>Verdauungsorgane beschriften</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #F6F8E2;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 1200px;
+            /* max-width: 900px; */
+            background-color: #F6F8E9;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+
+        button {
+            padding: 12px 24px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 12px;
+            background-color: #0071e3;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+            button:hover {
+                background-color: #005bb5;
+                box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+            }
+
+        p#ergebnis {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+
+
+        table {
+            margin: auto; /*;tabelle zemtriert*/
+            width: auto; /*  1100px;*/
+            thead: th;
+            background-color: #FFE4E1;
+            /* align-content: baseline;*/
+            text-align: center;
+            /*Tabellenkopf*/
+        }
+
+
+        tbody tr:nth-child(odd) {
+            background-color: #F5FFFA;
+            text-align: left;
+            /*   width: auto; */
+            /*Hintergrund f�r ungerade Zeilen*/
+            /* height: 35px;*/
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #FFE4E1;
+            /* text-align: center;*/
+            /* Hintergrund f�r gerade Zeilen*/
+            /*  height: 30px;  */
+        }
+
+
+
+        h1 {
+            font-size: 24px;
+            color: #731768;
+        }
+
+        .cat-image {
+            position: relative; /* relative */
+            width: 80%;
+            margin: auto; /* 50px */
+        }
+
+            .cat-image img {
+                width: 100%;
+                border-radius: 12px;
+            }
+
+        .label {
+            position: page;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 8px;
+            padding: 8px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .wordlist {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+            .wordlist span {
+                padding: 10px 15px;
+                background-color: #007aff;
+                color: white;
+                border-radius: 25px;
+                cursor: pointer;
+                user-select: none;
+                font-size: 16px;
+                margin: 5px;
+            }
+
+                .wordlist span.dragging {
+                    opacity: 0.5;
+                }
+
+                .wordlist span.over {
+                    background-color: #34c759;
+                }
+
+
+                .wordlist span:hover {
+                    background-color: #005bb5;
+                    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+                }
+
+
+        .feedback {
+            margin-top: 30px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .result {
+            font-size: 20px;
+            color: green;
+        }
+
+        .error {
+            font-size: 20px;
+            color: red;
+        }
+
+        .completed {
+            background-color: #d1ffd6;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Verdauungsorgane des Menschen beschriften: Ziehe die Wörter auf die Zahlen</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th> <h1>  Bestandteil  </h1>        </th>
+                    <th>  <h1>  Verdauungsorgane   </h1>  </th>
+                    <th><h1>  Wortliste  </h1></th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td width="200px">
+                        <div class="cat-image">
+                            <div class="label" id="label-Mundhohle" style="top:  5px; left: 350px;">(1)</div>
+                            <div class="label" id="label-Speicheldruse" style="top:  50px; left: 350px;">(2)</div>
+                            <div class="label" id="label-Speiserohre" style="top:  95px; left: 350px;">(3)</div>
+                            <div class="label" id="label-Magen" style="top: 140px; left: 350px;">(4)</div>
+                            <div class="label" id="label-12Finger" style="top: 175px; left: 350px;">(5)</div>
+                            <div class="label" id="label-Leber" style="top: 220px; left: 350px;">(6)</div>
+                            <div class="label" id="label-Galle" style="top: 275px; left: 350px;">(7)</div>
+
+                            <div class="label" id="label-Bauchspeichel" style="top: 175px; left: 350px;">(8)</div>
+                            <div class="label" id="label-Dunndarm" style="top: 220px; left: 350px;">(9)</div>
+                            <div class="label" id="label-Dickdarm" style="top: 275px; left: 350px;">(10)</div>
+
+                            <div class="label" id="label-Blinddarm" style="top: 220px; left: 350px;">(11)</div>
+                            <div class="label" id="label-Mastdarm" style="top: 275px; left: 350px;">(12)</div>
+
+                        </div>
+
+                    </td>
+
+                    <td width="200px">
+                        <div class="cat-image">
+                            <img src="./Pics/verdau22.JPG" align="middle" alt="Katze" id="catImage">
+                        </div>
+                    </td>
+
+
+
+
+                    <td width="300px">
+                        <div class="wordlist">
+
+                            <span draggable="true" class="draggable" id="word-Bauchspeichel"> Bauchspeicheldrüse</span>
+                            <span draggable="true" class="draggable" id="word-Dunndarm">Dünndarm</span>
+                            <span draggable="true" class="draggable" id="word-12Finger"> 12-Finger-Darm</span>
+                            <span draggable="true" class="draggable" id="word-Leber">Leber</span>
+                            <span draggable="true" class="draggable" id="word-Galle">Gallenblase</span>
+                            <span draggable="true" class="draggable" id="word-Speiserohre"> Speiseröhre</span>
+                            <span draggable="true" class="draggable" id="word-Magen"> Magen</span>
+                            <span draggable="true" class="draggable" id="word-Mundhohle"> Mundhöhle</span>
+                            <span draggable="true" class="draggable" id="word-Speicheldruse"> Speicheldrüse</span>
+                            <span draggable="true" class="draggable" id="word-Dickdarm">Dickdarm</span>
+
+                            <span draggable="true" class="draggable" id="word-Blinddarm">Blinddarm/Wurmfortsatz</span>
+                            <span draggable="true" class="draggable" id="word-Mastdarm">Mastdarm</span>
+
+
+
+                        </div>
+                    </td>
+
+                </tr>
+
+                <tr>
+                    <td colspan="2">
+                        <div class="feedback">
+                            <p id="feedback"></p>
+                            <p class="result" id="result"></p>
+                            <p class="error" id="error"></p>
+                        </div>
+
+                    </td>
+
+                    <td>
+                        <button onclick="location.reload()">Seite neu laden</button>
+                        <button onclick="openQRCode()">QR-Code anzeigen</button>
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+
+
+
+    </div>
+
+    <script>
+        const draggableItems = document.querySelectorAll('.draggable');
+        const labels = document.querySelectorAll('.label');
+        const feedback = document.getElementById('feedback');
+        const result = document.getElementById('result');
+        const error = document.getElementById('error');
+
+        let correctAnswers = 0;
+        let totalAnswers = 12; /*Anzahl der Bschriftung */
+
+
+
+        // Safari-sicher: globale Standardaktionen verhindern
+        window.addEventListener('dragover', e => e.preventDefault());
+        window.addEventListener('drop', e => e.preventDefault());
+
+        draggableItems.forEach(item => {
+            item.addEventListener('dragstart', (e) => {
+                e.dataTransfer.setData('text/plain', e.target.id);
+                e.target.classList.add('dragging');
+            });
+
+            item.addEventListener('dragend', () => {
+                item.classList.remove('dragging');
+            });
+        });
+
+        labels.forEach(label => {
+            label.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                e.target.classList.add('over');
+                e.dataTransfer.dropEffect = 'move';
+            });
+
+            label.addEventListener('dragleave', () => {
+                label.classList.remove('over');
+            });
+
+            label.addEventListener('drop', (e) => {
+                e.preventDefault();
+                const draggedId = e.dataTransfer.getData('text');
+                const draggedElement = document.getElementById(draggedId);
+                const targetLabel = e.target;
+
+                if (draggedElement.id === `word-${targetLabel.id.split('-')[1]}`) {
+                    targetLabel.textContent = draggedElement.textContent;
+                    targetLabel.classList.add('completed');
+                    draggedElement.style.visibility = 'hidden';
+                    correctAnswers++;
+
+                    if (correctAnswers === totalAnswers) {
+                        feedback.textContent = 'Herzlichen Glückwunsch! Alle Antworten sind richtig.';
+                        result.textContent = 'Erfolg!';
+                        result.style.color = 'green';
+                        error.textContent = '';
+                    }
+                } else {
+                    feedback.textContent = 'Leider ist das nicht korrekt. Versuche es noch einmal!';
+                    error.textContent = 'Da war was nicht richtig!';
+                    result.textContent = 'Schade';
+                    result.style.color = 'red';
+                }
+
+                label.classList.remove('over');
+            });
+        });
+    </script>
+
+
+    <script>
+        function openQRCode() {
+            const currentUrl = window.location.href;
+            const qrWin = window.open("", "_blank", "width=520,height=600,resizable=yes,scrollbars=no");
+
+            qrWin.document.write(`
+               <html lang="de">
+               <head>
+                 <meta charset="UTF-8">
+                 <title>QR-Code</title>
+                 <style>
+                   body {
+                     font-family: Arial, sans-serif;
+                     text-align: center;
+                     background: #fff;
+                     padding: 30px;
+                   }
+                   #qrcode { margin-top: 40px; }
+                   button {
+                     margin-top: 40px;
+                     background: #0071e3;
+                     color: #fff;
+                     border: none;
+                     border-radius: 10px;
+                     font-size: 16px;
+                     padding: 10px 20px;
+                     cursor: pointer;
+                   }
+                   button:hover { background: #005bb5; }
+                 </style>
+               </head>
+               <body>
+                 <h2>QR-Code zu dieser Seite</h2>
+                 <div id="qrcode"></div>
+                 <button onclick="window.close()">Fenster schließen</button>
+                 <script src="libs/qrcode.min.js"><\/script>
+                 <script>
+                   window.addEventListener('load', function() {
+                     new QRCode(document.getElementById("qrcode"), {
+                       text: "${currentUrl}",
+                       width: 220,
+                       height: 220,
+                       correctLevel: QRCode.CorrectLevel.H
+                     });
+                   });
+                 <\/script>
+               </body>
+               </html>
+             `);
+
+            qrWin.document.close();
+        }
+    </script>
+
+
+
+</body>
+</html>
+

@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8 /">
+    <!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">  -->
+    <!-- /*Zoom*/-->
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=3.0, user-scalable=yes">
+
+
+  
+        <title>Gemische1</title>
+        <meta name="author" content="Franks Bartel">
+        <meta name="editor" content="html-editor phase 5">
+
+
+        <style>
+
+            table, th, caption {
+                /*border: thin solid #a0a0a0;  border: 0;  */
+                width: auto;
+                align-content: center;
+                /* padding: none;*/
+                margin-left: auto;
+                margin-right: auto;
+                text-align: left;
+                /* padding: 10px; */
+                /* height: 20px; */
+            }
+
+
+            table {
+                thead: th;
+                background-color: #FFE4E1;
+                /*Tabellenkopf*/
+            }
+
+            tbody tr:nth-child(odd) {
+                background-color: #F5FFFA;
+                /*Hintergrund für ungerade Zeilen*/
+                /* height: 35px;*/
+            }
+
+            tbody tr:nth-child(even) {
+                background-color: #FFE4E1;
+                /* Hintergrund für gerade Zeilen*/
+                /*  height: 30px;  */
+            }
+
+
+            .button {
+                display: block;
+                width: 90px;
+                padding: 10px;
+                background-color: #007aff;
+                margin: auto;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 16px;
+                text-align-last: center;
+            }
+
+                .button:hover {
+                    background-color: #005bb5;
+                }
+        </style>
+
+
+        <script language="Javascript">
+
+            var ee; ee = document.Formular.f1.value;
+            function Auswertung(ee, zz, zzz) {
+                var x1 = document.Formular.W1.value;
+                x2 = document.Formular.W11.value;
+                x3 = document.Formular.W111.value;
+                a2 = document.Formular.A2.value;
+                a22 = document.Formular.A22.value;
+                a222 = document.Formular.A222.value;
+                a3 = document.Formular.A3.value;
+                a33 = document.Formular.A33.value;
+                a333 = document.Formular.A333.value;
+                a4 = document.Formular.A4.value;
+                a44 = document.Formular.A44.value;
+                a444 = document.Formular.A444.value;
+                a5 = document.Formular.A5.value;
+                a55 = document.Formular.A55.value;
+                a555 = document.Formular.A555.value;
+                a6 = document.Formular.A6.value;
+                a66 = document.Formular.A66.value;
+                a666 = document.Formular.A666.value;
+                a7 = document.Formular.A7.value;
+                a77 = document.Formular.A77.value;
+                a777 = document.Formular.A777.value;
+                a8 = document.Formular.A8.value;
+                a88 = document.Formular.A88.value;
+                a888 = document.Formular.A888.value;
+                a9 = document.Formular.A9.value;
+                a99 = document.Formular.A99.value;
+                a999 = document.Formular.A999.value;
+                a1 = document.Formular.A1.value;
+                a11 = document.Formular.A11.value;
+                a111 = document.Formular.A111.value;
+                b1 = document.Formular.B1.value;
+                b11 = document.Formular.B11.value;
+                b111 = document.Formular.B111.value;
+                b2 = document.Formular.B2.value;
+                b22 = document.Formular.B22.value;
+                b222 = document.Formular.B222.value;
+                b3 = document.Formular.B3.value;
+                b33 = document.Formular.B33.value;
+                b333 = document.Formular.B333.value;
+                b4 = document.Formular.B4.value;
+                b44 = document.Formular.B44.value;
+                b444 = document.Formular.B444.value;
+                if (x1 == 0) {
+                    document.Formular.f1.value = " ok";
+                }
+
+                else {
+                    document.Formular.f1.value = "no";
+                }
+
+                if (x2 == 0) {
+                    document.Formular.f11.value = " ok";
+                }
+
+                else {
+                    document.Formular.f11.value = "no";
+                }
+
+                if (x3 == 0) {
+                    document.Formular.f111.value = " ok";
+                }
+
+                else {
+                    document.Formular.f111.value = "no";
+                }
+
+                if (a2 == 2) {
+                    document.Formular.fa2.value = " ok";
+                }
+
+                else {
+                    document.Formular.fa2.value = "no";
+                }
+
+                if (a22 == 1) {
+                    document.Formular.fa22.value = " ok";
+                }
+
+                else {
+                    document.Formular.fa22.value = "no";
+                }
+
+                if (a222 == 1) {
+                    document.Formular.fa222.value = " ok";
+                }
+
+                else {
+                    document.Formular.fa222.value = "no";
+                }
+
+                if (a3 == 0) {
+                    document.Formular.fa3.value = " ok";
+                }
+
+                else {
+                    document.Formular.fa3.value = "no";
+                }
+
+                if (a33 == 0) {
+                    document.Formular.fa33.value = " ok";
+                }
+
+                else {
+                    document.Formular.fa33.value = "no";
+                }
+
+                if (a333 == 0) {
+                    document.Formular.fa333.value = " ok";
+                }
+
+                else {
+                    document.Formular.fa333.value = "no";
+                }
+
+                if (a4 == 1) {
+                    document.Formular.fa4.value = " ok";
+                }
+
+                else {
+                    document.Formular.fa4.value = "no";
+                }
+
+                if (a44 == 3) {
+                    document.Formular.fa44.value = " ok";
+                }
+
+                else {
+                    document.Formular.fa44.value = "no";
+                }
+
+                if (a444 == 1) {
+                    document.Formular.fa444.value = " ok";
+                }
+
+                else {
+                    document.Formular.fa444.value = "no";
+                }
+
+                if (a5 == 6) {
+                    document.Formular.fa5.value = " ok";
+                }
+
+                else {
+                    document.Formular.fa5.value = "no";
+                }
+
+                if (a55 == 0) {
+                    document.Formular.fa55.value = " ok";
+                }
+
+                else {
+                    document.Formular.fa55.value = "no";
+                }
+
+                if (a555 == 1) {
+                    document.Formular.fa555.value = " ok";
+                }
+
+                else {
+                    document.Formular.fa555.value = "no";
+                }
+
+                if (a6 == 0) {
+                    document.Formular.fa6.value = " ok";
+                }
+
+                else {
+                    document.Formular.fa6.value = "no";
+                }
+
+                if (a66 == 3) {
+                    document.Formular.fa66.value = " ok";
+                }
+
+                else {
+                    document.Formular.fa66.value = "no";
+                }
+
+                if (a666 == 0) {
+                    document.Formular.fa666.value = " ok";
+                }
+
+                else {
+                    document.Formular.fa666.value = "no";
+                }
+
+                if (a7 == 5) {
+                    document.Formular.fa7.value = " ok";
+                }
+
+                else {
+                    document.Formular.fa7.value = "no";
+                }
+
+                if (a77 == 4) {
+                    document.Formular.fa77.value = " ok";
+                }
+
+                else {
+                    document.Formular.fa77.value = "no";
+                }
+
+                if (a777 == 1) {
+                    document.Formular.fa777.value = " ok";
+                }
+
+                else {
+                    document.Formular.fa777.value = "no";
+                }
+
+                if (a8 == 1) {
+                    document.Formular.fa8.value = " ok";
+                }
+
+                else {
+                    document.Formular.fa8.value = "no";
+                }
+
+                if (a88 == 3) {
+                    document.Formular.fa88.value = " ok";
+                }
+
+                else {
+                    document.Formular.fa88.value = "no";
+                }
+
+                if (a888 == 1) {
+                    document.Formular.fa888.value = " ok";
+                }
+
+                else {
+                    document.Formular.fa888.value = "no";
+                }
+
+                if (a9 == 6) {
+                    document.Formular.fa9.value = " ok";
+                }
+
+                else {
+                    document.Formular.fa9.value = "no";
+                }
+
+                if (a99 == 0) {
+                    document.Formular.fa99.value = " ok";
+                }
+
+                else {
+                    document.Formular.fa99.value = "no";
+                }
+
+                if (a999 == 1) {
+                    document.Formular.fa999.value = " ok";
+                }
+
+                else {
+                    document.Formular.fa999.value = "no";
+                }
+
+                if (a1 == 6) {
+                    document.Formular.fa1.value = " ok";
+                }
+
+                else {
+                    document.Formular.fa1.value = "no";
+                }
+
+                if (a11 == 0) {
+                    document.Formular.fa11.value = " ok";
+                }
+
+                else {
+                    document.Formular.fa11.value = "no";
+                }
+
+                if (a111 == 1) {
+                    document.Formular.fa111.value = " ok";
+                }
+
+                else {
+                    document.Formular.fa111.value = "no";
+                }
+
+                if (b1 == 5) {
+                    document.Formular.fb1.value = " ok";
+                }
+
+                else {
+                    document.Formular.fb1.value = "no";
+                }
+
+                if (b11 == 1) {
+                    document.Formular.fb11.value = " ok";
+                }
+
+                else {
+                    document.Formular.fb11.value = "no";
+                }
+
+                if (b111 == 0) {
+                    document.Formular.fb111.value = " ok";
+                }
+
+                else {
+                    document.Formular.fb111.value = "no";
+                }
+
+                if (b2 == 3) {
+                    document.Formular.fb2.value = " ok";
+                }
+
+                else {
+                    document.Formular.fb2.value = "no";
+                }
+
+                if (b22 == 5) {
+                    document.Formular.fb22.value = " ok";
+                }
+
+                else {
+                    document.Formular.fb22.value = "no";
+                }
+
+                if (b222 == 0) {
+                    document.Formular.fb222.value = " ok";
+                }
+
+                else {
+                    document.Formular.fb222.value = "no";
+                }
+
+                if (b3 == 0) {
+                    document.Formular.fb3.value = " ok";
+                }
+
+                else {
+                    document.Formular.fb3.value = "no";
+                }
+
+                if (b33 == 4) {
+                    document.Formular.fb33.value = " ok";
+                }
+
+                else {
+                    document.Formular.fb33.value = "no";
+                }
+
+                if (b333 == 0) {
+                    document.Formular.fb333.value = " ok";
+                }
+
+                else {
+                    document.Formular.fb333.value = "no";
+                }
+
+                if (b4 == 5) {
+                    document.Formular.fb4.value = " ok";
+                }
+
+                else {
+                    document.Formular.fb4.value = "no";
+                }
+
+                if (b44 == 1) {
+                    document.Formular.fb44.value = " ok";
+                }
+
+                else {
+                    document.Formular.fb44.value = "no";
+                }
+
+                if (b444 == 0) {
+                    document.Formular.fb444.value = " ok";
+                }
+
+                else {
+                    document.Formular.fb444.value = "no";
+                }
+
+            }
+
+        </script>
+
+    </head>
+
+<body bgcolor="#F6F8E2">
+
+    <!--
+    <h3 style="color:red" > <p style="font-family:'Courier New'" > Aufgaben</p > </h3 >
+    <h3 style="color:red" > <p style="font-family:'Courier New'" > 1. Benenne den Gemischtyp.</p > </h3 >
+    <h3 style="color:red" > <p style="font-family:'Courier New'" > 2. Benenne die Aggregatzust&auml;nde der Bestandteile.</p > </h3 >
+    <h3 style="color:red" > <p style="font-family:'Courier New'" > 3. Entscheide homogen oder heterogen. </p > </h3 >
+    <!-- <a href="javascript:Auswertung()" > Lösung</a > -->
+    <form name="Formular" method="get" enctype="text/plain">
+        <table>
+            <tr> <td colspan="5" align="center"> &Uuml;bung Gemischtypen  </td>  </tr>
+
+            <tr> <td align="center"> <font size="4"> Aufgabe:</font> </td> <td> <font size="4"> Gemischtyp</font> </td> <td> <font size="4"> Aggregatzustand</font> </td> <td> <font size="4"> homogen/heterogen</font> </td> <td align="center"> <font size="4"> -L&ouml;sungen-</font> </td> </tr>
+
+            <tr> <td> Aufgabe 1:</td> </tr>
+            <tr>
+                <td> <font size="5"> Meerwasser</font> </td>
+
+                <td align="center">
+                    <select size="1" name="W1">
+                        <option value="GE" name="GE"> Gemischtyp</option>
+                        <option value=0 name="L&ouml;sung"> L&ouml;sung</option>
+                        <option value=1 name="Emulsion"> Emulsion</option>
+                        <option value=2 name="Gemenge"> Gemenge</option>
+                        <option value=5 name="Legierung"> Legierung</option>
+                        <option value=3 name="Gasgemisch"> Gasgemisch</option>
+                        <option value=4 name="Rauch"> Rauch</option>
+                        <option value=5 name="Nebel"> Nebel</option>
+                        <option value=6 name="Suspension"> Suspension</option>
+                    </select>
+                </td>
+
+                <td align="center">
+                    <select size="1" name="W11">
+                        <option value="AA" name="AA"> Aggregatzustand</option>
+                        <option value=0 name="fl"> fest/fl&uuml;ssig</option>
+                        <option value=1 name="ff"> fest/fest</option>
+                        <option value=2 name="fg"> fest/gasf&ouml;rmig</option>
+                        <option value=3 name="ll"> fl&uuml;ssig/fl&uuml;ssig</option>
+                        <option value=4 name="lg"> fl&uuml;ssig/gasf&ouml;rmig</option>
+                        <option value=5 name="gg"> gasf&ouml;rmig/gasf&ouml;rmig</option>
+                    </select>
+                </td>
+
+                <td align="center">
+
+                    <select size="1" name="W111">
+                        <option value="HH" name="HH"> homo/hetero</option>
+                        <option value=0 name="homogen"> homogen</option>
+                        <option value=1 name="heterogen"> heterogen</option>
+                    </select>
+                </td>
+                <td align="center"> <input size=3 name="f1" type="text" value=""> <input size=3 name="f11" type="text" value=""> <input size=3 name="f111" type="text" value=""> </td>
+
+
+            </tr>
+
+            <tr> <td> Aufgabe 2:</td> </tr>
+            <tr>
+                <td> <font size="5"> Granit</font> </td>
+
+                <td align="center">
+                    <select size="1" name="A2">
+                        <option value="GE" name="GE"> Gemischtyp</option>
+                        <option value=0 name="L&ouml;sung"> L&ouml;sung</option>
+                        <option value=1 name="Emulsion"> Emulsion</option>
+                        <option value=2 name="Gemenge"> Gemenge</option>
+                        <option value=5 name="Legierung"> Legierung</option>
+                        <option value=3 name="Gasgemisch"> Gasgemisch</option>
+                        <option value=4 name="Rauch"> Rauch</option>
+                        <option value=5 name="Nebel"> Nebel</option>
+                        <option value=6 name="Suspension"> Suspension</option>
+                    </select>
+                </td>
+
+                <td align="center">
+                    <select size="1" name="A22">
+                        <option value="AA" name="AA"> Aggregatzustand</option>
+                        <option value=0 name="fl"> fest/fl&uuml;ssig</option>
+                        <option value=1 name="ff"> fest/fest</option>
+                        <option value=2 name="fg"> fest/gasf&ouml;rmig</option>
+                        <option value=3 name="ll"> fl&uuml;ssig/fl&uuml;ssig</option>
+                        <option value=4 name="lg"> fl&uuml;ssig/gasf&ouml;rmig</option>
+                        <option value=5 name="gg"> gasf&ouml;rmig/gasf&ouml;rmig</option>
+                    </select>
+                </td>
+
+                <td align="center">
+
+                    <select size="1" name="A222">
+                        <option value="HH" name="HH"> homo/hetero</option>
+                        <option value=0 name="homogen"> homogen</option>
+                        <option value=1 name="heterogen"> heterogen</option>
+                    </select>
+                </td>
+                <td align="center"> <input size=3 name="fa2" type="text" value=""> <input size=3 name="fa22" type="text" value=""> <input size=3 name="fa222" type="text" value=""> </td>
+            </tr>
+
+            <tr> <td> Aufgabe 3:</td> </tr>
+            <tr>
+                <td> <font size="5"> Seifenschaum</font> </td>
+
+                <td align="center">
+                    <select size="1" name="A3">
+                        <option value="GE" name="GE"> Gemischtyp</option>
+                        <option value=0 name="L&ouml;sung"> L&ouml;sung</option>
+                        <option value=1 name="Emulsion"> Emulsion</option>
+                        <option value=2 name="Gemenge"> Gemenge</option>
+                        <option value=5 name="Legierung"> Legierung</option>
+                        <option value=3 name="Gasgemisch"> Gasgemisch</option>
+                        <option value=4 name="Rauch"> Rauch</option>
+                        <option value=5 name="Nebel"> Nebel</option>
+                        <option value=6 name="Suspension"> Suspension</option>
+                    </select>
+                </td>
+
+                <td align="center">
+                    <select size="1" name="A33">
+                        <option value="AA" name="AA"> Aggregatzustand</option>
+                        <option value=0 name="fl"> fest/fl&uuml;ssig</option>
+                        <option value=1 name="ff"> fest/fest</option>
+                        <option value=2 name="fg"> fest/gasf&ouml;rmig</option>
+                        <option value=3 name="ll"> fl&uuml;ssig/fl&uuml;ssig</option>
+                        <option value=4 name="lg"> fl&uuml;ssig/gasf&ouml;rmig</option>
+                        <option value=5 name="gg"> gasf&ouml;rmig/gasf&ouml;rmig</option>
+                    </select>
+                </td>
+
+                <td align="center">
+
+                    <select size="1" name="A333">
+                        <option value="HH" name="HH"> homo/hetero</option>
+                        <option value=0 name="homogen"> homogen</option>
+                        <option value=1 name="heterogen"> heterogen</option>
+                    </select>
+                </td>
+                <td align="center"> <input size=3 name="fa3" type="text" value=""> <input size=3 name="fa33" type="text" value=""> <input size=3 name="fa333" type="text" value=""> </td>
+            </tr>
+
+            <tr> <td> Aufgabe 4:</td> </tr>
+            <tr>
+                <td> <font size="5"> Milch (Wasser/Eiwei&szlig;/Fett)</font> </td>
+
+                <td align="center">
+                    <select size="1" name="A4">
+                        <option value="GE" name="GE"> Gemischtyp</option>
+                        <option value=0 name="L&ouml;sung"> L&ouml;sung</option>
+                        <option value=1 name="Emulsion"> Emulsion</option>
+                        <option value=2 name="Gemenge"> Gemenge</option>
+                        <option value=5 name="Legierung"> Legierung</option>
+                        <option value=3 name="Gasgemisch"> Gasgemisch</option>
+                        <option value=4 name="Rauch"> Rauch</option>
+                        <option value=5 name="Nebel"> Nebel</option>
+                        <option value=6 name="Suspension"> Suspension</option>
+                    </select>
+                </td>
+
+                <td align="center">
+                    <select size="1" name="A44">
+                        <option value="AA" name="AA"> Aggregatzustand</option>
+                        <option value=0 name="fl"> fest/fl&uuml;ssig</option>
+                        <option value=1 name="ff"> fest/fest</option>
+                        <option value=2 name="fg"> fest/gasf&ouml;rmig</option>
+                        <option value=3 name="ll"> fl&uuml;ssig/fl&uuml;ssig</option>
+                        <option value=4 name="lg"> fl&uuml;ssig/gasf&ouml;rmig</option>
+                        <option value=5 name="gg"> gasf&ouml;rmig/gasf&ouml;rmig</option>
+                    </select>
+                </td>
+
+                <td align="center">
+
+                    <select size="1" name="A444">
+                        <option value="HH" name="HH"> homo/hetero</option>
+                        <option value=0 name="homogen"> homogen</option>
+                        <option value=1 name="heterogen"> heterogen</option>
+                    </select>
+                </td>
+                <td align="center"> <input size=3 name="fa4" type="text" value=""> <input size=3 name="fa44" type="text" value=""> <input size=3 name="fa444" type="text" value=""> </td>
+            </tr>
+
+
+            <tr> <td> Aufgabe 5:</td> </tr>
+            <tr>
+                <td> <font size="5"> Mehl/Wasser</font> </td>
+
+                <td align="center">
+                    <select size="1" name="A5">
+                        <option value="GE" name="GE"> Gemischtyp</option>
+                        <option value=0 name="L&ouml;sung"> L&ouml;sung</option>
+                        <option value=1 name="Emulsion"> Emulsion</option>
+                        <option value=2 name="Gemenge"> Gemenge</option>
+                        <option value=5 name="Legierung"> Legierung</option>
+                        <option value=3 name="Gasgemisch"> Gasgemisch</option>
+                        <option value=4 name="Rauch"> Rauch</option>
+                        <option value=5 name="Nebel"> Nebel</option>
+                        <option value=6 name="Suspension"> Suspension</option>
+                    </select>
+                </td>
+
+                <td align="center">
+                    <select size="1" name="A55">
+                        <option value="AA" name="AA"> Aggregatzustand</option>
+                        <option value=0 name="fl"> fest/fl&uuml;ssig</option>
+                        <option value=1 name="ff"> fest/fest</option>
+                        <option value=2 name="fg"> fest/gasf&ouml;rmig</option>
+                        <option value=3 name="ll"> fl&uuml;ssig/fl&uuml;ssig</option>
+                        <option value=4 name="lg"> fl&uuml;ssig/gasf&ouml;rmig</option>
+                        <option value=5 name="gg"> gasf&ouml;rmig/gasf&ouml;rmig</option>
+                    </select>
+                </td>
+
+                <td align="center">
+
+                    <select size="1" name="A555">
+                        <option value="HH" name="HH"> homo/hetero</option>
+                        <option value=0 name="homogen"> homogen</option>
+                        <option value=1 name="heterogen"> heterogen</option>
+                    </select>
+                </td>
+                <td align="center"> <input size=3 name="fa5" type="text" value=""> <input size=3 name="fa55" type="text" value=""> <input size=3 name="fa555" type="text" value=""> </td>
+            </tr>
+
+
+            <tr> <td> Aufgabe 6:</td> </tr>
+            <tr>
+                <td> <font size="5"> Apfelsaft, klar</font> </td>
+
+
+                <td align="center">
+                    <select size="1" name="A6">
+                        <option value="GE" name="GE"> Gemischtyp</option>
+                        <option value=0 name="L&ouml;sung"> L&ouml;sung</option>
+                        <option value=1 name="Emulsion"> Emulsion</option>
+                        <option value=2 name="Gemenge"> Gemenge</option>
+                        <option value=5 name="Legierung"> Legierung</option>
+                        <option value=3 name="Gasgemisch"> Gasgemisch</option>
+                        <option value=4 name="Rauch"> Rauch</option>
+                        <option value=5 name="Nebel"> Nebel</option>
+                        <option value=6 name="Suspension"> Suspension</option>
+                    </select>
+                </td>
+
+                <td align="center">
+                    <select size="1" name="A66">
+                        <option value="AA" name="AA"> Aggregatzustand</option>
+                        <option value=0 name="fl"> fest/fl&uuml;ssig</option>
+                        <option value=1 name="ff"> fest/fest</option>
+                        <option value=2 name="fg"> fest/gasf&ouml;rmig</option>
+                        <option value=3 name="ll"> fl&uuml;ssig/fl&uuml;ssig</option>
+                        <option value=4 name="lg"> fl&uuml;ssig/gasf&ouml;rmig</option>
+                        <option value=5 name="gg"> gasf&ouml;rmig/gasf&ouml;rmig</option>
+                    </select>
+                </td>
+
+                <td align="center">
+
+                    <select size="1" name="A666">
+                        <option value="HH" name="HH"> homo/hetero</option>
+                        <option value=0 name="homogen"> homogen</option>
+                        <option value=1 name="heterogen"> heterogen</option>
+                    </select>
+                </td>
+                <td align="center"> <input size=3 name="fa6" type="text" value=""> <input size=3 name="fa66" type="text" value=""> <input size=3 name="fa666" type="text" value=""> </td>
+            </tr>
+            <!-- -->
+            <tr> <td> Aufgabe 7:</td> </tr>
+            <tr>
+                <td> <font size="5"> Wolken</font> </td>
+
+                <td align="center">
+                    <select size="1" name="A7">
+                        <option value="GE" name="GE"> Gemischtyp</option>
+                        <option value=0 name="L&ouml;sung"> L&ouml;sung</option>
+                        <option value=1 name="Emulsion"> Emulsion</option>
+                        <option value=2 name="Gemenge"> Gemenge</option>
+                        <option value=5 name="Legierung"> Legierung</option>
+                        <option value=3 name="Gasgemisch"> Gasgemisch</option>
+                        <option value=4 name="Rauch"> Rauch</option>
+                        <option value=5 name="Nebel"> Nebel</option>
+                        <option value=6 name="Suspension"> Suspension</option>
+                    </select>
+                </td>
+
+                <td align="center">
+                    <select size="1" name="A77">
+                        <option value="AA" name="AA"> Aggregatzustand</option>
+                        <option value=0 name="fl"> fest/fl&uuml;ssig</option>
+                        <option value=1 name="ff"> fest/fest</option>
+                        <option value=2 name="fg"> fest/gasf&ouml;rmig</option>
+                        <option value=3 name="ll"> fl&uuml;ssig/fl&uuml;ssig</option>
+                        <option value=4 name="lg"> fl&uuml;ssig/gasf&ouml;rmig</option>
+                        <option value=5 name="gg"> gasf&ouml;rmig/gasf&ouml;rmig</option>
+                    </select>
+                </td>
+
+                <td align="center">
+
+                    <select size="1" name="A777">
+                        <option value="HH" name="HH"> homo/hetero</option>
+                        <option value=0 name="homogen"> homogen</option>
+                        <option value=1 name="heterogen"> heterogen</option>
+                    </select>
+                </td>
+                <td align="center"> <input size=3 name="fa7" type="text" value=""> <input size=3 name="fa77" type="text" value=""> <input size=3 name="fa777" type="text" value=""> </td>
+            </tr>
+
+
+            <tr> <td> Aufgabe 8:</td> </tr>
+            <tr>
+                <td> <font size="5"> Creme (Fett/Wasser)</font> </td>
+
+                <td align="center">
+                    <select size="1" name="A8">
+                        <option value="GE" name="GE"> Gemischtyp</option>
+                        <option value=0 name="L&ouml;sung"> L&ouml;sung</option>
+                        <option value=1 name="Emulsion"> Emulsion</option>
+                        <option value=2 name="Gemenge"> Gemenge</option>
+                        <option value=5 name="Legierung"> Legierung</option>
+                        <option value=3 name="Gasgemisch"> Gasgemisch</option>
+                        <option value=4 name="Rauch"> Rauch</option>
+                        <option value=5 name="Nebel"> Nebel</option>
+                        <option value=6 name="Suspension"> Suspension</option>
+                    </select>
+                </td>
+
+                <td align="center">
+                    <select size="1" name="A88">
+                        <option value="AA" name="AA"> Aggregatzustand</option>
+                        <option value=0 name="fl"> fest/fl&uuml;ssig</option>
+                        <option value=1 name="ff"> fest/fest</option>
+                        <option value=2 name="fg"> fest/gasf&ouml;rmig</option>
+                        <option value=3 name="ll"> fl&uuml;ssig/fl&uuml;ssig</option>
+                        <option value=4 name="lg"> fl&uuml;ssig/gasf&ouml;rmig</option>
+                        <option value=5 name="gg"> gasf&ouml;rmig/gasf&ouml;rmig</option>
+                    </select>
+                </td>
+
+                <td align="center">
+
+                    <select size="1" name="A888">
+                        <option value="HH" name="HH"> homo/hetero</option>
+                        <option value=0 name="homogen"> homogen</option>
+                        <option value=1 name="heterogen"> heterogen</option>
+                    </select>
+                </td>
+                <td align="center"> <input size=3 name="fa8" type="text" value=""> <input size=3 name="fa88" type="text" value=""> <input size=3 name="fa888" type="text" value=""> </td>
+            </tr>
+
+            <tr> <td> Aufgabe 9:</td> </tr>
+            <tr>
+                <td> <font size="5"> Kreide/Wasser</font> </td>
+
+
+                <td align="center">
+                    <select size="1" name="A9">
+                        <option value="GE" name="GE"> Gemischtyp</option>
+                        <option value=0 name="L&ouml;sung"> L&ouml;sung</option>
+                        <option value=1 name="Emulsion"> Emulsion</option>
+                        <option value=2 name="Gemenge"> Gemenge</option>
+                        <option value=5 name="Legierung"> Legierung</option>
+                        <option value=3 name="Gasgemisch"> Gasgemisch</option>
+                        <option value=4 name="Rauch"> Rauch</option>
+                        <option value=5 name="Nebel"> Nebel</option>
+                        <option value=6 name="Suspension"> Suspension</option>
+                    </select>
+                </td>
+
+                <td align="center">
+                    <select size="1" name="A99">
+                        <option value="AA" name="AA"> Aggregatzustand</option>
+                        <option value=0 name="fl"> fest/fl&uuml;ssig</option>
+                        <option value=1 name="ff"> fest/fest</option>
+                        <option value=2 name="fg"> fest/gasf&ouml;rmig</option>
+                        <option value=3 name="ll"> fl&uuml;ssig/fl&uuml;ssig</option>
+                        <option value=4 name="lg"> fl&uuml;ssig/gasf&ouml;rmig</option>
+                        <option value=5 name="gg"> gasf&ouml;rmig/gasf&ouml;rmig</option>
+                    </select>
+                </td>
+
+                <td align="center">
+
+                    <select size="1" name="A999">
+                        <option value="HH" name="HH"> homo/hetero</option>
+                        <option value=0 name="homogen"> homogen</option>
+                        <option value=1 name="heterogen"> heterogen</option>
+                    </select>
+                </td>
+                <td align="center"> <input size=3 name="fa9" type="text" value=""> <input size=3 name="fa99" type="text" value=""> <input size=3 name="fa999" type="text" value=""> </td>
+            </tr>
+
+            <tr> <td> Aufgabe 10:</td> </tr>
+            <tr>
+                <td> <font size="5"> Nudelsuppe (Nudel/Wasser)</font> </td>
+
+                <td align="center">
+                    <select size="1" name="A1">
+                        <option value="GE" name="GE"> Gemischtyp</option>
+                        <option value=0 name="L&ouml;sung"> L&ouml;sung</option>
+                        <option value=1 name="Emulsion"> Emulsion</option>
+                        <option value=2 name="Gemenge"> Gemenge</option>
+                        <option value=5 name="Legierung"> Legierung</option>
+                        <option value=3 name="Gasgemisch"> Gasgemisch</option>
+                        <option value=4 name="Rauch"> Rauch</option>
+                        <option value=5 name="Nebel"> Nebel</option>
+                        <option value=6 name="Suspension"> Suspension</option>
+                    </select>
+                </td>
+
+                <td align="center">
+                    <select size="1" name="A11">
+                        <option value="AA" name="AA"> Aggregatzustand</option>
+                        <option value=0 name="fl"> fest/fl&uuml;ssig</option>
+                        <option value=1 name="ff"> fest/fest</option>
+                        <option value=2 name="fg"> fest/gasf&ouml;rmig</option>
+                        <option value=3 name="ll"> fl&uuml;ssig/fl&uuml;ssig</option>
+                        <option value=4 name="lg"> fl&uuml;ssig/gasf&ouml;rmig</option>
+                        <option value=5 name="gg"> gasf&ouml;rmig/gasf&ouml;rmig</option>
+                    </select>
+                </td>
+
+                <td align="center">
+
+                    <select size="1" name="A111">
+                        <option value="HH" name="HH"> homo/hetero</option>
+                        <option value=0 name="homogen"> homogen</option>
+                        <option value=1 name="heterogen"> heterogen</option>
+                    </select>
+                </td>
+                <td align="center"> <input size=3 name="fa1" type="text" value=""> <input size=3 name="fa11" type="text" value=""> <input size=3 name="fa111" type="text" value=""> </td>
+            </tr>
+
+            <tr> <td> Aufgabe 11:</td> </tr>
+            <tr>
+                <td> <font size="5"> Bronze</font> </td>
+                <td align="center">
+                    <select size="1" name="B1">
+                        <option value="GE" name="GE"> Gemischtyp</option>
+                        <option value=0 name="L&ouml;sung"> L&ouml;sung</option>
+                        <option value=1 name="Emulsion"> Emulsion</option>
+                        <option value=2 name="Gemenge"> Gemenge</option>
+                        <option value=5 name="Legierung"> Legierung</option>
+                        <option value=3 name="Gasgemisch"> Gasgemisch</option>
+                        <option value=4 name="Rauch"> Rauch</option>
+                        <option value=5 name="Nebel"> Nebel</option>
+                        <option value=6 name="Suspension"> Suspension</option>
+                    </select>
+                </td>
+
+                <td align="center">
+                    <select size="1" name="B11">
+                        <option value="AA" name="AA"> Aggregatzustand</option>
+                        <option value=0 name="fl"> fest/fl&uuml;ssig</option>
+                        <option value=1 name="ff"> fest/fest</option>
+                        <option value=2 name="fg"> fest/gasf&ouml;rmig</option>
+                        <option value=3 name="ll"> fl&uuml;ssig/fl&uuml;ssig</option>
+                        <option value=4 name="lg"> fl&uuml;ssig/gasf&ouml;rmig</option>
+                        <option value=5 name="gg"> gasf&ouml;rmig/gasf&ouml;rmig</option>
+                    </select>
+                </td>
+
+                <td align="center">
+
+                    <select size="1" name="B111">
+                        <option value="HH" name="HH"> homo/hetero</option>
+                        <option value=0 name="homogen"> homogen</option>
+                        <option value=1 name="heterogen"> heterogen</option>
+                    </select>
+                </td>
+                <td align="center"> <input size=3 name="fb1" type="text" value=""> <input size=3 name="fb11" type="text" value=""> <input size=3 name="fb111" type="text" value=""> </td>
+            </tr>
+
+            <tr> <td> Aufgabe 12:</td> </tr>
+            <tr>
+                <td> <font size="5"> Luft</font> </td>
+                <td align="center">
+                    <select size="1" name="B2">
+                        <option value="GE" name="GE"> Gemischtyp</option>
+                        <option value=0 name="L&ouml;sung"> L&ouml;sung</option>
+                        <option value=1 name="Emulsion"> Emulsion</option>
+                        <option value=2 name="Gemenge"> Gemenge</option>
+                        <option value=5 name="Legierung"> Legierung</option>
+                        <option value=3 name="Gasgemisch"> Gasgemisch</option>
+                        <option value=4 name="Rauch"> Rauch</option>
+                        <option value=5 name="Nebel"> Nebel</option>
+                        <option value=6 name="Suspension"> Suspension</option>
+                    </select>
+                </td>
+
+                <td align="center">
+                    <select size="1" name="B22">
+                        <option value="AA" name="AA"> Aggregatzustand</option>
+                        <option value=0 name="fl"> fest/fl&uuml;ssig</option>
+                        <option value=1 name="ff"> fest/fest</option>
+                        <option value=2 name="fg"> fest/gasf&ouml;rmig</option>
+                        <option value=3 name="ll"> fl&uuml;ssig/fl&uuml;ssig</option>
+                        <option value=4 name="lg"> fl&uuml;ssig/gasf&ouml;rmig</option>
+                        <option value=5 name="gg"> gasf&ouml;rmig/gasf&ouml;rmig</option>
+                    </select>
+                </td>
+
+                <td align="center">
+
+                    <select size="1" name="B222">
+                        <option value="HH" name="HH"> homo/hetero</option>
+                        <option value=0 name="homogen"> homogen</option>
+                        <option value=1 name="heterogen"> heterogen</option>
+                    </select>
+                </td>
+                <td align="center"> <input size=3 name="fb2" type="text" value=""> <input size=3 name="fb22" type="text" value=""> <input size=3 name="fb222" type="text" value=""> </td>
+            </tr>
+
+            <tr> <td> Aufgabe 13:</td> </tr>
+            <tr>
+                <td> <font size="5"> Selterswasser</font> </td>
+
+                <td align="center">
+                    <select size="1" name="B3">
+                        <option value="GE" name="GE"> Gemischtyp</option>
+                        <option value=0 name="L&ouml;sung"> L&ouml;sung</option>
+                        <option value=1 name="Emulsion"> Emulsion</option>
+                        <option value=2 name="Gemenge"> Gemenge</option>
+                        <option value=5 name="Legierung"> Legierung</option>
+                        <option value=3 name="Gasgemisch"> Gasgemisch</option>
+                        <option value=4 name="Rauch"> Rauch</option>
+                        <option value=5 name="Nebel"> Nebel</option>
+                        <option value=6 name="Suspension"> Suspension</option>
+                    </select>
+                </td>
+
+                <td align="center">
+                    <select size="1" name="B33">
+                        <option value="AA" name="AA"> Aggregatzustand</option>
+                        <option value=0 name="fl"> fest/fl&uuml;ssig</option>
+                        <option value=1 name="ff"> fest/fest</option>
+                        <option value=2 name="fg"> fest/gasf&ouml;rmig</option>
+                        <option value=3 name="ll"> fl&uuml;ssig/fl&uuml;ssig</option>
+                        <option value=4 name="lg"> fl&uuml;ssig/gasf&ouml;rmig</option>
+                        <option value=5 name="gg"> gasf&ouml;rmig/gasf&ouml;rmig</option>
+                    </select>
+                </td>
+
+                <td align="center">
+
+                    <select size="1" name="B333">
+                        <option value="HH" name="HH"> homo/hetero</option>
+                        <option value=0 name="homogen"> homogen</option>
+                        <option value=1 name="heterogen"> heterogen</option>
+                    </select>
+                </td>
+                <td align="center"> <input size=3 name="fb3" type="text" value=""> <input size=3 name="fb33" type="text" value=""> <input size=3 name="fb333" type="text" value=""> </td>
+            </tr>
+
+            <tr> <td> Aufgabe 14:</td> </tr>
+            <tr>
+                <td> <font size="5"> Messing</font> </td>
+                <td align="center">
+                    <select size="1" name="B4">
+                        <option value="GE" name="GE"> Gemischtyp</option>
+                        <option value=0 name="L&ouml;sung"> L&ouml;sung</option>
+                        <option value=1 name="Emulsion"> Emulsion</option>
+                        <option value=2 name="Gemenge"> Gemenge</option>
+                        <option value=5 name="Legierung"> Legierung</option>
+                        <option value=3 name="Gasgemisch"> Gasgemisch</option>
+                        <option value=4 name="Rauch"> Rauch</option>
+                        <option value=5 name="Nebel"> Nebel</option>
+                        <option value=6 name="Suspension"> Suspension</option>
+                    </select>
+                </td>
+
+                <td align="center">
+                    <select size="1" name="B44">
+                        <option value="AA" name="AA"> Aggregatzustand</option>
+                        <option value=0 name="fl"> fest/fl&uuml;ssig</option>
+                        <option value=1 name="ff"> fest/fest</option>
+                        <option value=2 name="fg"> fest/gasf&ouml;rmig</option>
+                        <option value=3 name="ll"> fl&uuml;ssig/fl&uuml;ssig</option>
+                        <option value=4 name="lg"> fl&uuml;ssig/gasf&ouml;rmig</option>
+                        <option value=5 name="gg"> gasf&ouml;rmig/gasf&ouml;rmig</option>
+                    </select>
+                </td>
+
+                <td align="center">
+
+                    <select size="1" name="B444">
+                        <option value="HH" name="HH"> homo/hetero</option>
+                        <option value=0 name="homogen"> homogen</option>
+                        <option value=1 name="heterogen"> heterogen</option>
+                    </select>
+                </td>
+                <td align="center"> <input size=3 name="fb4" type="text" value=""> <input size=3 name="fb44" type="text" value=""> <input size=3 name="fb444" type="text" value=""> </td>
+            </tr>
+
+
+            <tr>
+
+                <td>
+
+                    <a href="javascript:Auswertung(document.Formular.W1.options[document.Formular.W1.selectedIndex].value)">  L&ouml;sungen </a>
+
+                </td>
+                <!-- <td> <a href="javascript:Auswertung(document.Formular.W1.options[document.Formular.W1.selectedIndex].value)"> <font size="5"> L&ouml;sungen</font> </a> </td>-->
+                <td colspan="2">
+                    <button onclick="openQRCode()">QR-Code anzeigen</button>
+                </td>
+
+                <td>  </td>
+                <!-- <td>  <a href="javascript:location.reload()"> Seite neu laden</a>    </td>-->
+                <td>    <button type="reload">Nochmal</button>  </td>
+            </tr>
+
+        </table>
+
+
+    </form>
+
+
+    <script>
+        function openQRCode() {
+            const currentUrl = window.location.href;
+            const qrWin = window.open("", "_blank", "width=520,height=600,resizable=yes,scrollbars=no");
+
+            qrWin.document.write(`
+               <html lang="de">
+               <head>
+                 <meta charset="UTF-8">
+                 <title>QR-Code</title>
+                 <style>
+                   body {
+                     font-family: Arial, sans-serif;
+                     text-align: center;
+                     background: #fff;
+                     padding: 30px;
+                   }
+                   #qrcode { margin-top: 40px; }
+                   button {
+                     margin-top: 40px;
+                     background: #0071e3;
+                     color: #fff;
+                     border: none;
+                     border-radius: 10px;
+                     font-size: 16px;
+                     padding: 10px 20px;
+                     cursor: pointer;
+                   }
+                   button:hover { background: #005bb5; }
+                 </style>
+               </head>
+               <body>
+                 <h2>QR-Code zu dieser Seite</h2>
+                 <div id="qrcode"></div>
+                 <button onclick="window.close()">Fenster schließen</button>
+                 <script src="libs/qrcode.min.js"><\/script>
+                 <script>
+                   window.addEventListener('load', function() {
+                     new QRCode(document.getElementById("qrcode"), {
+                       text: "${currentUrl}",
+                       width: 220,
+                       height: 220,
+                       correctLevel: QRCode.CorrectLevel.H
+                     });
+                   });
+                 <\/script>
+               </body>
+               </html>
+             `);
+
+            qrWin.document.close();
+        }
+    </script>
+
+
+
+
+</body>
+</html>
