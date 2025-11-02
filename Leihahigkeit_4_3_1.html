@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+   
+
+    <meta charset="UTF-8">
+    <!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">  -->
+    <!-- /*Zoom*/-->
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=3.0, user-scalable=yes">
+
+    <title>Leitfähigkeitstitration – realistisch V-Kurve</title>
+    <script src="./libs/chart.umd.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 18px;
+            background-color: #F6F8E2;
+        }
+
+        .container {
+            width: 80%;
+            background-color: #F6F8E9;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+
+
+        fieldset {
+            margin-bottom: 12px;
+            padding: 8px 12px;
+            border-radius: 12px; /*10px*/
+            max-width: 50%;
+        }
+
+        fieldset2 {
+            margin-bottom: 12px;
+            padding: 8px 12px;
+            border-radius: 12px; /*10px*/
+            max-width: 50%;
+        }
+
+        label {
+            margin-right: 8px;
+        }
+
+        input, select {
+            padding: 6px 8px;
+            margin-right: 6px;
+            max-width: 70px;
+            border-radius: 12px;
+        }
+
+
+        button {
+            padding: 12px 24px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 12px;
+            background-color: #0071e3;
+            color: white;
+            font-size: 12px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+            button:hover {
+                background-color: #005bb5;
+                box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+            }
+
+        canvas {
+            max-width: 980px;
+            width: 100%;
+            height: 440px;
+            background: #fafafa;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-top: 12px;
+            max-width: 65%;
+            padding: 6px 8px;
+            margin-right: 6px;
+        }
+
+        .note {
+            font-size: 0.9rem;
+            color: #555;
+            margin-top: 6px;
+        }
+
+
+        textarea[readonly] {
+            min-width: 200px;
+            max-width: 600px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Konduktometrische Leitfähigkeitstitration </h2>
+        <h4>realistische V-Kurven</h4>
+        <fieldset>
+            <legend>Maßlösung (Base)</legend>
+            <label><input type="radio" name="base" value="NaOH" checked> NaOH</label>
+            <label><input type="radio" name="base" value="KOH"> KOH</label>
+            c<sub>B</sub> [mol/L]: <input type="number" id="cBase" step="0.01" value="0.10">
+        </fieldset>
+
+        <fieldset>
+            <legend>Probelösung (Säure)</legend>
+            <select id="acid">
+                <option value="Säure"> Säure</option>
+                <option value="CH3COOH">CH₃COOH (1 ÄP, schwach)</option>
+                <option value="H2C2O4">Oxalsäure H₂C₂O₄ (2 ÄP, schwach)</option>
+                <option value="H2SO3">Schweflige Säure H₂SO₃ (2 ÄP, schwach)</option>
+                <option value="H2CO3">Kohlensäure H₂CO₃ (2 ÄP, schwach)</option>
+                <option value="H3PO4">Phosphorsäure H₃PO₄ (3 ÄP, schwach)</option>
+                <option value="HCl">HCl (stark)</option>
+                <option value="HNO3">HNO₃ (stark)</option>
+                <option value="H2SO4">H₂SO₄ (2 ÄP, stark)</option>
+            </select>
+            c<sub>A</sub> [mol/L]: <input type="number" id="cAcid" step="0.01" value="0.10">
+            V<sub>0</sub> [mL]: <input type="number" id="V0" step="1" value="25">
+        </fieldset>
+
+        <div>
+            ΔV (mL): <input type="number" id="dV" step="0.05" value="0.20">
+            Takt (ms): <input type="number" id="delay" step="10" value="150">
+            <button id="startBtn">Start</button>
+            <button id="stopBtn">Stopp</button>
+            <button id="resetBtn">Reset</button>
+            <button onclick="location.reload()">Seite neu laden</button>
+            <button onclick="openQRCode()">QR-Code anzeigen</button>
+        </div>
+
+        <div>
+            <canvas id="chart"></canvas>
+            <div class="note">Y-Achse = Leitfähigkeit κ [rel. mS/cm], X-Achse = zugegebenes Volumen Base [mL]. Äquivalenzpunkte rot markiert.</div>
+        </div>
+
+        <!--  <h3>Erklärung</h3><textarea id="explanation"></textarea>-->
+
+        <div class="textarea">
+
+            <h4> Aufgaben:  </h4>
+            <h4> 1. Wähle als Probelösung HCl aus ud starte die Simulation. Interpretiere die Grafik. </h4>
+            <h4> 2. Bestimme den Äquivalenzpunkt der Neutralisation </h4>
+            <h4> Reset für neue Animation</h4>
+            <h4> 3. Wähle als Probelösung verschiedene Säuren aus und wiedehole die Simulation.   </h4>
+            <h4> 3b.Bestimme den Äquivalenzpunkt oder - punkte. </h4>
+            <h4> 4. Erkläre die Unterschiede der Kurven im Vergleich zu Grafik von HCl. </h4>
+            <h4> 5. Variiere die Maßlösungen / Probelösunen und ihre Konzentrationen. </h4>
+            <h4> 6. Leite allgemeine Aussagen zu diesem Verfahren ab. </h4>
+        </div>
+
+    </div>
+    <script>
+        // -------------------- Konstanten --------------------
+        const LAMBDA = { H: 350, OH: 200, Na: 50, K: 70, Cl: 76, NO3: 71, Ac: 40, SO4: 160, CO3: 140, C2O4: 160, SO3: 150, PO4: 120 };
+        const toL = ml => ml / 1000;
+
+        // pKa-Werte
+        const pKa = {
+            "CH3COOH": [4.76],
+            "H2C2O4": [1.27, 4.27],
+            "H2SO3": [1.81, 7.2],
+            "H2CO3": [6.35, 10.33],
+            "H3PO4": [2.15, 7.2, 12.35]
+        };
+
+        // Säureinfo
+        const acidInfo = {
+            "CH3COOH": { eq: 1, anion: "Ac", type: "weak" },
+            "H2C2O4": { eq: 2, anion: "C2O4", type: "weak" },
+            "H2SO3": { eq: 2, anion: "SO3", type: "weak" },
+            "H2CO3": { eq: 2, anion: "CO3", type: "weak" },
+            "H3PO4": { eq: 3, anion: "PO4", type: "weak" },
+            "HCl": { eq: 1, anion: "Cl", type: "strong" },
+            "HNO3": { eq: 1, anion: "NO3", type: "strong" },
+            "H2SO4": { eq: 2, anion: "SO4", type: "strong" }
+        };
+
+        // -------------------- Leitfähigkeitsberechnung --------------------
+        function kappaFromIons(ionsMol, Vtot_mL) {
+            const Vtot_L = toL(Vtot_mL);
+            return ionsMol.reduce((s, ion) => s + (ion.n / Vtot_L) * ion.lambda, 0);
+        }
+
+        // Henderson-Hasselbalch für schwache Säuren
+        function calcWeakAcidH(nAcidTotal, nBaseAdded, acid, Vtot_L) {
+            const eqCount = acidInfo[acid].eq;
+            let nH = 0, nOH = 0;
+            let baseLeft = nBaseAdded;
+            const KaList = Array.isArray(pKa[acid]) ? pKa[acid] : [pKa[acid]];
+
+            for (let i = 0; i < eqCount; i++) {
+                if (baseLeft <= 0) break;
+
+                let nHA = Math.max(nAcidTotal - baseLeft, 0); // HA übrig
+                let nA = Math.min(nAcidTotal, baseLeft); // A- gebildet
+                baseLeft -= nA;
+
+                const concHA = nHA / Vtot_L;
+                const concA = nA / Vtot_L;
+
+                if (concHA > 0) {
+                    const pH = KaList[i] + Math.log10(concA / concHA); // Henderson-Hasselbalch korrekt
+                    nH += concHA * Math.pow(10, -pH) * Vtot_L; // Leitwert Beitrag H+
+                } else {
+                    nOH += baseLeft;
+                    break;
+                }
+            }
+
+            if (baseLeft > 0) nOH += baseLeft;
+            return { nH, nOH };
+        }
+
+        // Leitfähigkeit bei gegebenem Volumen
+        function conductivityAtVolume({ acid, cA, V0_mL, base, cB }, Vb_mL) {
+            const Vtot_mL = V0_mL + Vb_mL;
+            const Vtot_L = toL(Vtot_mL);
+            const info = acidInfo[acid];
+            const nAcid = cA * toL(V0_mL);
+            const nBase = cB * toL(Vb_mL);
+            let nH = 0, nOH = 0, nNa = 0, nK = 0;
+            let ions = { Cl: 0, NO3: 0, Ac: 0, SO4: 0, CO3: 0, C2O4: 0, SO3: 0, PO4: 0 };
+
+            if (base === "NaOH") nNa = nBase; else nK = nBase;
+
+            if (info.type === "strong") {
+                let excessH = 0, excessOH = 0;
+                const totalEq = nAcid * info.eq;
+                if (nBase < totalEq) { excessH = totalEq - nBase; } else { excessOH = nBase - totalEq; }
+                nH = excessH; nOH = excessOH;
+                ions[info.anion] = nAcid * info.eq;
+            } else {
+                const hh = calcWeakAcidH(nAcid, nBase, acid, Vtot_L);
+                nH = hh.nH; nOH = hh.nOH;
+                ions[info.anion] = nAcid * info.eq;
+            }
+
+            return kappaFromIons([
+                { n: nH, lambda: LAMBDA.H }, { n: nOH, lambda: LAMBDA.OH },
+                { n: nNa, lambda: LAMBDA.Na }, { n: nK, lambda: LAMBDA.K },
+                { n: ions.Cl, lambda: LAMBDA.Cl }, { n: ions.NO3, lambda: LAMBDA.NO3 },
+                { n: ions.Ac, lambda: LAMBDA.Ac }, { n: ions.SO4, lambda: LAMBDA.SO4 },
+                { n: ions.CO3, lambda: LAMBDA.CO3 }, { n: ions.C2O4, lambda: LAMBDA.C2O4 },
+                { n: ions.SO3, lambda: LAMBDA.SO3 }, { n: ions.PO4, lambda: LAMBDA.PO4 }
+            ], Vtot_mL);
+        }
+
+        // -------------------- Chart Setup --------------------
+        let chart, timer = null;
+        const eqLinePlugin = {
+            id: 'eqLine',
+            afterDatasetsDraw(c) {
+                const vols = c.config._eq || [];
+                if (!vols.length) return;
+                const { ctx, chartArea, scales: { x } } = c;
+                ctx.save(); ctx.setLineDash([6, 6]); ctx.lineWidth = 1.5; ctx.strokeStyle = 'red';
+                vols.forEach(v => {
+                    const X = x.getPixelForValue(v);
+                    ctx.beginPath(); ctx.moveTo(X, chartArea.top); ctx.lineTo(X, chartArea.bottom); ctx.stroke();
+                });
+                ctx.restore();
+            }
+        };
+        Chart.register(eqLinePlugin);
+
+        function makeChart(Vmax, veqList) {
+            const ctx = document.getElementById('chart').getContext('2d');
+            if (chart) chart.destroy();
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: { datasets: [{ label: 'Leitfähigkeit κ', data: [], parsing: false, borderWidth: 2, pointRadius: 2 }] },
+                options: {
+                    animation: false,
+                    scales: {
+                        x: {
+                            type: 'linear', min: 0, max: Vmax,
+                            ticks: {
+                                stepSize: Math.max(0.5, Vmax / 10),
+                                callback: function (value) { return value.toFixed(1); } // Volumen auf 1 Nachkommastelle
+                            },
+                            title: { display: true, text: 'V_B [mL]' }
+                        },
+                        y: { beginAtZero: true, title: { display: true, text: 'κ [rel. mS/cm]' } }
+                    }
+                },
+                plugins: [eqLinePlugin]
+            });
+            chart.config._eq = veqList;
+        }
+
+        // -------------------- Simulation --------------------
+        function start() {
+            const acid = document.getElementById('acid').value;
+            const cA = parseFloat(document.getElementById('cAcid').value);
+            const V0 = parseFloat(document.getElementById('V0').value);
+            const base = document.querySelector('input[name="base"]:checked').value;
+            const cB = parseFloat(document.getElementById('cBase').value);
+            const dV = parseFloat(document.getElementById('dV').value);
+            const delay = parseInt(document.getElementById('delay').value, 10);
+
+            const nA = cA * toL(V0);
+            const eqCount = acidInfo[acid].eq;
+            let veqList = []; for (let i = 1; i <= eqCount; i++) { veqList.push((nA * i / cB) * 1000); }
+            const Vmax = veqList[veqList.length - 1] * 2;
+
+            makeChart(Vmax, veqList);
+
+            let Vb = 0;
+            clearInterval(timer);
+            timer = setInterval(() => {
+                if (Vb > Vmax) { clearInterval(timer); return; }
+                const kappa = conductivityAtVolume({ acid, cA, V0_mL: V0, base, cB }, Vb);
+                chart.data.datasets[0].data.push({ x: Vb, y: kappa });
+                chart.update();
+                Vb += dV;
+            }, delay);
+        }
+
+        function stop() { clearInterval(timer); }
+        function reset() { clearInterval(timer); if (chart) { chart.destroy(); chart = null; } }
+
+        document.getElementById('startBtn').onclick = start;
+        document.getElementById('stopBtn').onclick = stop;
+        document.getElementById('resetBtn').onclick = reset;
+    </script>
+
+
+    <script>
+        function openQRCode() {
+            const currentUrl = window.location.href;
+            const qrWin = window.open("", "_blank", "width=520,height=600,resizable=yes,scrollbars=no");
+
+            qrWin.document.write(`
+               <html lang="de">
+               <head>
+                 <meta charset="UTF-8">
+                 <title>QR-Code</title>
+                 <style>
+                   body {
+                     font-family: Arial, sans-serif;
+                     text-align: center;
+                     background: #fff;
+                     padding: 30px;
+                   }
+                   #qrcode { margin-top: 40px; }
+                   button {
+                     margin-top: 40px;
+                     background: #0071e3;
+                     color: #fff;
+                     border: none;
+                     border-radius: 10px;
+                     font-size: 16px;
+                     padding: 10px 20px;
+                     cursor: pointer;
+                   }
+                   button:hover { background: #005bb5; }
+                 </style>
+               </head>
+               <body>
+                 <h2>QR-Code zu dieser Seite</h2>
+                 <div id="qrcode"></div>
+                 <button onclick="window.close()">Fenster schließen</button>
+                 <script src="libs/qrcode.min.js"><\/script>
+                 <script>
+                   window.addEventListener('load', function() {
+                     new QRCode(document.getElementById("qrcode"), {
+                       text: "${currentUrl}",
+                       width: 220,
+                       height: 220,
+                       correctLevel: QRCode.CorrectLevel.H
+                     });
+                   });
+                 <\/script>
+               </body>
+               </html>
+             `);
+
+            qrWin.document.close();
+        }
+    </script>
+
+
+
+</body>
+</html>

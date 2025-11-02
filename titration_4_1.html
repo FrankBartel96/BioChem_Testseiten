@@ -1,0 +1,566 @@
+﻿<!DOCTYPE html>
+<html lang="de">
+<head>
+
+    <meta charset="UTF-8 /">
+    <!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">  -->
+    <!-- /*Zoom*/-->
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=3.0, user-scalable=yes">
+    <!--  <meta name="viewport" content="width=device-width, initial-scale=1" />-->
+    <title>Säure-Base-Titration – interaktiv </title>
+
+    <!-- Chart.js lokal -->
+    <script src="./libs/chart.umd.min.js"></script>
+    <style>
+        :root {
+            --bg: #F6F8E2;
+            --card: #F6F8E9;
+            --ink: #222;
+            --accent: #0071e3;
+            --accent2: #005bb5;
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 16px;
+            font-family: system-ui, Arial, sans-serif;
+            color: var(--ink);
+            background: var(--bg);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: var(--card);
+            padding: 20px;
+            border-radius: 14px;
+            box-shadow: 0 6px 18px rgba(0,0,0,.08);
+        }
+
+        h2 {
+            margin: .2rem 0
+        }
+
+        fieldset {
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 10px 12px;
+            margin: 10px 0;
+        }
+
+            fieldset > * + * {
+                margin-left: 6px
+            }
+
+        label {
+            margin-right: 10px
+        }
+
+        input, select, button, textarea {
+            border-radius: 12px;
+            border: 1px solid #ccc;
+            padding: 6px 10px;
+        }
+
+            input[type="number"] {
+                max-width: 90px
+            }
+
+        button {
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            padding: 10px 16px;
+            box-shadow: 0 3px 10px rgba(0,0,0,.08);
+        }
+
+            button:hover {
+                background: var(--accent2)
+            }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center
+        }
+
+        canvas {
+            width: 100%;
+            max-width: 1000px;
+            height: 520px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+        }
+
+        .note {
+            font-size: .92rem;
+            color: #555;
+            margin-top: 6px
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 110px;
+            margin-top: 8px
+        }
+
+        .pill {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 6px 10px;
+            border-radius: 999px
+        }
+
+        .grow {
+            flex: 1
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Säure-Base-Titration </h2>
+        <div class="row">
+            <span class="pill">Kw = 1.0×10⁻¹⁴, 25 °C – modelliert per Ladungsbilanz</span>
+        </div>
+
+        <fieldset>
+            <legend>Maßlösung (Base)</legend>
+            <label><input type="radio" name="base" value="NaOH" checked> NaOH</label>
+            <label><input type="radio" name="base" value="KOH"> KOH</label>
+            c<sub>B</sub> [mol/L]: <input type="number" id="cB" step="0.01" value="0.10">
+        </fieldset>
+
+        <fieldset>
+            <legend>Probelösung (Säure)</legend>
+            <div class="row">
+                <select id="acid">
+                    <option value="HCl">HCl (stark)</option>
+                    <option value="HNO3">HNO₃ (stark)</option>
+                    <option value="H2SO4">H₂SO₄ (2 ÄP; 1. stark, 2. schwach)</option>
+                    <option value="CH3COOH" selected>CH₃COOH (schwach)</option>
+                    <option value="H3PO4">H₃PO₄ (3 ÄP, schwach)</option>
+                    <option value="H2C2O4">H₂C₂O₄ (2 ÄP, schwach)</option>
+                    <option value="H2SO3">H₂SO₃ (2 ÄP, schwach)</option>
+                    <option value="H2CO3">H₂CO₃ (2 ÄP, schwach)</option>
+                </select>
+                c<sub>A</sub> [mol/L]: <input type="number" id="cA" step="0.01" value="0.10">
+                V<sub>0</sub> [mL]: <input type="number" id="V0" step="1" value="25">
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Indikatoren (farbige pH-Bänder)</legend>
+            <div class="row">
+                <select id="indicator">
+                    <option value="phenolphthalein">Phenolphthalein (8.2–10.0)</option>
+                    <option value="bromthymol">Bromthymolblau (6.0–7.6)</option>
+                    <option value="congo">Kongorot (3.0–5.0)</option>
+                </select>
+                <button id="addIndicator">Band hinzufügen</button>
+                <button id="clearIndicators" type="button">Alle Bänder entfernen</button>
+                <span class="note">Dropdown ist erweiterbar – weitere Indikatoren leicht ergänzbar.</span>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Simulation</legend>
+            <div class="row">
+                ΔV (mL): <input type="number" id="dV" step="0.05" value="0.20">
+                Takt (ms): <input type="number" id="delay" step="10" value="120">
+                <button id="startBtn">Start</button>
+                <button id="stopBtn">Stopp</button>
+                <button id="resetBtn">Reset</button>
+                <button onclick="location.reload()">Seite neu laden</button>
+                <button onclick="openQRCode()">QR-Code anzeigen</button>
+            </div>
+        </fieldset>
+
+        <div>
+            <canvas id="chart"></canvas>
+            <div class="note">
+                Y-Achse: pH (0–14) mit Schrittweite 1. Äquivalenzpunkte rot gestrichelt. Indikator-Umschlagbereiche als halbtransparente, horizontale Bänder.
+            </div>
+        </div>
+
+        <!-- <h3>Erklärung / Notizen</h3><textarea id="explanation" placeholder="Beobachtungen, Äquivalenzpunkt(e), Indikatorenwahl ..."></textarea>-->
+
+
+        <div class="textarea">
+
+            <h4> Aufgaben:   Problem . Schlenker bei mehrprotonigen Säuren und schwachen Säuiren</h4>
+            <h4> 1. Wähle als Probelösung HCl aus ud starte die Simulation (Konz. NaOH 0,5mol/L). Interpretiere die Grafik. </h4>
+            <h4> 2. Bestimme den Äquivalenzpunkt der Neutralisation </h4>
+            <h4> 2b.Schalte die Anzeige für die Indikatoren mit ihren pH-Bereichen in der Grafik frei. </h4>
+            <h4>    Begründe, ob die Indikatoren für die Titration mit der entsprechenden Säure geeignet ist.</h4>
+            <h4> Reset für neue Animation</h4>
+            <h4> 3. Wähle als Probelösung verschiedene Säuren aus und wiedehole die Simulation.   </h4>
+            <h4> 3b.Bestimme den Äquivalenzpunkt oder - punkte. </h4>
+            <h4> 4. Erkläre die Unterschiede der Kurven im Vergleich zu Grafik von HCl. </h4>
+            <h4> 5. Variiere die Maßlösungen / Probelösunen und ihre Konzentrationen. </h4>
+            <h4> 6. Leite allgemeine Aussagen zu diesem Verfahren ab. </h4>
+        </div>
+
+    </div>
+
+    <script>
+    /* ------------------ Chemie-Konstanten & Daten ------------------ */
+        const Kw = 1e-14; // 25°C
+        const pKaData = {
+            CH3COOH: [4.76],
+            H2C2O4: [1.27, 4.27],
+            H2SO3: [1.81, 7.2],
+            H2CO3: [6.35, 10.33],
+            H3PO4: [2.15, 7.20, 12.35],
+            // H2SO4: 1. Dissoziation stark, 2. per pKa2:
+            H2SO4_pKa2: 1.99
+        };
+
+        const acidInfo = {
+            HCl: { type: "strong", eq: 1 },
+            HNO3: { type: "strong", eq: 1 },
+            CH3COOH: { type: "weak", eq: 1, pKa: [4.76] },
+            H2C2O4: { type: "weak", eq: 2, pKa: [1.27, 4.27] },
+            H2SO3: { type: "weak", eq: 2, pKa: [1.81, 7.20] },
+            H2CO3: { type: "weak", eq: 2, pKa: [6.35, 10.33] },
+            H3PO4: { type: "weak", eq: 3, pKa: [2.15, 7.20, 12.35] },
+            H2SO4: { type: "mixed", eq: 2, pKa2: 1.99 } // 1. stark, 2. schwach
+        };
+
+        // Indikator-Bänder (pH-Min, pH-Max, Farbe)
+        const INDICATORS = {
+            phenolphthalein: { name: "Phenolphthalein", range: [8.2, 10.0], color: "rgba(255, 0, 120, 0.15)" },
+            bromthymol: { name: "Bromthymolblau", range: [6.0, 7.6], color: "rgba(0, 120, 255, 0.15)" },
+            congo: { name: "Kongorot", range: [3.0, 5.0], color: "rgba(255, 120, 0, 0.15)" }
+        };
+
+        /* -------------- Hilfsfunktionen / Stöchiometrie ---------------- */
+        const toL = ml => ml / 1000;
+        const toMl = L => L * 1000;
+
+        /** Alpha-Funktionen für schwache mehrprotonige Säuren
+         *  Gibt negative Ladung pro Liter: z = sum_i i * C_T * alpha_i([H+])
+         */
+        function negChargeFromPolyAcid(H, C_T, pKa) {
+            if (C_T <= 0) return 0;
+            const Ka = pKa.map(x => Math.pow(10, -x));
+            let z = 0;
+            if (pKa.length === 1) {
+                // HA <-> H+ + A-
+                const K1 = Ka[0];
+                const D = H + K1;
+                const alpha1 = K1 / D; // A-
+                z = C_T * (alpha1 * 1);
+            } else if (pKa.length === 2) {
+                const K1 = Ka[0], K2 = Ka[1];
+                const D = H * H + K1 * H + K1 * K2;
+                const a1 = (K1 * H) / D;     // HA-
+                const a2 = (K1 * K2) / D;    // A2-
+                z = C_T * (1 * a1 + 2 * a2);
+            } else if (pKa.length === 3) {
+                const K1 = Ka[0], K2 = Ka[1], K3 = Ka[2];
+                const D = H * H * H + K1 * H * H + K1 * K2 * H + K1 * K2 * K3;
+                const a1 = (K1 * H * H) / D;      // H2A-
+                const a2 = (K1 * K2 * H) / D;     // HA2-
+                const a3 = (K1 * K2 * K3) / D;    // A3-
+                z = C_T * (1 * a1 + 2 * a2 + 3 * a3);
+            }
+            return z;
+        }
+
+        /** Speziell für H2SO4:
+         *  1. Proton stark -> liefert C_T starke Anionenladung (HSO4-).
+         *  2. Proton schwach: HSO4- <-> H+ + SO4^2- mit pKa2
+         *  Extra-Negativladung durch 2. Dissoziation: C_T * alpha_deprot
+         */
+        function negChargeH2SO4(H, C_T, pKa2) {
+            if (C_T <= 0) return 0;
+            const K2 = Math.pow(10, -pKa2);
+            // Monoprotische Sicht auf HSO4- -> SO4^2-
+            const D = H + K2;
+            const alpha_deprot = K2 / D; // Anteil SO4^2-
+            const firstStrong = C_T; // erste Protolyse (HSO4-) liefert bereits -1 * C_T
+            const extra = C_T * alpha_deprot; // zusätzliche -1 durch Bildung SO4^2-
+            return firstStrong + extra;
+        }
+
+        /** Ladungsbilanzfunktion F(H) = 0 lösen (Bisection auf log10 H)
+         *  Berücksichtigt: Wasser (Kw), starke Säuren (HCl/HNO3 + 1. Stufe H2SO4),
+         *  starke Base-Kationen (Na+, K+), schwach-polyprotonige Säuren via alpha.
+         */
+        function solve_pH(params) {
+            const { acidKey, CA0, V0_L, CB, Vb_L } = params;
+            const info = acidInfo[acidKey];
+
+            const Vtot = V0_L + Vb_L;
+            const C_A = (CA0 * V0_L) / Vtot;     // analytisch (gesamt)
+            const C_M = (CB * Vb_L) / Vtot;   // Na+ / K+ aus Maßlösung
+
+            // Starke Säuren (monoprotisch) als "starker Anionenbeitrag"
+            let C_strongAnion = 0; // z_neg von starken Säuren (1 pro Mole)
+            let weakList = [];     // Liste pKa für schwache Gleichgewichte (Rest)
+
+            if (info.type === "strong") {
+                C_strongAnion += C_A; // HCl, HNO3
+            } else if (acidKey === "H2SO4") {
+                // 1. Proton stark:
+                C_strongAnion += C_A;
+                // 2. als schwache Stufe behandelt (spezial)
+                // wird direkt in negChargeH2SO4 gemacht
+            } else if (info.type === "weak") {
+                weakList = info.pKa.slice();
+            }
+
+            // Bisection über log10(H) von 14 bis -1 (H in [1e-14, 10])
+            let lo = -14, hi = 1; // pH in [0..14] => logH in [-14..0]; etwas Reserve nach oben
+            const f = (logH) => {
+                const H = Math.pow(10, logH);
+                const OH = Kw / H;
+
+                // Negativladung aus schwachen Säuren:
+                let zWeak = 0;
+                if (acidKey === "H2SO4") {
+                    zWeak += negChargeH2SO4(H, C_A, pKaData.H2SO4_pKa2);
+                } else if (weakList.length) {
+                    zWeak += negChargeFromPolyAcid(H, C_A, weakList);
+                }
+
+                // Gesamte negative Ladung: OH- + starke Anionen + schwache Anionenladungen
+                const Zneg = OH + C_strongAnion + zWeak;
+
+                // Gesamte positive Ladung: H+ + Metallkationen
+                const Zpos = H + C_M;
+
+                return Zpos - Zneg; // F(H)=0
+            };
+
+            // Sichern, dass ein Vorzeichenwechsel vorliegt (falls nicht, Grenzen strecken)
+            let flo = f(lo), fhi = f(hi);
+            let safety = 0;
+            while (flo * fhi > 0 && safety < 30) {
+                // strecken
+                lo -= 1; hi += 1;
+                flo = f(lo); fhi = f(hi);
+                safety++;
+            }
+
+            // Falls immer noch kein Wechsel: fallback (starke Überschüsse)
+            if (flo * fhi > 0) {
+                // heuristisch: wenn starke Base dominiert -> pH ~ 14, sonst ~0
+                const guess = (C_M > (C_strongAnion + 1e-12)) ? 14 : 0;
+                return Math.min(14, Math.max(0, guess));
+            }
+
+            // Bisection
+            for (let i = 0; i < 120; i++) {
+                const mid = 0.5 * (lo + hi);
+                const fm = f(mid);
+                if (Math.abs(fm) < 1e-14) { lo = hi = mid; break; }
+                if (flo * fm <= 0) { hi = mid; fhi = fm; } else { lo = mid; flo = fm; }
+                if (Math.abs(hi - lo) < 1e-6) break;
+            }
+            const pH = Math.min(14, Math.max(0, -0.4342944819 * (lo + hi))); // -log10(H); log10(H)≈(lo+hi)/2
+            return pH;
+        }
+
+        /* -------------------- Chart-Setup & Plugins -------------------- */
+        let chart, timer = null;
+        const indicatorBands = []; // {range:[pHmin,pHmax], color, name}
+
+        const eqLinePlugin = {
+            id: 'eqLine',
+            afterDatasetsDraw(c) {
+                const vols = c.config._eq || [];
+                if (!vols.length) return;
+                const { ctx, chartArea, scales: { x, y } } = c;
+                ctx.save();
+                ctx.setLineDash([6, 6]); ctx.lineWidth = 1.4; ctx.strokeStyle = 'red';
+                vols.forEach(v => {
+                    const X = x.getPixelForValue(v);
+                    ctx.beginPath(); ctx.moveTo(X, chartArea.top); ctx.lineTo(X, chartArea.bottom); ctx.stroke();
+                });
+                ctx.restore();
+            }
+        };
+
+        const indicatorBandPlugin = {
+            id: 'indicatorBands',
+            beforeDatasetsDraw(c) {
+                if (!indicatorBands.length) return;
+                const { ctx, chartArea, scales: { x, y } } = c;
+                indicatorBands.forEach(b => {
+                    const yTop = y.getPixelForValue(Math.min(14, Math.max(0, b.range[1])));
+                    const yBot = y.getPixelForValue(Math.min(14, Math.max(0, b.range[0])));
+                    ctx.save();
+                    ctx.fillStyle = b.color;
+                    ctx.fillRect(chartArea.left, yTop, chartArea.right - chartArea.left, yBot - yTop);
+                    ctx.restore();
+                });
+            }
+        };
+        Chart.register(eqLinePlugin, indicatorBandPlugin);
+
+        function makeChart(Vmax, veqList) {
+            const ctx = document.getElementById('chart').getContext('2d');
+            if (chart) chart.destroy();
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: { datasets: [{ label: 'pH', data: [], parsing: false, borderWidth: 2, pointRadius: 0, tension: 0 }] },
+                options: {
+                    animation: false,
+                    interaction: { mode: 'nearest', intersect: false },
+                    scales: {
+                        x: {
+                            type: 'linear', min: 0, max: Vmax,
+                            ticks: { stepSize: Math.max(0.5, Vmax / 10), callback: v => v.toFixed(1) },
+                            title: { display: true, text: 'zugegebenes Volumen V_B [mL]' }
+                        },
+                        y: { min: 0, max: 14, ticks: { stepSize: 1 }, title: { display: true, text: 'pH' } }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { callbacks: { label: (ctx) => `pH = ${ctx.parsed.y.toFixed(2)}` } }
+                    }
+                },
+                plugins: [eqLinePlugin, indicatorBandPlugin]
+            });
+            chart.config._eq = veqList;
+            chart.update();
+        }
+
+        /* ------------------------ Simulation -------------------------- */
+        function computeEqVolumes(acidKey, nA, cB) {
+            const eq = acidInfo[acidKey].eq || 1;
+            const vols = [];
+            for (let i = 1; i <= eq; i++) {
+                vols.push(toMl((nA * i) / cB));
+            }
+            return vols;
+        }
+
+        function start() {
+            const acidKey = document.getElementById('acid').value;
+            const base = document.querySelector('input[name="base"]:checked').value; // aktuell nur Anzeige-Zweck
+            const cB = parseFloat(document.getElementById('cB').value);
+            const cA = parseFloat(document.getElementById('cA').value);
+            const V0 = parseFloat(document.getElementById('V0').value);
+            const dV = parseFloat(document.getElementById('dV').value);
+            const delay = parseInt(document.getElementById('delay').value, 10);
+
+            if (!(cA > 0 && cB > 0 && V0 > 0 && dV > 0)) return;
+
+            const nA = cA * toL(V0);
+            const veqList = computeEqVolumes(acidKey, nA, cB);
+            const Vmax = (veqList[veqList.length - 1] || 0) * 2 || 50;
+
+            makeChart(Vmax, veqList);
+
+            let Vb = 0;
+            clearInterval(timer);
+            timer = setInterval(() => {
+                if (Vb > Vmax + 1e-9) { clearInterval(timer); return; }
+
+                const pH = solve_pH({
+                    acidKey,
+                    CA0: cA,
+                    V0_L: toL(V0),
+                    CB: cB,
+                    Vb_L: toL(Vb)
+                });
+
+                chart.data.datasets[0].data.push({ x: Vb, y: pH });
+                chart.update();
+                Vb += dV;
+            }, delay);
+        }
+
+        function stop() { clearInterval(timer); }
+        function reset() {
+            clearInterval(timer);
+            if (chart) { chart.destroy(); chart = null; }
+        }
+
+        /* -------------------- Indikator-UI Logik ---------------------- */
+        function addIndicatorBand() {
+            const key = document.getElementById('indicator').value;
+            const cfg = INDICATORS[key];
+            indicatorBands.push({ range: cfg.range.slice(), color: cfg.color, name: cfg.name });
+            if (chart) chart.update();
+        }
+        function clearIndicatorBands() {
+            indicatorBands.length = 0;
+            if (chart) chart.update();
+        }
+
+        /* -------------------- Event-Handler --------------------------- */
+        document.getElementById('startBtn').onclick = start;
+        document.getElementById('stopBtn').onclick = stop;
+        document.getElementById('resetBtn').onclick = reset;
+        document.getElementById('addIndicator').onclick = addIndicatorBand;
+        document.getElementById('clearIndicators').onclick = clearIndicatorBands;
+    </script>
+
+
+    <script>
+        function openQRCode() {
+            const currentUrl = window.location.href;
+            const qrWin = window.open("", "_blank", "width=520,height=600,resizable=yes,scrollbars=no");
+
+            qrWin.document.write(`
+               <html lang="de">
+               <head>
+                 <meta charset="UTF-8">
+                 <title>QR-Code</title>
+                 <style>
+                   body {
+                     font-family: Arial, sans-serif;
+                     text-align: center;
+                     background: #fff;
+                     padding: 30px;
+                   }
+                   #qrcode { margin-top: 40px; }
+                   button {
+                     margin-top: 40px;
+                     background: #0071e3;
+                     color: #fff;
+                     border: none;
+                     border-radius: 10px;
+                     font-size: 16px;
+                     padding: 10px 20px;
+                     cursor: pointer;
+                   }
+                   button:hover { background: #005bb5; }
+                 </style>
+               </head>
+               <body>
+                 <h2>QR-Code zu dieser Seite</h2>
+                 <div id="qrcode"></div>
+                 <button onclick="window.close()">Fenster schließen</button>
+                 <script src="libs/qrcode.min.js"><\/script>
+                 <script>
+                   window.addEventListener('load', function() {
+                     new QRCode(document.getElementById("qrcode"), {
+                       text: "${currentUrl}",
+                       width: 220,
+                       height: 220,
+                       correctLevel: QRCode.CorrectLevel.H
+                     });
+                   });
+                 <\/script>
+               </body>
+               </html>
+             `);
+
+            qrWin.document.close();
+        }
+    </script>
+
+</body>
+</html>

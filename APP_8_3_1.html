@@ -1,0 +1,371 @@
+﻿<!DOCTYPE html>
+<html lang="de">
+
+
+
+<head>
+
+   
+    <!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">  -->
+    <!-- /*Zoom*/-->
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=3.0, user-scalable=yes">
+
+    <meta charset="UTF-8" />
+    <title>Aktionspotenzial Kurvenanzeige</title>
+    <!-- Chart.js lokal -->
+    <script src="libs/chart.umd.min.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #F6F8E2;
+            color: #333;
+            margin: 40px auto;
+            max-width: 900px;
+        }
+
+        h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #1d1d1f;
+            text-align: center;
+        }
+
+        .controls {
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+
+            .controls label {
+                display: block;
+                margin-bottom: 15px;
+                font-weight: 500;
+            }
+
+        select,
+        input[type="number"] {
+            font-size: 16px;
+            padding: 8px 12px;
+            border-radius: 12px;
+            border: 1px solid #ccc;
+            width: 90%;
+            max-width: 120px;
+            margin-top: 5px;
+        }
+
+        .button-row {
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: #007aff;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            margin-right: 15px;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+            button:hover {
+                background-color: #005fd1;
+            }
+
+        canvas {
+            display: block;
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        textarea {
+            width: 95%;
+            height: 140px;
+            padding: 12px;
+            font-size: 0.95rem;
+            border-radius: 12px;
+            border: 1px solid #ccc;
+            background: #fff;
+        }
+    </style>
+</head>
+<body>
+    <h2>Ruhe- und Aktionspotenzial bei Motoneuron und Herzmuskel</h2>
+    Amplitude angepasst
+    <div class="controls">
+        <label>
+            Zelltyp:
+            <select id="cellType">
+                <option value="motoneuron">Motoneuron</option>
+                <option value="herzmuskel">Herzmuskel</option>
+            </select>
+        </label>
+        <label>
+            [Na⁺] außen (mmol/L):
+            <input type="number" id="naOut" value="145" />
+
+            [K⁺] außen (mmol/L):
+            <input type="number" id="kOut" value="4" />
+
+            [Cl⁻] außen (mmol/L):
+            <input type="number" id="clOut" value="110" />
+        </label>
+
+        <div class="button-row">
+            <button onclick="updateGraph()">Aktualisieren</button>
+            <button onclick="location.reload()">Seite neu laden</button>
+            <button onclick="toggleNa()">Na⁺-Einstrom anzeigen</button>
+            <button onclick="toggleK()">K⁺-Ausstrom anzeigen</button>
+        </div>
+    </div>
+
+    <canvas id="apChart" width="1000" height="400"></canvas>
+    <strong>Erklärung:</strong>
+    <textarea readonly>
+ Simulation des Einflusses von Ionenkonzentrationen auf das Ruhe- und Aktionspotenzial.
+Die Amplitude der Depolarisation hängt hier von der extrazellulären Na⁺-Konzentration ab.
+Repolarisation/Hyperpolarisation hängt von der extrazellulären K⁺-Konzentration ab.
+Ausgangswerte: [Na⁺] 145 mmol/L ; [K⁺] 4 mmol/L ; [Cl⁻] 110 mmol/L
+Bedienung:
+- Nach der Eingabe neuer Werte: auf "Aktualisieren" klicken
+- Ionenströme anzeigen: auf die Buttons oder auf die Legende in der Grafik klicken
+Aufgaben
+1.  Ehöhe die Kaliumionenkonzentration auf 40 mmol/L. Interpretiere die Veränderungen.
+ Seite neu laden.
+2.  Stelle die Standardwerte wieder her und senke die Natriumionenkonzentration auf 10 und 2 mmol/L. Interpretiere die Veränderungen.
+ Seite neu laden.
+3.Stelle die Standardwerte wieder her und erhöhe die Chlorionenkonzentration auf 200 mmol/L. Interpretiere die Veränderungen.
+4. Leite Aussagen zur Signalweiterleitung ab , wenn die Ionenkonzentrationen verändert werden
+    </textarea>
+
+    <button onclick="openQRCode()">QR-Code anzeigen</button>
+
+    <script>
+        const R = 8.314, T = 310, F = 96485;
+        const naIn = 15, kIn = 140, clIn = 10;
+        const threshold = -55;
+
+        let showNa = false;
+        let showK = false;
+
+        const ctx = document.getElementById("apChart").getContext("2d");
+        const chart = new Chart(ctx, {
+            type: "line",
+            data: { labels: [], datasets: [] },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: "Membranpotenzial (mV) über Zeit (ms)",
+                    },
+                },
+                scales: {
+                    x: {
+                        title: { display: true, text: "Zeit (ms)" },
+                    },
+                    y: {
+                        title: { display: true, text: "Membranpotenzial (mV)" },
+                        suggestedMin: -120,
+                        suggestedMax: 60,
+                    },
+                },
+            },
+        });
+
+        function calcRestingPotential(naOut, kOut, clOut) {
+            const Pna = 0.04, Pk = 1, Pcl = 0.45;
+            const num = Pk * kOut + Pna * naOut + Pcl * clIn;
+            const den = Pk * kIn + Pna * naIn + Pcl * clOut;
+            return (R * T) / F * Math.log(num / den) * 1000;
+        }
+
+        function calcENa(naOut) {
+            return (R * T) / F * Math.log(naOut / naIn) * 1000;
+        }
+
+        function calcEK(kOut) {
+            return (R * T) / F * Math.log(kOut / kIn) * 1000;
+        }
+
+        function generateMotoneuronCurve(Vrest, ENa, EK) {
+            const time = [], voltage = [], naCurrent = [], kCurrent = [], thresholdLine = [];
+            const peak = Math.min(ENa, 60);  // Amplitude begrenzen, abhängig von Na+
+            const afterHyper = Math.max(EK, -100); // Hyperpolarisation abhängig von K+
+            for (let t = 0; t <= 40; t++) {
+                let v, na = 0, k = 0;
+                if (t < 1) v = Vrest;
+                else if (t < 2) { v = Vrest + (t - 1) * (peak - Vrest); na = 1; }
+                else if (t < 3) { v = peak; na = 1; }
+                else if (t < 7) { v = peak - (t - 3) * ((peak - afterHyper) / 4); k = 1; }
+                else v = Vrest;
+
+                time.push(t);
+                voltage.push(Math.round(v * 10) / 10);
+                naCurrent.push(na * 15);
+                kCurrent.push(k * 15);
+                thresholdLine.push(threshold);
+            }
+            return { time, voltage, naCurrent, kCurrent, thresholdLine };
+        }
+
+        function generateHerzmuskelCurve(Vrest, ENa, EK) {
+            const time = [], voltage = [], naCurrent = [], kCurrent = [], thresholdLine = [];
+            const peak = Math.min(ENa, 50);
+            const afterHyper = Math.max(EK, -100);
+            for (let t = 0; t <= 300; t++) {
+                let v, na = 0, k = 0;
+                if (t < 2) v = Vrest;
+                else if (t < 4) { v = Vrest + (t - 2) * (peak - Vrest) / 2; na = 1; }
+                else if (t < 40) v = peak - (t - 4) * 0.2;
+                else if (t < 200) { v = peak - (t - 40) * 0.05; k = 1; }
+                else v = Vrest;
+
+                if (t > 200 && t < 220) v = afterHyper; // kurze Hyperpolarisation
+
+                time.push(t);
+                voltage.push(Math.round(v * 10) / 10);
+                naCurrent.push(na * 15);
+                kCurrent.push(k * 15);
+                thresholdLine.push(threshold);
+            }
+            return { time, voltage, naCurrent, kCurrent, thresholdLine };
+        }
+
+        function updateGraph() {
+            const cellType = document.getElementById("cellType").value;
+            const naOut = parseFloat(document.getElementById("naOut").value);
+            const kOut = parseFloat(document.getElementById("kOut").value);
+            const clOut = parseFloat(document.getElementById("clOut").value);
+
+            const Vrest = calcRestingPotential(naOut, kOut, clOut);
+            const ENa = calcENa(naOut);
+            const EK = calcEK(kOut);
+
+            let data;
+            if (cellType === "motoneuron") {
+                data = generateMotoneuronCurve(Vrest, ENa, EK);
+            } else {
+                data = generateHerzmuskelCurve(Vrest, ENa, EK);
+            }
+
+            const datasets = [
+                {
+                    label: `${cellType === "motoneuron" ? "Motoneuron" : "Herzmuskel"} (Ruhepotenzial: ${Vrest.toFixed(1)} mV)`,
+                    data: data.voltage,
+                    borderColor: "#007aff",
+                    borderWidth: 2,
+                    fill: false,
+                    tension: 0.3,
+                },
+                {
+                    label: "Schwellwert",
+                    data: data.thresholdLine,
+                    borderColor: "#aaa",
+                    borderDash: [5, 5],
+                    borderWidth: 1.5,
+                    pointRadius: 0,
+                    fill: false,
+                },
+            ];
+
+            if (showNa) {
+                datasets.push({
+                    label: "Na⁺-Einstrom",
+                    data: data.naCurrent,
+                    borderColor: "#34c759",
+                    borderDash: [4, 4],
+                    tension: 0.2,
+                    fill: false,
+                });
+            }
+
+            if (showK) {
+                datasets.push({
+                    label: "K⁺-Ausstrom",
+                    data: data.kCurrent,
+                    borderColor: "#af52de",
+                    borderDash: [4, 4],
+                    tension: 0.2,
+                    fill: false,
+                });
+            }
+
+            chart.data.labels = data.time;
+            chart.data.datasets = datasets;
+            chart.update();
+        }
+
+        function toggleNa() { showNa = !showNa; updateGraph(); }
+        function toggleK() { showK = !showK; updateGraph(); }
+
+        updateGraph();
+    </script>
+
+
+
+    <script>
+        function openQRCode() {
+            const currentUrl = window.location.href;
+            const qrWin = window.open("", "_blank", "width=520,height=600,resizable=yes,scrollbars=no");
+
+            qrWin.document.write(`
+               <html lang="de">
+               <head>
+                 <meta charset="UTF-8">
+                 <title>QR-Code</title>
+                 <style>
+                   body {
+                     font-family: Arial, sans-serif;
+                     text-align: center;
+                     background: #fff;
+                     padding: 30px;
+                   }
+                   #qrcode { margin-top: 40px; }
+                   button {
+                     margin-top: 40px;
+                     background: #0071e3;
+                     color: #fff;
+                     border: none;
+                     border-radius: 10px;
+                     font-size: 16px;
+                     padding: 10px 20px;
+                     cursor: pointer;
+                   }
+                   button:hover { background: #005bb5; }
+                 </style>
+               </head>
+               <body>
+                 <h2>QR-Code zu dieser Seite</h2>
+                 <div id="qrcode"></div>
+                 <button onclick="window.close()">Fenster schließen</button>
+                 <script src="libs/qrcode.min.js"><\/script>
+                 <script>
+                   window.addEventListener('load', function() {
+                     new QRCode(document.getElementById("qrcode"), {
+                       text: "${currentUrl}",
+                       width: 220,
+                       height: 220,
+                       correctLevel: QRCode.CorrectLevel.H
+                     });
+                   });
+                 <\/script>
+               </body>
+               </html>
+             `);
+
+            qrWin.document.close();
+        }
+    </script>
+
+
+
+</body>
+</html>
