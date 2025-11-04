@@ -1,0 +1,453 @@
+﻿<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=3.0, user-scalable=yes">
+    <title>Reaktionsgleichungen</title>
+    <style>
+        :root {
+            --primary-bg: #F6F8E2;
+            --element-bg: #ffffff;
+            --element-border: #d1d1d6;
+            --text-color: #1c1c1e;
+            --accent-color: #007aff;
+            --success-color: #28a745;
+            --error-color: #dc3545;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .ionenliste, .zahlenliste {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .ion, .zahl {
+            padding: 10px 12px;
+            background-color: var(--element-bg);
+            border: 1px solid var(--element-border);
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            cursor: grab;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+            .ion:hover, .zahl:hover {
+                background-color: #83d6f1;
+                box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+            }
+
+        .dissoziation {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+           
+
+
+            margin-bottom: 30px;
+            width: 700px;
+            /*max-width:900px*/
+        }
+
+        .salz {
+            background-color: #FFE4E1;
+            width: 700px;
+            
+            padding: 10px;
+            border-radius: 16px;
+            border: 1px solid var(--element-border);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .salz-name {
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .gleichung {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            font-weight: 700;
+        }
+
+        .ionenfeld, .zahlenfeld {
+            width: 90px;
+            height: 50px;
+            border: 1px dashed var(--element-border);
+            border-radius: 8px;
+            background-color: #f2f2f7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+            .ionenfeld.correct, .zahlenfeld.correct {
+                border-color: var(--success-color);
+                background-color: #d4edda;
+            }
+
+            .ionenfeld.wrong, .zahlenfeld.wrong {
+                border-color: var(--error-color);
+                background-color: #f8d7da;
+            }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 10px;
+            background-color: var(--accent-color);
+            color: white;
+            cursor: pointer;
+        }
+
+            button:hover {
+                background-color: #005bb5;
+                box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+            }
+
+        #auswertung {
+            margin-top: 20px;
+            font-weight: 500;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ausgleichen von Reaktionsgleichungen Teil I/1</h1>
+
+    <!-- Zähler-Anzeige für verbleibende Aufgaben -->
+  
+    <div class="zahlenliste" id="zahlenliste">
+        <div class="zahl" draggable="true" id="1">1</div>
+        <div class="zahl" draggable="true" id="2">2</div>
+        <div class="zahl" draggable="true" id="3">3</div>
+        <div class="zahl" draggable="true" id="4">4</div>
+        <div class="zahl" draggable="true" id="5">5</div>
+    </div>
+
+    <div class="salz">
+        <div class="ionenliste" id="ionenliste">
+            <div class="ion" draggable="true" id="H2">H&#8322;</div>
+            <div class="ion" draggable="true" id="S">S</div>
+            <div class="ion" draggable="true" id="O2">O&#8322;</div>
+            <div class="ion" draggable="true" id="Fe">Fe</div>
+            <div class="ion" draggable="true" id="K">K</div>
+            <div class="ion" draggable="true" id="Cu">Cu</div>
+            <div class="ion" draggable="true" id="C">C</div>
+            <div class="ion" draggable="true" id="N2">N&#8322;</div>
+            <div class="ion" draggable="true" id="Cl2">Cl&#8322;</div>
+            <div class="ion" draggable="true" id="Ag">Ag</div>
+            <div class="ion" draggable="true" id="H2S">H&#8322;S</div>
+            <div class="ion" draggable="true" id="H2O">H&#8322;O</div>
+            <div class="ion" draggable="true" id="SO2">SO&#8322;</div>
+            <div class="ion" draggable="true" id="Fe2O3">Fe&#8322;O&#8323;</div>
+            <div class="ion" draggable="true" id="K2O">K&#8322;O</div>
+            <div class="ion" draggable="true" id="Fe2S3">Fe&#8322;S&#8323;</div>
+            <div class="ion" draggable="true" id="CuO">CuO</div>
+            <div class="ion" draggable="true" id="CO">CO</div>
+            <div class="ion" draggable="true" id="NH3">NH&#8323;</div>
+            <div class="ion" draggable="true" id="HCl">HCl</div>
+            <div class="ion" draggable="true" id="Ag2S">Ag&#8322;S</div>
+
+            <h3>Ziehe zuerst die Zahlen, dann die Formeln in die richtigen Felder.</h3>
+            <h3>Vor jeder Formel muss im Feld die richtige Zahl stehen.</h3>
+            <div id="aufgabenzaehler"
+                 style="font-size:18px; font-weight:600; margin-bottom:15px; color:#007aff;">
+            </div>
+        </div>
+    </div>
+
+    <div class="salz" style="text-align:center;">
+        <button onclick="naechsteAufgabe()">Nächste Aufgabe</button>
+        <button onclick="location.reload()">Neu laden</button>
+        <button onclick="openQRCode()">QR-Code anzeigen</button>
+    </div>
+
+    <div class="dissoziation" id="dissoziation"></div>
+    <div id="auswertung"></div>
+
+    <script>
+    const salze = [
+            "H₂S", "2H₂O", "SO₃", "Fe₂O₃", "K₂O", "Fe₂S₃", "CuO", "CO", "NH₃", "HCl", "Ag₂S"
+        ];
+
+        const salze2 = [
+            "Wasserstoff + Schwefel → Schwefelwasserstoff",
+            "Wasserstoff + Sauerstoff → Wasser",
+            "Schwefel + Sauerstoff → Schwefeldioxid",
+            "Eisen + Sauerstoff → Eisen(III)oxid",
+            "Kalium + Sauerstoff → Kaliumoxid",
+            "Eisen + Schwefel → Eisen(III)sulfid",
+            "Kupfer + Sauerstoff → Kupfer(II)oxid",
+            "Kohlenstoff + Sauerstoff → Kohlenstoffmonoxid",
+            "Wasserstoff + Stickstoff → Ammoniak",
+            "Wasserstoff + Chlor → Chlorwasserstoff",
+            "Silber + Schwefel → Silbersulfid"
+        ];
+
+        const loesungen = [
+            [["1", "H2"], ["1", "S"], ["1", "H2S"]],
+            [["2", "H2"], ["1", "O2"], ["2", "H2O"]],
+            [["1", "S"], ["1", "O2"], ["1", "SO2"]],
+            [["4", "Fe"], ["3", "O2"], ["2", "Fe2O3"]],
+            [["4", "K"], ["1", "O2"], ["2", "K2O"]],
+            [["2", "Fe"], ["3", "S"], ["1", "Fe2S3"]],
+            [["2", "Cu"], ["1", "O2"], ["2", "CuO"]],
+            [["2", "C"], ["1", "O2"], ["2", "CO"]],
+            [["3", "H2"], ["1", "N2"], ["2", "NH3"]],
+            [["1", "H2"], ["1", "Cl2"], ["2", "HCl"]],
+            [["2", "Ag"], ["1", "S"], ["1", "Ag2S"]]
+        ];
+
+        let aktuelleAufgabe = 0;
+
+
+        // --- Aufgaben-Zähler (reimagined Anzeige der verbleibenden Aufgaben) ---
+        const zaehlerAnzeige = document.getElementById("aufgabenzaehler");
+
+        function aktualisiereZaehler() {
+            const total = salze.length;
+            const verbleibend = total - aktuelleAufgabe;
+            zaehlerAnzeige.innerText = `Aufgabe ${aktuelleAufgabe + 1} von ${total}  (${verbleibend - 1} noch übrig)`;
+        }
+
+
+
+
+        const container = document.getElementById("dissoziation");
+
+        function zeigeAufgabe(index) {
+            container.innerHTML = "";
+            const feld = document.createElement("div");
+            feld.className = "salz";
+
+            const gleichungsteile = loesungen[index].length;
+            let gleichung = "";
+
+            loesungen[index].forEach((_, i) => {
+                gleichung += `
+          <div class="zahlenfeld" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+          <div class="ionenfeld" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+        `;
+                if (i < gleichungsteile - 2) gleichung += " + ";
+                else if (i === gleichungsteile - 2) gleichung += " → ";
+            });
+
+            feld.innerHTML = `
+        <div class="salz-name"><h2>${salze2[index]}</h2></div>
+        <div class="gleichung">${gleichung}</div>
+      `;
+
+            container.appendChild(feld);
+            document.getElementById("auswertung").innerText = "";
+
+
+
+
+            /*Zählerfkt aufrufen */
+            aktualisiereZaehler();
+
+
+
+
+        }
+
+        function naechsteAufgabe() {
+            aktuelleAufgabe++;
+            if (aktuelleAufgabe >= salze.length) {
+                aktuelleAufgabe = 0;
+                alert("Alle Aufgaben erledigt! Starte von vorn.");
+            }
+            zeigeAufgabe(aktuelleAufgabe);
+        }
+
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        /* Hilfsfunktion: finde das Feld (.zahlenfeld oder .ionenfeld) - robust gegen ev.target = inneres Element */
+        function findField(el) {
+            if (!el) return null;
+            return el.classList && (el.classList.contains('zahlenfeld') || el.classList.contains('ionenfeld'))
+                ? el
+                : el.closest && el.closest('.zahlenfeld, .ionenfeld');
+        }
+
+        /* gibt den Paar-Index zurück (0..n-1) für ein gegebenes feld-element */
+        function getPairIndex(fieldEl) {
+            const all = Array.from(document.querySelectorAll('.zahlenfeld, .ionenfeld'));
+            const idx = all.indexOf(fieldEl);
+            if (idx === -1) return -1;
+            return Math.floor(idx / 2);
+        }
+
+        /* aktualisiert den Zustand (grün/rot) für ein bestimmtes Paar (Index) */
+        function updatePairState(pairIndex) {
+            const all = document.querySelectorAll('.zahlenfeld, .ionenfeld');
+            const zFeld = all[pairIndex * 2];
+            const iFeld = all[pairIndex * 2 + 1];
+            const aktuellePaarLösung = loesungen[aktuelleAufgabe][pairIndex] || [null, null];
+            const erwarteteZ = aktuellePaarLösung[0];
+            const erwartetesI = aktuellePaarLösung[1];
+
+            const vorhandeneZ = zFeld.firstChild?.id || null;
+            const vorhandenesI = iFeld.firstChild?.id || null;
+
+            // Regeln: Wenn Zahl OR Ion entspricht -> dieses Feld wird grün.
+            if (vorhandeneZ && vorhandeneZ === erwarteteZ) {
+                zFeld.classList.add('correct');
+                zFeld.classList.remove('wrong');
+            } else {
+                zFeld.classList.remove('correct');
+                zFeld.classList.add('wrong');
+            }
+
+            if (vorhandenesI && vorhandenesI === erwartetesI) {
+                iFeld.classList.add('correct');
+                iFeld.classList.remove('wrong');
+            } else {
+                iFeld.classList.remove('correct');
+                iFeld.classList.add('wrong');
+            }
+        }
+
+        /* vollständige Prüfung ob alle Paare komplett passen */
+        function checkAuswertung() {
+            const all = document.querySelectorAll('.zahlenfeld, .ionenfeld');
+            let komplettRichtig = true;
+            for (let pi = 0; pi < loesungen[aktuelleAufgabe].length; pi++) {
+                const zFeld = all[pi * 2];
+                const iFeld = all[pi * 2 + 1];
+                const vorhandeneZ = zFeld.firstChild?.id || null;
+                const vorhandenesI = iFeld.firstChild?.id || null;
+                const [erwZ, erwI] = loesungen[aktuelleAufgabe][pi];
+                if (vorhandeneZ === erwZ && vorhandenesI === erwI) {
+                    // Paar komplett richtig -> beide grün
+                    zFeld.classList.add('correct'); zFeld.classList.remove('wrong');
+                    iFeld.classList.add('correct'); iFeld.classList.remove('wrong');
+                } else {
+                    komplettRichtig = false;
+                    // einzelne Felder bleiben abhängig von ihrer Korrektheit (bereits gesetzt in updatePairState)
+                }
+            }
+
+            document.getElementById("auswertung").innerText = komplettRichtig
+                ? "✅ Richtig!"
+                : "❌ Noch nicht korrekt. Ziehe die richtige Zahl oder das richtige Ion über das Feld, um es zu korrigieren.";
+        }
+
+        /* Drop: robustes Ersetzen (überschreibt vorhandenen Inhalt), dann Update für das Paar */
+        function drop(ev) {
+            ev.preventDefault();
+            const data = ev.dataTransfer.getData("text");
+            if (!data) return;
+            const draggedSource = document.getElementById(data);
+            if (!draggedSource) return;
+
+            // Clone damit Original in Palette bleibt
+            const dragged = draggedSource.cloneNode(true);
+            dragged.setAttribute('draggable', 'false');
+
+            // finde das Zielfeld (robust)
+            const rawTarget = ev.target;
+            const ziel = findField(rawTarget);
+            if (!ziel) return;
+
+            // überschreiben: entferne altes, setze neues
+            ziel.innerHTML = "";
+            ziel.appendChild(dragged);
+
+            // finde Paarindex und aktualisiere nur dieses Paar (so wird überschrieben + farbe gesetzt)
+            const pairIndex = getPairIndex(ziel);
+            if (pairIndex >= 0) updatePairState(pairIndex);
+
+            // danach Gesamt-Check (optional, für Endzustand)
+            checkAuswertung();
+        }
+
+        /* Dragstart: id übertragen */
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.ion, .zahl').forEach(el => {
+                el.addEventListener('dragstart', ev => {
+                    ev.dataTransfer.setData("text", ev.target.id);
+                });
+            });
+        });
+
+        // initial anzeigen
+        zeigeAufgabe(aktuelleAufgabe);
+
+    </script>
+
+    <script>
+    function openQRCode() {
+            const currentUrl = window.location.href;
+            const qrWin = window.open("", "_blank", "width=520,height=600,resizable=yes,scrollbars=no");
+            qrWin.document.write(`
+         <html lang="de">
+         <head>
+           <meta charset="UTF-8">
+           <title>QR-Code</title>
+           <style>
+             body { font-family: Arial, sans-serif; text-align: center; background: #fff; padding: 30px; }
+             #qrcode { margin-top: 40px; }
+             button {
+               margin-top: 40px;
+               background: #0071e3; color: #fff;
+               border: none; border-radius: 10px;
+               font-size: 16px; padding: 10px 20px; cursor: pointer;
+             }
+             button:hover { background: #005bb5; }
+           </style>
+         </head>
+         <body>
+           <h2>QR-Code zu dieser Seite</h2>
+           <div id="qrcode"></div>
+           <button onclick="window.close()">Fenster schließen</button>
+           <script src="libs/qrcode.min.js"><\/script>
+           <script>
+             window.addEventListener('load', function() {
+               new QRCode(document.getElementById("qrcode"), {
+                 text: "${currentUrl}",
+                 width: 220, height: 220,
+                 correctLevel: QRCode.CorrectLevel.H
+               });
+             });
+           <\/script>
+         </body>
+         </html>
+       `);
+            qrWin.document.close();
+        }</script>
+</body>
+</html>
