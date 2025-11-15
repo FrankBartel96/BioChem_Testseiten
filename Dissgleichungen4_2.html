@@ -1,0 +1,350 @@
+﻿<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dissoziation von Salzen</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f6f8e2;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .ionenliste {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .ion {
+            border: 1px solid #bbb;
+            border-radius: 10px;
+            padding: 8px 12px;
+            font-weight: bold;
+            cursor: grab;
+            user-select: none;
+        }
+
+        /* Farben für Ionen */
+        .kation {
+            background-color: #cce5ff; /* hellblau */
+            border-color: #3399ff;
+            color: #003366;
+        }
+
+
+
+        .kation:hover {
+            background-color: #83d6f1;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+        }
+
+
+        .anion {
+            background-color: #ff9999; /* rot */
+            border-color: #cc0000;
+            color: #660000;
+        }
+
+
+        .anion:hover {
+            background-color: #d45a5a;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+        }
+
+
+        .dissoziation { /*Gleichungsfeld länge*/
+            max-width: 90%;
+            margin: 0 auto;
+        }
+
+        .salz {
+            
+            background: #FFE4E1; /*Gleichungsfeld hintergrund*/
+            border-radius: 12px;
+            border: 1px solid #ccc;
+            border-block-color: #ff9999;
+            padding: 15px;
+            margin: 10px auto;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .gleichung {
+            background: #FFE4E1; /*Gleichungsfeld*/
+            /* max-width:100%; */
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        /* Drop-Felder */
+        .ionenfeld {
+         
+
+
+            width: 90px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+            border: 2px dashed #aaa;
+        }
+
+        .feld-kation {
+            background-color: #e6f2ff; /* hellblau */
+            border-color: #3399ff;
+        }
+
+
+
+
+        .feld-anion {
+            background-color: #f7c0c5; /* hellrot */
+            border-color: #ff3333;
+        }
+
+        .ionenfeld.correct {
+            background-color: #d4edda !important;
+            border-color: #28a745 !important;
+        }
+
+        .ionenfeld.wrong {
+            background-color: #f8d7da !important;
+            border-color: #dc3545 !important;
+        }
+
+        button {
+            background: #007aff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+            button:hover {
+                background: #005bb5;
+            }
+
+        #auswertung {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .ionenfeld .ion {
+            margin: 0;
+            cursor: default;
+            box-shadow: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dissoziation von Salzen</h1>
+
+    <div class="ionenliste" id="ionenliste">
+        <div class="ion kation" draggable="true" id="Na+">Na<sup>+</sup></div>
+        <div class="ion anion" draggable="true" id="Cl-">Cl⁻</div>
+        <div class="ion anion" draggable="true" id="HCO3-">HCO₃⁻</div>
+        <div class="ion anion" draggable="true" id="PO43-">PO₄³⁻</div>
+        <div class="ion kation" draggable="true" id="Mg2+">Mg²⁺</div>
+        <div class="ion anion" draggable="true" id="NO3-">NO₃⁻</div>
+        <div class="ion anion" draggable="true" id="SO42-">SO₄²⁻</div>
+        <div class="ion anion" draggable="true" id="CO33-">CO₃²⁻</div>
+        <div class="ion kation" draggable="true" id="Al+">Al<sup>3+</sup></div>
+    </div>
+
+    <h3>Ziehe die passenden Ionen in die richtigen Felder:</h3>
+    <div class="dissoziation" id="dissoziation"></div>
+
+    <button onclick="location.reload()">Neu laden</button>
+    <div id="auswertung"></div>
+    <button onclick="openQRCode()">QR-Code anzeigen</button>
+
+    <script>
+        const salze = [
+            "Natriumchlorid: NaCl",
+            "Natriumhydrogencarbonat: NaHCO₃",
+            "Natriumphosphat: Na₃PO₄",
+            "Magnesiumnitrat: Mg(NO₃)₂",
+            "Magnesiumsulfat: MgSO₄",
+            "Natriumsulfat: Na₂SO₄",
+            "Natriumcarbonat: Na₂CO₃",
+            "Aluminiumchlorid: AlCl₃",
+            "Aluminiumsulfat: Al₂(SO₄)₃"
+        ];
+
+        const loesungen = [
+            ["Na+", "Cl-"],
+            ["Na+", "HCO3-"],
+            ["Na+", "Na+", "Na+", "PO43-"],
+            ["Mg2+", "NO3-", "NO3-"],
+            ["Mg2+", "SO42-"],
+            ["Na+", "Na+", "SO42-"],
+            ["Na+", "Na+", "CO33-"],
+            ["Al+", "Cl-", "Cl-", "Cl-"],
+            ["Al+", "Al+", "SO42-", "SO42-", "SO42-"]
+
+        ];
+
+        const container = document.getElementById("dissoziation");
+
+        salze.forEach((salz, index) => {
+            const feld = document.createElement("div");
+            feld.className = "salz";
+
+            let html = `<div class="gleichung" id="feld-${index}">
+                    <span>${salz} →</span>`;
+
+            loesungen[index].forEach(ion => {
+                const klasse = ion.includes('+') ? 'feld-kation' : 'feld-anion';
+                html += `<div class="ionenfeld ${klasse}" ondrop="drop(event)" ondragover="allowDrop(event)"></div> + `;
+            });
+
+            html = html.slice(0, -3); // letztes Plus entfernen
+            html += "</div>";
+            feld.innerHTML = html;
+            container.appendChild(feld);
+        });
+
+        document.querySelectorAll('.ion').forEach(el => {
+            el.addEventListener('dragstart', ev => {
+                ev.dataTransfer.setData("text", ev.target.id);
+            });
+        });
+
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            const data = ev.dataTransfer.getData("text");
+            const original = document.getElementById(data);
+            if (!original) return;
+            const ion = original.cloneNode(true);
+            ion.setAttribute("draggable", "false");
+
+            let ziel = ev.target;
+            if (!ziel.classList.contains('ionenfeld')) {
+                ziel = ziel.closest('.ionenfeld');
+            }
+            if (!ziel || ziel.childNodes.length > 0) return;
+
+            ziel.innerHTML = "";
+            ziel.appendChild(ion);
+            checkAuswertung();
+        }
+
+        function checkAuswertung() {
+            let korrekt = 0;
+            salze.forEach((_, i) => {
+                const felder = document.querySelectorAll(`#feld-${i} .ionenfeld`);
+                let aktuelle = [];
+                felder.forEach(feld => {
+                    const ion = feld.firstChild?.id || null;
+                    aktuelle.push(ion);
+                });
+
+                const loesung = loesungen[i].slice().sort().toString();
+                const eingabe = aktuelle.slice().sort().toString();
+
+                felder.forEach((feld, idx) => {
+                    const ionId = feld.firstChild?.id;
+                    if (ionId && ionId === loesungen[i][idx]) {
+                        feld.classList.add("correct");
+                        feld.classList.remove("wrong");
+                    } else if (feld.firstChild) {
+                        feld.classList.remove("correct");
+                        feld.classList.add("wrong");
+                    } else {
+                        feld.classList.remove("correct");
+                        feld.classList.remove("wrong");
+                    }
+                });
+
+                if (loesung === eingabe) korrekt++;
+            });
+
+            document.getElementById("auswertung").innerText =
+                `${korrekt} von ${salze.length} Salzen korrekt gelöst.`;
+        }
+    </script>
+
+
+
+    <script>
+        function openQRCode() {
+            const currentUrl = window.location.href;
+            const qrWin = window.open("", "_blank", "width=520,height=600,resizable=yes,scrollbars=no");
+
+            qrWin.document.write(`
+                                   <html lang="de">
+                                   <head>
+                                     <meta charset="UTF-8">
+                                     <title>QR-Code</title>
+                                     <style>
+                                       body {
+                                         font-family: Arial, sans-serif;
+                                         text-align: center;
+                                         background: #fff;
+                                         padding: 30px;
+                                       }
+                                       #qrcode { margin-top: 40px; }
+                                       button {
+                                         margin-top: 40px;
+                                         background: #0071e3;
+                                         color: #fff;
+                                         border: none;
+                                         border-radius: 10px;
+                                         font-size: 16px;
+                                         padding: 10px 20px;
+                                         cursor: pointer;
+                                       }
+                                       button:hover { background: #005bb5; }
+                                     </style>
+                                   </head>
+                                   <body>
+                                     <h2>QR-Code zu dieser Seite</h2>
+                                     <div id="qrcode"></div>
+                                     <button onclick="window.close()">Fenster schließen</button>
+                                     <script src="libs/qrcode.min.js"><\/script>
+                                     <script>
+                                       window.addEventListener('load', function() {
+                                         new QRCode(document.getElementById("qrcode"), {
+                                           text: "${currentUrl}",
+                                           width: 220,
+                                           height: 220,
+                                           correctLevel: QRCode.CorrectLevel.H
+                                         });
+                                       });
+                                     <\/script>
+                                   </body>
+                                   </html>
+                                 `);
+
+            qrWin.document.close();
+        }
+    </script>
+
+
+
+</body>
+</html>
