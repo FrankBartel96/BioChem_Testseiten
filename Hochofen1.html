@@ -1,0 +1,475 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8 /">
+    <!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">  -->
+    <!-- /*Zoom*/-->
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=3.0, user-scalable=yes">
+
+    <title>Hochofen</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #F6F8E2;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 1200px;
+            /* max-width: 900px; */
+            background-color: #F6F8E9;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+
+        button {
+            padding: 12px 24px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 12px;
+            background-color: #0071e3;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+            button:hover {
+                background-color: #005bb5;
+                box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+            }
+       
+
+        table {
+            margin: auto; /*;tabelle zemtriert*/
+            width: 1100px;
+            thead: th;
+            background-color: #FFE4E1;
+            /* align-content: baseline;*/
+            text-align: center;
+            /*Tabellenkopf*/
+        }
+
+
+        tbody tr:nth-child(odd) {
+            background-color: #F5FFFA;
+            text-align: left;
+            /*   width: auto; */
+            /*Hintergrund  ungerade Zeilen*/
+            /* height: 35px;*/
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #FFE4E1;
+            /* text-align: center;*/
+            /* Hintergrund r gerade Zeilen*/
+            /*  height: 30px;  */
+        }
+
+
+
+        h1 {
+            font-size: 24px;
+            color: #731768;
+        }
+
+        .cat-image {
+            position: relative; 
+            width: 80%;
+            margin: auto; /* 50px */
+        }
+
+            .cat-image img {
+                width: 90%;
+                border-radius: 12px;
+            }
+        
+        .luecke {
+            width: 150px;
+            min-height: 25px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px dashed #999;
+            border-radius: 10px;
+            margin: 2px;
+            
+            background-color: #fff;
+            transition: background-color 0.3s ease;
+        }
+
+
+            .luecke:hover {
+                background-color: #d2d2d7;
+                box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+            }
+
+        .richtig {
+            background-color: #b6fcb6 !important; /* Gr�n */
+            border-color: #4caf50;
+        }
+
+        .falsch {
+            background-color: #f7b6b6 !important; /* Rot */
+            border-color: #e53935;
+        }
+        
+        
+        .wordlist2 span {
+            padding: 10px 15px;
+             background-color: #007aff; 
+           
+            color: white;
+            border-radius: 25px;
+            cursor: pointer;
+            user-select: none;
+            font-size: 16px;
+            margin: 5px;
+        }
+
+            .wordlist2 span.dragging {
+                opacity: 0.5;
+            }
+
+            .wordlist2 span.over {
+                background-color: #34c759;
+            }
+
+
+        .wort2 {
+            width: 130px;
+            padding: 5px;
+            margin: 5px;
+            border: 1px solid #d2d2d7;
+            text-align:center;
+            border-radius: 20px;
+            background-color: #0071e3;
+            color:white;
+            display: inline-block;
+            cursor: pointer;
+            font-weight: 200;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+
+            .wort2:hover {
+                background-color: #005bb5;
+                box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+            }
+     
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Hochofen beschriften: Ziehe die W�rter auf die Zahlen oder Buchstaben</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>       </th>
+                    <th>  <h1>  Hochofen  </h1>  </th>
+                    <th> <h1>  Bestandteil  </h1>        </th>
+                    <th><h1>  Wortliste  </h1></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td width="10%">                    
+                    </td>
+
+                    <td width="50%">
+                        <div class="cat-image">
+                            <img src="./Pics/HochofenFe-of11.png" align="middle" alt="Katze" id="catImage">
+                        </div>
+                    </td>
+
+                    <td width="10%">                        
+                        <span class="luecke" id="lueckeGestell" ondrop="drop(event)" ondragover="allowDrop(event)">(1)</span>
+                        <span class="luecke" id="lueckeFeAbstich" ondrop="drop(event)" ondragover="allowDrop(event)">(2)</span>
+                        <span class="luecke" id="lueckeSchlacke" ondrop="drop(event)" ondragover="allowDrop(event)">(3)</span>
+                        <span class="luecke" id="lueckeLuft" ondrop="drop(event)" ondragover="allowDrop(event)">(4)</span>
+                        <span class="luecke" id="lueckeSchacht" ondrop="drop(event)" ondragover="allowDrop(event)">(7)</span>
+                        <span class="luecke" id="lueckeKuhlung" ondrop="drop(event)" ondragover="allowDrop(event)">(8)</span>
+                        <span class="luecke" id="lueckeGicht" ondrop="drop(event)" ondragover="allowDrop(event)">(9)</span>
+                        <span class="luecke" id="lueckeErz" ondrop="drop(event)" ondragover="allowDrop(event)">(11)</span>
+
+                        <h3>Zonen</h3>
+                        <span class="luecke" id="lueckeRed" ondrop="drop(event)" ondragover="allowDrop(event)">(A)</span>
+                        <span class="luecke" id="lueckeKohlung" ondrop="drop(event)" ondragover="allowDrop(event)">(B)</span>
+                        <span class="luecke" id="lueckeSchmelz" ondrop="drop(event)" ondragover="allowDrop(event)">(C)</span>
+
+                    </td>
+
+                    <td width="20%">
+                        <div class="wordlist2">
+                        
+                            <div id="wortLuft" class="wort2" draggable="true" ondragstart="drag(event)">Hei�luftzufuhr</div>
+                            <div id="wortGestell" class="wort2" draggable="true" ondragstart="drag(event)">Gestell/Fundament</div>
+                            <div id="wortFeAbstich" class="wort2" draggable="true" ondragstart="drag(event)">Roheisenabstich</div>
+                            <div id="wortSchlacke" class="wort2" draggable="true" ondragstart="drag(event)">Schlackeabstich</div>
+                            <div id="wortSchacht" class="wort2" draggable="true" ondragstart="drag(event)">Schacht</div>
+                            <div id="wortErz" class="wort2" draggable="true" ondragstart="drag(event)">Erz, Koks, Zuschl�ge</div>
+                            <div id="wortKuhlung" class="wort2" draggable="true" ondragstart="drag(event)">Wasserk�hlung</div>
+                            <div id="wortGicht" class="wort2" draggable="true" ondragstart="drag(event)">Gichtgas</div>
+                             <h3>Zonen</h3>
+                            <div id="wortKohlung" class="wort2" draggable="true" ondragstart="drag(event)">Kohlungszone</div>
+                            <div id="wortSchmelz" class="wort2" draggable="true" ondragstart="drag(event)">Schmelzzone</div>
+                            <div id="wortRed" class="wort2" draggable="true" ondragstart="drag(event)">Reduktionszone</div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+
+                    
+                    <td colspan="2">
+                        
+                        <h3>Ziehe die Stoffe in die richtigen Felder:</h3>
+                    </td>
+
+                    <td>
+                        <button onclick="location.reload()">Seite neu laden</button>
+                    </td>
+                    <td>
+                        <button onclick="openQRCode()">QR-Code anzeigen</button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="4">
+                        <div class="wordlist2">                         
+                            <div id="wortC" class="wort2" draggable="true" ondragstart="drag(event)">Kohlenstoff</div>
+                            <div id="wortFe" class="wort2" draggable="true" ondragstart="drag(event)">Eisen</div>
+                            <div id="wortCO" class="wort2" draggable="true" ondragstart="drag(event)">Kohlenstoffmonoxid</div>
+                            <div id="wortCO2" class="wort2" draggable="true" ondragstart="drag(event)">Kohlenstoffdioxid</div>
+                            <div id="wortFeO" class="wort2" draggable="true" ondragstart="drag(event)">Eisenoxid</div>
+                            <div id="wortO" class="wort2" draggable="true" ondragstart="drag(event)">Sauerstoff</div>
+                        </div>
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <h3> 1.Bereitstellung des Reduktionsmittels </h3>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="4">
+                     
+                        <span class="luecke" id="lueckeC" ondrop="drop(event)" ondragover="allowDrop(event)">(a)</span>+
+                        <span class="luecke" id="lueckeO" ondrop="drop(event)" ondragover="allowDrop(event)">(b)</span> &rarr;
+                        <span class="luecke" id="lueckeCO2" ondrop="drop(event)" ondragover="allowDrop(event)">(c)</span>+
+                        <span class="luecke" id="lueckeO" ondrop="drop(event)" ondragover="allowDrop(event)">(d)</span>&rarr;
+                        <span class="luecke" id="lueckeCO" ondrop="drop(event)" ondragover="allowDrop(event)">(e)</span>
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <h3>2.Reduktion des Eisenoxides </h3>
+                    </td>
+
+                <tr>
+                    <td colspan="4">
+
+                        <span class="luecke" id="lueckeCO" ondrop="drop(event)" ondragover="allowDrop(event)">(f)</span>+
+                        <span class="luecke" id="lueckeFeO" ondrop="drop(event)" ondragover="allowDrop(event)">(g)</span>&rarr;
+                        <span class="luecke" id="lueckeFe" ondrop="drop(event)" ondragover="allowDrop(event)">(h)</span>+
+                        <span class="luecke" id="lueckeCO2" ondrop="drop(event)" ondragover="allowDrop(event)">(i)</span>
+                       
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    
+    <script>
+
+        // ========================================
+        // ✅ Kompatibles Drag & Drop für Desktop + iPad (Safari)
+        // ========================================
+
+        // Globale Variable für Touch-Unterstützung
+        let touchDragEl = null;
+
+        // --------- Standard Desktop Drag & Drop ---------
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            ev.dataTransfer?.setData("text", ev.target.id);
+            touchDragEl = ev.target; // Fallback für Touch
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+
+            // 🔹 draggedEl ermitteln (Desktop oder Touch)
+            const draggedId = ev.dataTransfer ? ev.dataTransfer.getData("text") : touchDragEl?.id;
+            const draggedEl = document.getElementById(draggedId);
+            if (!draggedEl) return;
+
+
+
+
+            // 🔹 Ziel bestimmen: darf .luecke oder .luecke1s sein
+            let target = ev.target;
+            if (!target.classList.contains("luecke") && !target.classList.contains("luecke1s")) {
+                target = target.closest(".luecke, .luecke1s");
+            }
+            if (!target) return;
+
+
+
+
+            // 🔹 Immer überschreibbar: alten Inhalt entfernen
+            target.innerHTML = "";
+
+            // 🔹 Klon erzeugen (Original bleibt im Speicher)
+            const clone = draggedEl.cloneNode(true);
+            clone.id = draggedEl.id + "_clone_" + Date.now();
+            clone.draggable = false;
+
+            target.appendChild(clone);
+
+            // 🔹 Farben zurücksetzen
+            target.classList.remove("richtig", "falsch");
+
+            // 🔹 Prüfung
+            const isCorrect = checkMatch(target, draggedEl);
+            target.classList.add(isCorrect ? "richtig" : "falsch");
+        }
+
+        // --------- Touch-Unterstützung für iPad Safari ---------
+        // Da iOS Safari kein echtes HTML5 Drag & Drop kennt,
+        // simulieren wir Drag mit Touch-Events.
+        function enableTouchDragAndDrop() {
+            const words = document.querySelectorAll(".wort, .wort2, .wortp, .wortd");
+            const dropzones = document.querySelectorAll(".luecke, .luecke1s");
+
+            words.forEach(word => {
+                word.addEventListener("touchstart", e => {
+                    touchDragEl = word;
+                    word.classList.add("dragging");
+                });
+
+                word.addEventListener("touchend", e => {
+                    word.classList.remove("dragging");
+                    touchDragEl = null;
+                });
+            });
+
+            dropzones.forEach(zone => {
+                zone.addEventListener("touchmove", e => e.preventDefault(), { passive: false });
+                zone.addEventListener("touchend", e => {
+                    if (touchDragEl) {
+                        // Manuell drop() auslösen
+                        const fakeEvent = { preventDefault: () => { }, target: zone };
+                        drop(fakeEvent);
+                    }
+                });
+            });
+        }
+
+        // --------- Zuordnungen prüfen ---------
+        function checkMatch(target, draggedEl) {
+            const pairs = [
+
+            
+                ["lueckeC", ["wortC"]], ["lueckeO", ["wortO"]], ["lueckeCO2", ["wortCO2"]], ["lueckeO", ["wortO"]], ["lueckeCO", ["wortCO"]],
+                ["lueckeCO", ["wortCO"]], ["lueckeFeO", ["wortFeO"]], ["lueckeFe", ["wortFe"]], ["lueckeCO2", ["wortCO2"]],
+
+                ["lueckeKohlung", ["wortKohlung"]], ["lueckeRed", ["wortRed"]], ["lueckeSchmelz", ["wortSchmelz"]],
+                ["lueckeErz", ["wortErz"]], ["lueckeGicht", ["wortGicht"]], ["lueckeKuhlung", ["wortKuhlung"]], ["lueckeSchacht", ["wortSchacht"]],
+
+                ["lueckeGestell", ["wortGestell"]], ["lueckeFeAbstich", ["wortFeAbstich"]], ["lueckeSchlacke", ["wortSchlacke"]], ["lueckeLuft", ["wortLuft"]]
+            ];
+
+            const correctPairs = Object.fromEntries(pairs);
+            const allowed = correctPairs[target.id];
+            return allowed && allowed.includes(draggedEl.id);
+        }
+
+        // --------- Initialisierung ---------
+        document.addEventListener("DOMContentLoaded", enableTouchDragAndDrop);
+
+    </script>
+
+    <script>
+        function openQRCode() {
+            const currentUrl = window.location.href;
+            const qrWin = window.open("", "_blank", "width=520,height=600,resizable=yes,scrollbars=no");
+
+            qrWin.document.write(`
+                   <html lang="de">
+                   <head>
+                     <meta charset="UTF-8">
+                     <title>QR-Code</title>
+                     <style>
+                       body {
+                         font-family: Arial, sans-serif;
+                         text-align: center;
+                         background: #fff;
+                         padding: 30px;
+                       }
+                       #qrcode { margin-top: 40px; }
+                       button {
+                         margin-top: 40px;
+                         background: #0071e3;
+                         color: #fff;
+                         border: none;
+                         border-radius: 10px;
+                         font-size: 16px;
+                         padding: 10px 20px;
+                         cursor: pointer;
+                       }
+                       button:hover { background: #005bb5; }
+                     </style>
+                   </head>
+                   <body>
+                     <h2>QR-Code zu dieser Seite</h2>
+                     <div id="qrcode"></div>
+                     <button onclick="window.close()">Fenster schlieÃŸen</button>
+                     <script src="libs/qrcode.min.js"><\/script>
+                     <script>
+                       window.addEventListener('load', function() {
+                         new QRCode(document.getElementById("qrcode"), {
+                           text: "${currentUrl}",
+                           width: 220,
+                           height: 220,
+                           correctLevel: QRCode.CorrectLevel.H
+                         });
+                       });
+                     <\/script>
+                   </body>
+                   </html>
+                 `);
+
+            qrWin.document.close();
+        }
+    </script>
+
+
+</body>
+</html>
+
