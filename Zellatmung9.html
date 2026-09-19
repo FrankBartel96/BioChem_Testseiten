@@ -1,0 +1,447 @@
+﻿<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8 /">
+    <!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">  -->
+    <!-- /*Zoom*/-->
+    <title>Zellatmung</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f6f8e2;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 26px;
+            color: #27532b;
+            margin-bottom: 15px;
+        }
+
+
+        /* Beschriftungsfelder */
+        .label {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 6px 10px;
+            font-weight: bold;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 100; /* Wichtig: immer Ã¼ber dem Bild */
+            color: #000;
+            user-select: none;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.9);
+            outline: 2px dashed red;
+        }
+
+
+            .label.completed {
+                background-color: palegoldenrod;
+                border: 2px solid #4caf50;
+            }
+
+            .label.over {
+                background-color: #cde6ff;
+                border-color: #007aff;
+            }
+
+
+        .image-container {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+            .image-container img {
+                width: 100%;
+                height: auto;
+                border-radius: 12px;
+            }
+
+
+        /* Wortliste */
+        .wordlist {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+            .wordlist span {
+                padding: 10px 16px;
+                background-color: #007aff;
+                color: white;
+                border-radius: 20px;
+                cursor: grab;
+                font-size: 16px;
+                user-select: none;
+                transition: background-color 0.2s;
+            }
+
+                .wordlist span:active {
+                    cursor: grabbing;
+                    opacity: 0.7;
+                }
+
+                .wordlist span.hidden {
+                    visibility: hidden;
+                }
+
+        button {
+            background-color: #0071e3;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-size: 16px;
+            margin-top: 25px;
+            cursor: pointer;
+        }
+
+            button:hover {
+                background-color: #005bb5;
+            }
+
+        .feedback {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        /* Beispielpositionen fÃ¼r Labels (angepasst an dein Bild) */
+
+        /* Mitochondrium */
+        #label-Mitochondrium {
+            top: 68%;            left: 30%;        }
+        /* Glycolyse */
+        #label-glucose {
+            top: 5%;            left:70%;        }       
+        #label-Z_Zerleg1 {
+            top: 22%;            left: 70%;        }
+        #label-ATP_1 {
+            top: 26%;            left: 88%;       }  
+
+        /* Decarboxylierung  */
+
+        #label-Z_Zerleg2 {
+            top: 34%;            left:70%;        }
+        #label-CO2_1 {
+            top: 41%;            left: 88%;        }
+        /* Citrat  */
+        #label-Citrat {
+            top: 51%;            left: 70%;        }
+        #label-CO2_2 {
+            top: 66%;            left: 82%;        }
+        
+        /* Atmungskette */
+        #label-Atmungskette {
+            top: 78%;            left: 60%;        }              
+       #label-Sauerstoff1 {
+           top: 85%;            left: 75%;        }
+        #label-Wasser3 {
+            top: 85%;            left: 86%;        }             
+        #label-ATP_2 {
+            top: 93%;            left: 86%;        }
+ 
+
+        .container2 {
+            position: relative;
+            /*    left: 50%;
+            top: 75%;
+            width: 70%; */
+            max-width: 1200px;
+            height: 60px;
+            align-content: center;
+            background-color: plum;
+            margin: 0 auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+
+        /* Wortgleichung*/
+        #label-Wasser2 {
+            top: 15%;            left: 55%;        }
+        #label-glucose2  {
+            top: 15%;            left: 1%;        }
+
+        #label-Sauerstoff2 {
+            top: 15%;            left:28%;        }
+        #label-Kohlendioxid  {
+            top: 15%;            left: 78%;        }
+        #label-plus {
+            top: 15%;            left: 20%;        }
+
+        #label-plusplus {
+            top: 15%;            left: 70%;        }
+
+        #label-pfeil {
+            top: 15%;            left: 45%;        }
+
+
+
+        /* Summengleichung*/
+        #label-C6C12O6 {
+            top: 15%;
+            left: 1%;
+        }
+
+        #label-O22  {
+            top: 15%;
+            left: 28%;
+        }
+
+        #label-H2O {            
+            top: 15%;            left: 55%;        }
+
+        #label-CO22 {
+            top: 15%;
+            left: 78%;
+        }
+
+        #label-plus2 {
+            top: 15%;            left:20%;        }
+
+        #label-plusplus2 {
+            top: 15%;            left: 70%;        }
+
+        #label-pfeil2 {
+            top: 15%;            left: 45%;        }
+
+
+      
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Die Zellatmung - Beschrifte den Ablauf der Zellatmung! </h1>
+        <!-- <h2>https://bridge.klett.de/MMO-5MJ9AGNM3B/</h2> -->
+        <div class="image-container">
+            <img src="./Pics/Atmung_AB.jpg" alt="Pflanze" />
+
+            <!-- Alle Label-Positionen -->
+            <!-- Glycolyse -->
+            <div class="label" id="label-glucose">(2)</div>
+            <div class="label" id="label-Mitochondrium">(1)</div>
+
+            <div class="label" id="label-ATP_1">(33)</div>
+
+            <div class="label" id="label-Z_Zerleg1">(3)</div>
+            <!-- DEcarboxylierung-->
+            <div class="label" id="label-Z_Zerleg2">(4)</div>
+            <div class="label" id="label-CO2_1">(44)</div>
+
+            <!-- Citrat-->
+            <div class="label" id="label-Citrat">(5)</div>
+            <div class="label" id="label-CO2_2">(55)</div>
+            <!-- Atmungskette-->
+            <div class="label" id="label-Atmungskette">(7)</div>
+            <div class="label" id="label-Sauerstoff1">(8)</div>
+            <div class="label" id="label-Wasser3">(9)</div>
+            <div class="label" id="label-ATP_2">(10)</div>
+        </div>
+
+        <table>
+            <tr>
+                <td><h1> Ablauf Atmung</h1></td>
+                <td>
+                    <div class="wordlist">
+                        <!-- Chloroplast -->
+                        <span draggable="true" id="word-Mitochondrium">Mitochondrium</span>
+                        <!-- Glycolyse-->
+                        <span draggable="true" id="word-glucose">Glucose</span>
+                        <span draggable="true" id="word-Z_Zerleg1">Zuckerspaltung</span>
+                        <span draggable="true" id="word-ATP_1">2xATP</span>
+                        <!-- Decarboxylierung-->
+                        <span draggable="true" id="word-Z_Zerleg2">1.CO₂ -Abspaltung</span>
+                        <span draggable="true" id="word-CO2_1">1.CO₂</span>
+
+                        <!-- Citrat-->
+                        <span draggable="true" id="word-Citrat">2.CO₂ -Abspaltung</span>
+                        <span draggable="true" id="word-CO2_2">2.CO₂</span>
+
+                        <!-- Atmungskette-->
+                        <span draggable="true" id="word-Atmungskette">Energiegewinnung mit O₂</span>
+                        <span draggable="true" id="word-Wasser3"> H₂O</span>
+                        <span draggable="true" id="word-ATP_2">36xATP</span>
+                        <span draggable="true" id="word-Sauerstoff1">O₂</span>
+                    </div>
+                </td>
+
+            </tr>
+
+
+            <tr>  <td><h1>Wortgleichung</h1></td>
+                  <td>
+                      <div class="wordlist">
+                          <span draggable="true" id="word-Kohlendioxid">Kohlendioxid</span>
+                          <span draggable="true" id="word-glucose2">Glucose</span>
+                          <span draggable="true" id="word-Wasser2">Wasser</span>
+                          <span draggable="true" id="word-Sauerstoff2">Sauerstoff</span>
+
+                      </div>
+
+                  </td></tr>
+            <tr>
+
+                <td colspan="2">
+                    <div class="container2">
+                        <div class="label" id="label-Wasser2">(11)</div><div class="label" id="label-plus">+</div>
+                        <div class="label" id="label-Kohlendioxid">(12)</div><div class="label" id="label-pfeil">&rarr;</div>
+                        <div class="label" id="label-Sauerstoff2">(10)</div><div class="label" id="label-plusplus">+</div>
+                        <div class="label" id="label-glucose2">(9)</div>
+
+                    </div>
+
+                </td>
+            </tr>
+            <tr>  <td><h1>Summengleichung</h1></td> <td> <div class="wordlist">
+    <span draggable="true" id="word-CO22">6 CO₂</span>
+    <span draggable="true" id="word-C6C12O6">C<sub>6</sub>C<sub>12</sub>O<sub>6 </sub></span>
+    <span draggable="true" id="word-H2O">6 H₂O</span>
+    <span draggable="true" id="word-O22">6 O₂</span>
+
+</div></td> </tr>
+
+            <tr>
+               
+                <td  colspan="2">
+                    <div class="container2">
+                        <div class="label" id="label-H2O">(16)</div> <div class="label" id="label-plus2">+</div>
+                        <div class="label" id="label-CO22">(15)</div><div class="label" id="label-pfeil2">&rarr;</div>
+                        <div class="label" id="label-O22">(14)</div>  <div class="label" id="label-plusplus2">+</div>
+                        <div class="label" id="label-C6C12O6">(13)</div>
+
+                    </div>
+
+                </td>
+            </tr>
+
+
+           
+
+        </table>
+        <p class="feedback" id="feedback">Ziehe die Begriffe auf die passenden Zahlen oder Buchstaben.</p>
+
+        <button onclick="location.reload()">Seite neu laden</button>
+        <button onclick="openQRCode()">QR-Code anzeigen</button>
+
+
+
+    </div>
+
+
+        <script>
+            const draggables = document.querySelectorAll('.wordlist span');
+            const labels = document.querySelectorAll('.label');
+            const feedback = document.getElementById('feedback');
+            let correct = 0;
+            const total = labels.length;
+
+            // Drag events (Desktop & iPad)
+            draggables.forEach(item => {
+                item.addEventListener('dragstart', e => {
+                    e.dataTransfer.setData('text/plain', e.target.id);
+                });
+            });
+
+            labels.forEach(label => {
+                label.addEventListener('dragover', e => e.preventDefault());
+                label.addEventListener('drop', e => {
+                    e.preventDefault();
+                    const draggedId = e.dataTransfer.getData('text/plain');
+                    const draggedEl = document.getElementById(draggedId);
+                    const matchId = label.id.split('-')[1];
+                    if (draggedId === 'word-' + matchId) {
+                        label.textContent = draggedEl.textContent;
+                        label.classList.add('completed');
+                        draggedEl.classList.add('hidden');
+                        correct++;
+                        feedback.textContent = correct === total ? 'Super! Alles richtig! ðŸŒ¿' : `${correct} von ${total} richtig.`;
+                    } else {
+                        feedback.textContent = 'Das passt nicht. Versuch es nochmal!';
+                    }
+                });
+            });
+
+        </script>
+
+
+
+        <script>
+            function openQRCode() {
+                const currentUrl = window.location.href;
+                const qrWin = window.open("", "_blank", "width=520,height=600,resizable=yes,scrollbars=no");
+
+                qrWin.document.write(`
+                                   <html lang="de">
+                                   <head>
+                                     <meta charset="UTF-8">
+                                     <title>QR-Code</title>
+                                     <style>
+                                       body {
+                                         font-family: Arial, sans-serif;
+                                         text-align: center;
+                                         background: #fff;
+                                         padding: 30px;
+                                       }
+                                       #qrcode { margin-top: 40px; }
+                                       button {
+                                         margin-top: 40px;
+                                         background: #0071e3;
+                                         color: #fff;
+                                         border: none;
+                                         border-radius: 10px;
+                                         font-size: 16px;
+                                         padding: 10px 20px;
+                                         cursor: pointer;
+                                       }
+                                       button:hover { background: #005bb5; }
+                                     </style>
+                                   </head>
+                                   <body>
+                                     <h2>QR-Code zu dieser Seite</h2>
+                                     <div id="qrcode"></div>
+                                     <button onclick="window.close()">Fenster schlieÃŸen</button>
+                                     <script src="libs/qrcode.min.js"><\/script>
+                                     <script>
+                                       window.addEventListener('load', function() {
+                                         new QRCode(document.getElementById("qrcode"), {
+                                           text: "${currentUrl}",
+                                           width: 220,
+                                           height: 220,
+                                           correctLevel: QRCode.CorrectLevel.H
+                                         });
+                                       });
+                                     <\/script>
+                                   </body>
+                                   </html>
+                                 `);
+
+                qrWin.document.close();
+            }
+        </script>
+
+
+
+    </body>
+    </html>

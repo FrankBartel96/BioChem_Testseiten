@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8 /">
+    <!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">  -->
+    <!-- /*Zoom*/-->
+    <title>Erbsubstanz</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f6f8e2;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 26px;
+            color: #27532b;
+            margin-bottom: 15px;
+        }
+
+
+        /* Beschriftungsfelder */
+        .label {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 6px 10px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            z-index: 100; /* Wichtig: immer über dem Bild */
+            color: #000;
+            user-select: none;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.9);
+            outline: 2px dashed red;
+        }
+
+
+            .label.completed {
+                background-color: #d1ffd6;
+                border: 2px solid #4caf50;
+            }
+
+            .label.over {
+                background-color: #cde6ff;
+                border-color: #007aff;
+            }
+
+
+        .image-container {
+            position: relative;
+            width: 90%;
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+            .image-container img {
+                width: 100%;
+                height: auto;
+                border-radius: 12px;
+            }
+
+
+        /* Wortliste */
+        .wordlist {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+            .wordlist span {
+                padding: 10px 16px;
+                background-color: #007aff;
+                color: white;
+                border-radius: 20px;
+                cursor: grab;
+                font-size: 16px;
+                user-select: none;
+                transition: background-color 0.2s;
+            }
+
+                .wordlist span:active {
+                    cursor: grabbing;
+                    opacity: 0.7;
+                }
+
+                .wordlist span.hidden {
+                    visibility: hidden;
+                }
+
+        button {
+            background-color: #0071e3;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-size: 16px;
+            margin-top: 25px;
+            cursor: pointer;
+        }
+
+            button:hover {
+                background-color: #005bb5;
+            }
+
+        .feedback {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+       
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Lage und Bau der Erbsubstanz -  Beschrifte die Abbildung!</h1>
+
+        <div class="image-container">
+            <img src="./Pics/chromatinstructurefigure1_AB.jpg" alt="Pflanze" />
+
+            <!-- Alle Label-Positionen -->
+            <!-- Grafik FS-->
+            <div class="label" id="label-Chromatin" style="top:  55%; left: 5%;">(1)</div>
+            <div class="label" id="label-DNA" style="top:  46%; left: 35%;">(2)</div>
+            <div class="label" id="label-Nucleosom" style="top:  30%; left: 47%;">(3)</div>
+            <div class="label" id="label-Histon" style="top:  75%; left: 47%;">(4)</div>
+            <div class="label" id="label-Telomer" style="top:  1%; left: 65%;">(5)</div>
+            <div class="label" id="label-Centromer" style="top:  40%; left: 82%;">(6)</div>
+            <div class="label" id="label-Chromatid" style="top:  54%; left: 86%;">(7)</div>
+            <div class="label" id="label-Arm" style="top:  66%; left:78%;">(8)</div>
+            <div class="label" id="label-Kernpore" style="top:  14%; left:12%;">(9)</div>
+            <div class="label" id="label-Epigen" style="top:  88%; left:25%;">(10)</div>
+            <div class="label" id="label-Kernmembran" style="top:  23%; left:20%;">(11)</div>
+
+        </div>
+
+       
+        <table>
+            <tr>
+                <!-- <td><h1> Bestandteile </h1></td>-->
+                <td>
+                    <div class="wordlist">
+                        <span draggable="true" class="draggable" id="word-Chromatin">Chromatin</span>
+                        <!--<span draggable="true" class="draggable" id="word-Chromosom">Chromosom</span>-->
+                        <span draggable="true" class="draggable" id="word-Kernpore">Kernpore</span>
+                        <span draggable="true" class="draggable" id="word-Kernmembran">Kernmembran</span>
+                        <span draggable="true" class="draggable" id="word-Nucleosom">Nucleosom</span>
+                        <span draggable="true" class="draggable" id="word-Telomer">Telomer</span>
+                        <span draggable="true" class="draggable" id="word-Centromer">Centromer</span>
+                        <span draggable="true" class="draggable" id="word-Chromatid">Chromatid</span>
+                        <span draggable="true" class="draggable" id="word-DNA">DNA</span>
+                        <span draggable="true" class="draggable" id="word-Histon">Histone</span>
+                        <span draggable="true" class="draggable" id="word-Epigen">Epigenetische Faktoren/Methylgruppen</span>
+                        <span draggable="true" class="draggable" id="word-Arm">Chromosomenarm</span>
+                    </div>
+                </td>
+
+            </tr>
+
+
+
+        </table>
+
+
+        <button onclick="location.reload()">Seite neu laden</button>
+        <button onclick="openQRCode()">QR-Code anzeigen</button>
+        <p class="feedback" id="feedback">Ziehe die Begriffe auf die passenden Zahlen oder Buchstaben.</p>
+
+
+    </div>
+
+
+    <script>
+        const draggables = document.querySelectorAll('.wordlist span');
+        const labels = document.querySelectorAll('.label');
+        const feedback = document.getElementById('feedback');
+        let correct = 0;
+        const total = labels.length;
+
+        // Drag events (Desktop & iPad)
+        draggables.forEach(item => {
+            item.addEventListener('dragstart', e => {
+                e.dataTransfer.setData('text/plain', e.target.id);
+            });
+        });
+
+        labels.forEach(label => {
+            label.addEventListener('dragover', e => e.preventDefault());
+            label.addEventListener('drop', e => {
+                e.preventDefault();
+                const draggedId = e.dataTransfer.getData('text/plain');
+                const draggedEl = document.getElementById(draggedId);
+                const matchId = label.id.split('-')[1];
+                if (draggedId === 'word-' + matchId) {
+                    label.textContent = draggedEl.textContent;
+                    label.classList.add('completed');
+                    draggedEl.classList.add('hidden');
+                    correct++;
+                    feedback.textContent = correct === total ? 'Super! Alles richtig! 🌿' : `${correct} von ${total} richtig.`;
+                } else {
+                    feedback.textContent = 'Das passt nicht. Versuch es nochmal!';
+                }
+            });
+        });
+
+    </script>
+
+
+
+    <script>
+        function openQRCode() {
+            const currentUrl = window.location.href;
+            const qrWin = window.open("", "_blank", "width=520,height=600,resizable=yes,scrollbars=no");
+
+            qrWin.document.write(`
+                               <html lang="de">
+                               <head>
+                                 <meta charset="UTF-8">
+                                 <title>QR-Code</title>
+                                 <style>
+                                   body {
+                                     font-family: Arial, sans-serif;
+                                     text-align: center;
+                                     background: #fff;
+                                     padding: 30px;
+                                   }
+                                   #qrcode { margin-top: 40px; }
+                                   button {
+                                     margin-top: 40px;
+                                     background: #0071e3;
+                                     color: #fff;
+                                     border: none;
+                                     border-radius: 10px;
+                                     font-size: 16px;
+                                     padding: 10px 20px;
+                                     cursor: pointer;
+                                   }
+                                   button:hover { background: #005bb5; }
+                                 </style>
+                               </head>
+                               <body>
+                                 <h2>QR-Code zu dieser Seite</h2>
+                                 <div id="qrcode"></div>
+                                 <button onclick="window.close()">Fenster schließen</button>
+                                 <script src="libs/qrcode.min.js"><\/script>
+                                 <script>
+                                   window.addEventListener('load', function() {
+                                     new QRCode(document.getElementById("qrcode"), {
+                                       text: "${currentUrl}",
+                                       width: 220,
+                                       height: 220,
+                                       correctLevel: QRCode.CorrectLevel.H
+                                     });
+                                   });
+                                 <\/script>
+                               </body>
+                               </html>
+                             `);
+
+            qrWin.document.close();
+        }
+    </script>
+
+
+
+</body>
+</html>

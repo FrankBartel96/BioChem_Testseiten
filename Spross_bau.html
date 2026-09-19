@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8 /">
+    <!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">  -->
+    <!-- /*Zoom*/-->
+    <title>Spross beschriften</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f6f8e2;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 26px;
+            color: #27532b;
+            margin-bottom: 15px;
+        }
+
+
+        /* Beschriftungsfelder */
+        .label {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 6px 10px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            z-index: 100; /* Wichtig: immer Ã¼ber dem Bild */
+            color: #000;
+            user-select: none;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.9);
+            outline: 2px dashed red;
+        }
+
+
+            .label.completed {
+                background-color: #d1ffd6;
+                border: 2px solid #4caf50;
+            }
+
+            .label.over {
+                background-color: #cde6ff;
+                border-color: #007aff;
+            }
+
+
+        .image-container {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+            .image-container img {
+                width: 100%;
+                height: auto;
+                border-radius: 12px;
+            }
+
+
+        /* Wortliste */
+        .wordlist {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+            .wordlist span {
+                padding: 10px 16px;
+                background-color: #007aff;
+                color: white;
+                border-radius: 20px;
+                cursor: grab;
+                font-size: 16px;
+                user-select: none;
+                transition: background-color 0.2s;
+            }
+
+                .wordlist span:active {
+                    cursor: grabbing;
+                    opacity: 0.7;
+                }
+
+                .wordlist span.hidden {
+                    visibility: hidden;
+                }
+
+        button {
+            background-color: #0071e3;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-size: 16px;
+            margin-top: 25px;
+            cursor: pointer;
+        }
+
+            button:hover {
+                background-color: #005bb5;
+            }
+
+        .feedback {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        /* Beispielpositionen fÃ¼r Labels (angepasst an dein Bild) */
+        /* Querschnitt1 */
+        #label-Bundel {
+            top: 18%;            left: 68%;        }
+
+        #label-Mark {
+            top: 35%;            left: 65%;        }
+        
+        #label-anorgStoff {
+            top: 33%;            left: 43%;        }
+
+        #label-orgStoff {
+            top: 40%;            left: 40%;        }
+
+        /* Leitbündel */
+       
+        #label-xylem {
+            top: 62%;            left: 65%;        }
+
+
+        #label-kambium {
+            top: 70%;            left: 60%;        }
+
+        #label-phloem {
+            top: 75%;            left: 64%;        }
+
+        #label-sklerenchym {
+            top: 82%;            left: 62%;        }
+      
+       
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Bestandteile der Sprossachse -  Beschrifte die Sprossachse!</h1>
+
+        <div class="image-container">
+            <img src="./Pics/sprossl.jpg" alt="Pflanze" />
+
+
+
+
+            <!-- Alle Label-Positionen -->
+            <!-- Querschnitt1 -->
+
+            <div class="label" id="label-Bundel">(1)</div>
+            <div class="label" id="label-Mark">(2)</div>
+            <div class="label" id="label-anorgStoff">(a)</div>
+            <div class="label" id="label-orgStoff">(b)</div>
+
+            <!-- Leitbündel -->
+            <div class="label" id="label-sklerenchym">(1)</div>
+            <div class="label" id="label-xylem">(4)</div>
+            <div class="label" id="label-kambium">(3)</div>
+            <div class="label" id="label-phloem">(2)</div>
+
+
+        </div>
+
+       
+        <table>
+            <tr>
+                <td><h1> Querschnitt Sprossachse </h1></td>
+                <td>
+                    <div class="wordlist">
+                        <span draggable="true" id="word-Bundel">Leitbündel</span>
+                        <span draggable="true" id="word-Mark">Mark</span>
+                        <span draggable="true" id="word-anorgStoff">Transport anoganischer Stoffe </span>
+                        <span draggable="true" id="word-orgStoff">Transport organischer Stoffe</span>
+                      
+                    </div>
+                </td>
+
+            </tr>
+
+            <tr>
+                <td> <h1>Querschnitt Leitbündel</h1></td>
+                <td>
+
+                    <div class="wordlist">
+                        <span draggable="true" id="word-sklerenchym">Festigungsgewebe(Sklerenchym)</span>
+                        <span draggable="true" id="word-xylem">Gefäßteil (Xylem)</span>
+                        <span draggable="true" id="word-kambium">Bildungsgewebe (Kambium)</span>
+                        <span draggable="true" id="word-phloem">Siebteil (Phloem) </span>
+                    </div>
+
+                </td>
+            </tr>
+          
+
+
+        </table>
+
+
+        <button onclick="location.reload()">Seite neu laden</button>
+        <button onclick="openQRCode()">QR-Code anzeigen</button>
+        <p class="feedback" id="feedback">Ziehe die Begriffe auf die passenden Zahlen oder Buchstaben.</p>
+
+
+    </div>
+
+
+    <script>
+        const draggables = document.querySelectorAll('.wordlist span');
+        const labels = document.querySelectorAll('.label');
+        const feedback = document.getElementById('feedback');
+        let correct = 0;
+        const total = labels.length;
+
+        // Drag events (Desktop & iPad)
+        draggables.forEach(item => {
+            item.addEventListener('dragstart', e => {
+                e.dataTransfer.setData('text/plain', e.target.id);
+            });
+        });
+
+        labels.forEach(label => {
+            label.addEventListener('dragover', e => e.preventDefault());
+            label.addEventListener('drop', e => {
+                e.preventDefault();
+                const draggedId = e.dataTransfer.getData('text/plain');
+                const draggedEl = document.getElementById(draggedId);
+                const matchId = label.id.split('-')[1];
+                if (draggedId === 'word-' + matchId) {
+                    label.textContent = draggedEl.textContent;
+                    label.classList.add('completed');
+                    draggedEl.classList.add('hidden');
+                    correct++;
+                    feedback.textContent = correct === total ? 'Super! Alles richtig! ðŸŒ¿' : `${correct} von ${total} richtig.`;
+                } else {
+                    feedback.textContent = 'Das passt nicht. Versuch es nochmal!';
+                }
+            });
+        });
+
+    </script>
+
+
+
+    <script>
+        function openQRCode() {
+            const currentUrl = window.location.href;
+            const qrWin = window.open("", "_blank", "width=520,height=600,resizable=yes,scrollbars=no");
+
+            qrWin.document.write(`
+                               <html lang="de">
+                               <head>
+                                 <meta charset="UTF-8">
+                                 <title>QR-Code</title>
+                                 <style>
+                                   body {
+                                     font-family: Arial, sans-serif;
+                                     text-align: center;
+                                     background: #fff;
+                                     padding: 30px;
+                                   }
+                                   #qrcode { margin-top: 40px; }
+                                   button {
+                                     margin-top: 40px;
+                                     background: #0071e3;
+                                     color: #fff;
+                                     border: none;
+                                     border-radius: 10px;
+                                     font-size: 16px;
+                                     padding: 10px 20px;
+                                     cursor: pointer;
+                                   }
+                                   button:hover { background: #005bb5; }
+                                 </style>
+                               </head>
+                               <body>
+                                 <h2>QR-Code zu dieser Seite</h2>
+                                 <div id="qrcode"></div>
+                                 <button onclick="window.close()">Fenster schlieÃŸen</button>
+                                 <script src="libs/qrcode.min.js"><\/script>
+                                 <script>
+                                   window.addEventListener('load', function() {
+                                     new QRCode(document.getElementById("qrcode"), {
+                                       text: "${currentUrl}",
+                                       width: 220,
+                                       height: 220,
+                                       correctLevel: QRCode.CorrectLevel.H
+                                     });
+                                   });
+                                 <\/script>
+                               </body>
+                               </html>
+                             `);
+
+            qrWin.document.close();
+        }
+    </script>
+
+
+
+</body>
+</html>
