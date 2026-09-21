@@ -1,0 +1,1315 @@
+﻿```html
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Fotosynthese</title>
+
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f6f8e2;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 26px;
+            color: #27532b;
+            margin-bottom: 15px;
+        }
+
+
+        /* Beschriftungsfelder */
+        .label {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.9);
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 6px 10px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            z-index: 100;
+            color: #000;
+            user-select: none;
+            text-align: center;
+            outline: 2px dashed red;
+        }
+
+            .label.completed {
+                background-color: palegoldenrod;
+                border: 2px solid #4caf50;
+                outline: none;
+            }
+
+            .label.over {
+                background-color: #cde6ff;
+                border-color: #007aff;
+            }
+
+
+        .image-container {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+            .image-container img {
+                width: 100%;
+                height: auto;
+                border-radius: 12px;
+            }
+
+
+        /* Wortliste */
+        .wordlist {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+            .wordlist span {
+                padding: 10px 16px;
+                background-color: #007aff;
+                color: white;
+                border-radius: 20px;
+                cursor: grab;
+                font-size: 16px;
+                user-select: none;
+                transition: background-color 0.2s;
+            }
+
+                .wordlist span:active {
+                    cursor: grabbing;
+                    opacity: 0.7;
+                }
+
+                .wordlist span.hidden {
+                    visibility: hidden;
+                }
+
+
+        button {
+            background-color: #0071e3;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-size: 16px;
+            margin-top: 25px;
+            cursor: pointer;
+        }
+
+            button:hover {
+                background-color: #005bb5;
+            }
+
+
+        .feedback {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+
+        /* =========================================
+           Positionen auf dem Fotosynthese-Bild
+           ========================================= */
+
+        /* Chloroplast */
+        #label-Chloroplast {
+            top: 27%;
+            left: 25%;
+        }
+
+        #label-Chlorophyll {
+            top: 50%;
+            left: 30%;
+        }
+
+        #label-Matrix {
+            top: 75%;
+            left: 35%;
+        }
+
+
+        /* Lichtreaktion */
+        #label-Licht {
+            top: 4%;
+            left: 75%;
+        }
+
+        #label-Wasser {
+            top: 24%;
+            left: 57%;
+        }
+
+        #label-Sauerstoff {
+            top: 24%;
+            left: 91%;
+        }
+
+        #label-Absporption {
+            top: 24%;
+            left: 67%;
+        }
+
+        #label-ATPNADPH {
+            top: 46%;
+            left: 75%;
+        }
+
+
+        /* Dunkelreaktion */
+        #label-Calvin {
+            top: 78%;
+            left: 72%;
+        }
+
+        #label-CO2 {
+            top: 78%;
+            left: 55%;
+        }
+
+        #label-glucose {
+            top: 78%;
+            left: 90%;
+        }
+
+
+        /* =========================================
+           Container für Wort- und Summengleichung
+           ========================================= */
+
+        .container2 {
+            position: relative;
+            max-width: 1200px;
+            height: 60px;
+            align-content: center;
+            background-color: plum;
+            margin: 0 auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+
+        /* =========================================
+           Wortgleichung
+           ========================================= */
+
+        #label-glucose2 {
+            top: 15%;
+            left: 58%;
+        }
+
+        #label-Wasser2 {
+            top: 15%;
+            left: 15%;
+        }
+
+        #label-Kohlendioxid {
+            top: 15%;
+            left: 35%;
+        }
+
+        #label-Sauerstoff2 {
+            top: 15%;
+            left: 75%;
+        }
+
+        #label-plus {
+            top: 15%;
+            left: 30%;
+        }
+
+        #label-plusplus {
+            top: 15%;
+            left: 68%;
+        }
+
+        #label-pfeil {
+            top: 15%;
+            left: 50%;
+        }
+
+
+        /* =========================================
+           Summengleichung
+           ========================================= */
+
+        #label-H2O {
+            top: 15%;
+            left: 15%;
+        }
+
+        #label-CO22 {
+            top: 15%;
+            left: 35%;
+        }
+
+        #label-C6C12O6 {
+            top: 15%;
+            left: 58%;
+        }
+
+        #label-O22 {
+            top: 15%;
+            left: 75%;
+        }
+
+        #label-plus2 {
+            top: 15%;
+            left: 30%;
+        }
+
+        #label-plusplus2 {
+            top: 15%;
+            left: 68%;
+        }
+
+        #label-pfeil2 {
+            top: 15%;
+            left: 50%;
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <div class="container">
+
+        <h1>Die Fotosynthese</h1>
+        <h1>Beschrifte den Ablauf der Fotosynthese!</h1>
+
+
+        <!-- =========================================
+             Fotosynthese-Bild
+             ========================================= -->
+
+        <div class="image-container">
+
+            <img src="./Pics/fotosynthese_AB.jpg" alt="Pflanze">
+
+
+            <!-- Chloroplast -->
+            <div class="label" id="label-Chloroplast">(2)</div>
+            <div class="label" id="label-Chlorophyll">(1)</div>
+            <div class="label" id="label-Matrix">(3)</div>
+
+
+            <!-- Lichtreaktion -->
+            <div class="label" id="label-Licht">(4)</div>
+            <div class="label" id="label-Wasser">(5)</div>
+            <div class="label" id="label-Sauerstoff">(6)</div>
+            <div class="label" id="label-Absporption">(7)</div>
+            <div class="label" id="label-ATPNADPH">(8)</div>
+
+
+            <!-- Dunkelreaktion -->
+            <div class="label" id="label-Calvin">(c)</div>
+            <div class="label" id="label-glucose">(a)</div>
+            <div class="label" id="label-CO2">(b)</div>
+
+        </div>
+
+
+        <!-- =========================================
+             Wortlisten
+             ========================================= -->
+
+        <table>
+
+            <!-- Lichtreaktion -->
+
+            <tr>
+
+                <td>
+                    <h1>Lichtreaktion</h1>
+                </td>
+
+                <td>
+
+                    <div class="wordlist">
+
+                        <span draggable="true" id="word-Chloroplast">
+                            Chloroplast
+                        </span>
+
+                        <span draggable="true" id="word-Chlorophyll">
+                            Chlorophyll
+                        </span>
+
+                        <span draggable="true" id="word-Matrix">
+                            Matrix
+                        </span>
+
+                        <span draggable="true" id="word-Licht">
+                            Licht
+                        </span>
+
+                        <span draggable="true" id="word-Wasser">
+                            Wasser
+                        </span>
+
+                        <span draggable="true" id="word-Sauerstoff">
+                            Sauerstoff
+                        </span>
+
+                        <span draggable="true" id="word-Absporption">
+                            Absorption durch Chlorophyll
+                        </span>
+
+                        <span draggable="true" id="word-ATPNADPH">
+                            Energiereiche Stoffe (ATP,NADPH2)
+                        </span>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+
+            <!-- Dunkelreaktion -->
+
+            <tr>
+
+                <td>
+                    <h1>Dunkelreaktion</h1>
+                </td>
+
+                <td>
+
+                    <div class="wordlist">
+
+                        <span draggable="true" id="word-Calvin">
+                            Calvinkreislauf
+                        </span>
+
+                        <span draggable="true" id="word-glucose">
+                            Glucose
+                        </span>
+
+                        <span draggable="true" id="word-CO2">
+                            Kohlendioxid
+                        </span>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+
+            <!-- Wortgleichung -->
+
+            <tr>
+
+                <td>
+                    <h1>Wortgleichung</h1>
+                </td>
+
+                <td>
+
+                    <div class="wordlist">
+
+                        <span draggable="true" id="word-Kohlendioxid">
+                            Kohlendioxid
+                        </span>
+
+                        <span draggable="true" id="word-glucose2">
+                            Glucose
+                        </span>
+
+                        <span draggable="true" id="word-Wasser2">
+                            Wasser
+                        </span>
+
+                        <span draggable="true" id="word-Sauerstoff2">
+                            Sauerstoff
+                        </span>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+
+            <!-- Wortgleichung: Ablagefelder -->
+
+            <tr>
+
+                <td></td>
+
+                <td>
+
+                    <div class="container2">
+
+                        <div class="label" id="label-Wasser2">
+                            (9)
+                        </div>
+
+                        <div class="label" id="label-plus">
+                            +
+                        </div>
+
+                        <div class="label" id="label-Kohlendioxid">
+                            (10)
+                        </div>
+
+                        <div class="label" id="label-pfeil">
+                            &rarr;
+                        </div>
+
+                        <div class="label" id="label-Sauerstoff2">
+                            (11)
+                        </div>
+
+                        <div class="label" id="label-plusplus">
+                            +
+                        </div>
+
+                        <div class="label" id="label-glucose2">
+                            (12)
+                        </div>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+
+            <!-- Summengleichung -->
+
+            <tr>
+
+                <td>
+                    <h1>Summengleichung</h1>
+                </td>
+
+                <td>
+
+                    <div class="container2">
+
+                        <div class="label" id="label-H2O">
+                            (13)
+                        </div>
+
+                        <div class="label" id="label-plus2">
+                            +
+                        </div>
+
+                        <div class="label" id="label-CO22">
+                            (14)
+                        </div>
+
+                        <div class="label" id="label-pfeil2">
+                            &rarr;
+                        </div>
+
+                        <div class="label" id="label-O22">
+                            (15)
+                        </div>
+
+                        <div class="label" id="label-plusplus2">
+                            +
+                        </div>
+
+                        <div class="label" id="label-C6C12O6">
+                            (16)
+                        </div>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+
+            <!-- Wörter für Summengleichung -->
+
+            <tr>
+
+                <td></td>
+
+                <td>
+
+                    <div class="wordlist">
+
+                        <span draggable="true" id="word-CO22">
+                            6 CO₂
+                        </span>
+
+                        <span draggable="true" id="word-C6C12O6">
+                            C<sub>6</sub>C<sub>12</sub>O<sub>6</sub>
+                        </span>
+
+                        <span draggable="true" id="word-H2O">
+                            6 H₂O
+                        </span>
+
+                        <span draggable="true" id="word-O22">
+                            6 O₂
+                        </span>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+        </table>
+
+
+        <!-- =========================================
+             Rückmeldung
+             ========================================= -->
+
+        <p class="feedback" id="feedback">
+            Ziehe die Begriffe auf die passenden Zahlen oder Buchstaben.
+        </p>
+
+
+        <button onclick="location.reload()">
+            Seite neu laden
+        </button>
+
+        <button onclick="openQRCode()">
+            QR-Code anzeigen
+        </button>
+
+    </div>
+
+
+
+    <!-- =========================================
+         DRAG & DROP
+         ========================================= -->
+    ```html
+    <script>
+
+        const draggables = document.querySelectorAll('.wordlist span');
+        const labels = document.querySelectorAll('.label');
+        const feedback = document.getElementById('feedback');
+
+
+        /*
+         * ============================================================
+         * ERLAUBTE ZUORDNUNGEN
+         * ============================================================
+         *
+         * Die Gleichungen werden in vier unabhängige Gruppen geteilt:
+         *
+         * 1. Wortgleichung – VOR dem Pfeil
+         * 2. Wortgleichung – NACH dem Pfeil
+         * 3. Summengleichung – VOR dem Pfeil
+         * 4. Summengleichung – NACH dem Pfeil
+         *
+         * Innerhalb einer Gruppe dürfen die beiden Begriffe
+         * ihre Positionen tauschen.
+         *
+         * Ein Begriff darf aber NICHT über den Pfeil hinweg.
+         */
+
+
+        const groups = {
+
+            /* ========================================================
+               WORTGLEICHUNG – VOR DEM PFEIL
+               ======================================================== */
+
+            wortLinks: {
+
+                labels: [
+                    "label-Wasser2",
+                    "label-Kohlendioxid"
+                ],
+
+                words: [
+                    "word-Wasser2",
+                    "word-Kohlendioxid"
+                ]
+
+            },
+
+
+            /* ========================================================
+               WORTGLEICHUNG – NACH DEM PFEIL
+               ======================================================== */
+
+            wortRechts: {
+
+                labels: [
+                    "label-Sauerstoff2",
+                    "label-glucose2"
+                ],
+
+                words: [
+                    "word-Sauerstoff2",
+                    "word-glucose2"
+                ]
+
+            },
+
+
+            /* ========================================================
+               SUMMENGLEICHUNG – VOR DEM PFEIL
+               ======================================================== */
+
+            summenLinks: {
+
+                labels: [
+                    "label-H2O",
+                    "label-CO22"
+                ],
+
+                words: [
+                    "word-H2O",
+                    "word-CO22"
+                ]
+
+            },
+
+
+            /* ========================================================
+               SUMMENGLEICHUNG – NACH DEM PFEIL
+               ======================================================== */
+
+            summenRechts: {
+
+                labels: [
+                    "label-O22",
+                    "label-C6C12O6"
+                ],
+
+                words: [
+                    "word-O22",
+                    "word-C6C12O6"
+                ]
+
+            }
+
+        };
+
+
+        /*
+         * ============================================================
+         * FESTE ZUORDNUNGEN DER ANDEREN AUFGABEN
+         * ============================================================
+         *
+         * Diese Positionen bleiben exakt.
+         */
+
+        const fixedMatches = {
+
+            "label-Chloroplast": "word-Chloroplast",
+            "label-Chlorophyll": "word-Chlorophyll",
+            "label-Matrix": "word-Matrix",
+
+            "label-Licht": "word-Licht",
+            "label-Wasser": "word-Wasser",
+            "label-Sauerstoff": "word-Sauerstoff",
+            "label-Absporption": "word-Absporption",
+            "label-ATPNADPH": "word-ATPNADPH",
+
+            "label-Calvin": "word-Calvin",
+            "label-glucose": "word-glucose",
+            "label-CO2": "word-CO2"
+
+        };
+
+
+        /*
+         * ============================================================
+         * AKTUELLE BELEGUNG
+         * ============================================================
+         *
+         * Hier wird gespeichert, welches Wort aktuell auf welchem
+         * Label liegt.
+         */
+
+        const currentAssignments = {};
+
+
+        /*
+         * ============================================================
+         * ALLE AUFGABENLABELS
+         * ============================================================
+         */
+
+        const allTaskLabels = [
+
+            ...Object.keys(fixedMatches),
+
+            ...groups.wortLinks.labels,
+            ...groups.wortRechts.labels,
+
+            ...groups.summenLinks.labels,
+            ...groups.summenRechts.labels
+
+        ];
+
+
+        const total = allTaskLabels.length;
+
+
+
+        /*
+         * ============================================================
+         * DRAG START
+         * ============================================================
+         */
+
+        draggables.forEach(item => {
+
+            item.addEventListener('dragstart', e => {
+
+                e.dataTransfer.setData(
+                    'text/plain',
+                    e.currentTarget.id
+                );
+
+            });
+
+        });
+
+
+
+        /*
+         * ============================================================
+         * DRAG OVER
+         * ============================================================
+         */
+
+        labels.forEach(label => {
+
+            label.addEventListener('dragover', e => {
+
+                /*
+                 * Nur echte Aufgabenfelder akzeptieren.
+                 */
+
+                if (allTaskLabels.includes(label.id)) {
+
+                    e.preventDefault();
+
+                    label.classList.add('over');
+
+                }
+
+            });
+
+
+            label.addEventListener('dragleave', e => {
+
+                label.classList.remove('over');
+
+            });
+
+
+
+            /*
+             * ========================================================
+             * DROP
+             * ========================================================
+             */
+
+            label.addEventListener('drop', e => {
+
+                e.preventDefault();
+
+                label.classList.remove('over');
+
+
+                const draggedId =
+                    e.dataTransfer.getData('text/plain');
+
+
+                const draggedEl =
+                    document.getElementById(draggedId);
+
+
+                if (!draggedEl) {
+                    return;
+                }
+
+
+                /*
+                 * Prüfen, ob das Label ein echtes Aufgabenfeld ist.
+                 */
+
+                if (!allTaskLabels.includes(label.id)) {
+                    return;
+                }
+
+
+                /*
+                 * ====================================================
+                 * WICHTIG:
+                 *
+                 * Ein Wort kann immer nur an EINER Stelle liegen.
+                 *
+                 * Falls es bereits auf einem anderen Label liegt,
+                 * wird es dort entfernt.
+                 * ====================================================
+                 */
+
+                for (const existingLabelId in currentAssignments) {
+
+                    if (
+                        currentAssignments[existingLabelId]
+                        === draggedId
+                        &&
+                        existingLabelId !== label.id
+                    ) {
+
+                        delete currentAssignments[existingLabelId];
+
+
+                        const oldLabel =
+                            document.getElementById(existingLabelId);
+
+
+                        if (oldLabel) {
+
+                            oldLabel.textContent =
+                                oldLabel.dataset.originalText;
+
+                            oldLabel.classList.remove('completed');
+
+                        }
+
+                    }
+
+                }
+
+
+                /*
+                 * ====================================================
+                 * Wenn dieses Label bereits ein anderes Wort enthält,
+                 * wird das alte Wort wieder sichtbar.
+                 * ====================================================
+                 */
+
+                if (currentAssignments[label.id]) {
+
+                    const oldWordId =
+                        currentAssignments[label.id];
+
+
+                    const oldWord =
+                        document.getElementById(oldWordId);
+
+
+                    if (oldWord) {
+
+                        oldWord.classList.remove('hidden');
+
+                    }
+
+                }
+
+
+                /*
+                 * Originaltext des Labels speichern.
+                 */
+
+                if (!label.dataset.originalText) {
+
+                    label.dataset.originalText =
+                        label.textContent;
+
+                }
+
+
+                /*
+                 * Neues Wort eintragen.
+                 */
+
+                currentAssignments[label.id] =
+                    draggedId;
+
+
+                label.innerHTML =
+                    draggedEl.innerHTML;
+
+
+                label.classList.add('completed');
+
+
+                /*
+                 * Wort aus Wortliste entfernen.
+                 */
+
+                draggedEl.classList.add('hidden');
+
+
+                /*
+                 * Gesamte Lösung überprüfen.
+                 */
+
+                checkSolution();
+
+            });
+
+        });
+
+
+
+        /*
+         * ============================================================
+         * LÖSUNG PRÜFEN
+         * ============================================================
+         */
+
+        function checkSolution() {
+
+
+            let correctCount = 0;
+
+
+            /*
+             * --------------------------------------------------------
+             * 1. Feste Zuordnungen prüfen
+             * --------------------------------------------------------
+             */
+
+            for (const labelId in fixedMatches) {
+
+                const assigned =
+                    currentAssignments[labelId];
+
+
+                const expected =
+                    fixedMatches[labelId];
+
+
+                if (
+                    assigned === expected
+                ) {
+
+                    correctCount++;
+
+                }
+
+            }
+
+
+            /*
+             * --------------------------------------------------------
+             * 2. Gruppen prüfen
+             * --------------------------------------------------------
+             *
+             * Bei einer Gruppe müssen:
+             *
+             * - alle Labels belegt sein
+             * - und ausschließlich die erlaubten Wörter enthalten sein
+             *
+             * Die Reihenfolge innerhalb der Gruppe spielt KEINE Rolle.
+             */
+
+            for (const groupName in groups) {
+
+                const group =
+                    groups[groupName];
+
+
+                let groupCorrect = true;
+
+
+                /*
+                 * Alle Labels der Gruppe müssen belegt sein.
+                 */
+
+                for (const labelId of group.labels) {
+
+                    if (!currentAssignments[labelId]) {
+
+                        groupCorrect = false;
+
+                    }
+
+                }
+
+
+                /*
+                 * Die belegten Wörter sammeln.
+                 */
+
+                const assignedWords =
+                    group.labels.map(
+                        labelId =>
+                            currentAssignments[labelId]
+                    );
+
+
+                /*
+                 * Jedes Wort muss zu dieser Gruppe gehören.
+                 */
+
+                for (const wordId of assignedWords) {
+
+                    if (!group.words.includes(wordId)) {
+
+                        groupCorrect = false;
+
+                    }
+
+                }
+
+
+                /*
+                 * Jedes erlaubte Wort muss genau einmal
+                 * vorkommen.
+                 */
+
+                if (
+                    assignedWords.length !==
+                    group.words.length
+                ) {
+
+                    groupCorrect = false;
+
+                }
+
+
+                /*
+                 * Doppelte Wörter verhindern.
+                 */
+
+                const uniqueWords =
+                    new Set(assignedWords);
+
+
+                if (
+                    uniqueWords.size !==
+                    group.words.length
+                ) {
+
+                    groupCorrect = false;
+
+                }
+
+
+                /*
+                 * Wenn die komplette Gruppe korrekt ist,
+                 * zählen beide Positionen als richtig.
+                 */
+
+                if (groupCorrect) {
+
+                    correctCount += group.labels.length;
+
+                }
+
+            }
+
+
+            /*
+             * ========================================================
+             * ALLES RICHTIG
+             * ========================================================
+             */
+
+            if (correctCount === total) {
+
+                feedback.textContent =
+                    'Super! Alles richtig! 🌿';
+
+                return;
+
+            }
+
+
+            /*
+             * ========================================================
+             * NOCH NICHT ALLES RICHTIG
+             * ========================================================
+             */
+
+            feedback.textContent =
+                `${correctCount} von ${total} richtig.`;
+
+
+            /*
+             * Wenn alle Felder belegt sind, aber die Lösung
+             * trotzdem nicht stimmt.
+             */
+
+            const filledCount =
+                Object.keys(currentAssignments).length;
+
+
+            if (
+                filledCount === total &&
+                correctCount < total
+            ) {
+
+                feedback.textContent =
+                    'Die Begriffe sind noch nicht richtig auf die Seiten der Pfeile verteilt.';
+
+            }
+
+        }
+
+    </script>
+    ```
+
+
+
+
+    <!-- =========================================
+         QR-CODE
+         ========================================= -->
+
+    <script>
+
+        function openQRCode() {
+
+            const currentUrl = window.location.href;
+
+
+            const qrWin = window.open(
+                "",
+                "_blank",
+                "width=520,height=600,resizable=yes,scrollbars=no"
+            );
+
+
+            qrWin.document.write(`
+
+                            <html lang="de">
+
+                            <head>
+
+                                <meta charset="UTF-8">
+
+                                <title>QR-Code</title>
+
+                                <style>
+
+                                    body {
+
+                                        font-family: Arial, sans-serif;
+
+                                        text-align: center;
+
+                                        background: #fff;
+
+                                        padding: 30px;
+
+                                    }
+
+
+                                    #qrcode {
+
+                                        margin-top: 40px;
+
+                                    }
+
+
+                                    button {
+
+                                        margin-top: 40px;
+
+                                        background: #0071e3;
+
+                                        color: #fff;
+
+                                        border: none;
+
+                                        border-radius: 10px;
+
+                                        font-size: 16px;
+
+                                        padding: 10px 20px;
+
+                                        cursor: pointer;
+
+                                    }
+
+
+                                    button:hover {
+
+                                        background: #005bb5;
+
+                                    }
+
+                                </style>
+
+                            </head>
+
+
+                            <body>
+
+                                <h2>QR-Code zu dieser Seite</h2>
+
+
+                                <div id="qrcode"></div>
+
+
+                                <button onclick="window.close()">
+                                    Fenster schließen
+                                </button>
+
+
+                                <script src="libs/qrcode.min.js"><\/script>
+
+
+                                <script>
+
+                                    window.addEventListener('load', function() {
+
+                                        new QRCode(
+                                            document.getElementById("qrcode"),
+                                            {
+                                                text: "${currentUrl}",
+                                                width: 220,
+                                                height: 220,
+                                                correctLevel: QRCode.CorrectLevel.H
+                                            }
+                                        );
+
+                                    });
+
+                                <\/script>
+
+                            </body>
+
+                            </html>
+
+                        `);
+
+
+            qrWin.document.close();
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>
+```
