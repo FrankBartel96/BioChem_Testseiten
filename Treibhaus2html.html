@@ -1,0 +1,808 @@
+﻿<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8 ">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <!-- /*Zoom*/-->
+    <title>Treibhauseffekt</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f6f8e2;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 26px;
+            color: #27532b;
+            margin-bottom: 15px;
+        }
+
+
+        /* Beschriftungsfelder */
+        .label {
+            display: flex;
+             position: absolute;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 6px 10px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            z-index: 100; /* Wichtig: immer über dem Bild */
+            color: #000;
+            user-select: none;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.9);
+            outline: 2px dashed red;
+        }
+
+
+            .label.completed {
+                background-color: #d1ffd6;
+                border: 2px solid #4caf50;
+            }
+
+            .label.over {
+                background-color: #cde6ff;
+                border-color: #007aff;
+            }
+
+
+
+        .label1 {
+            position: absolute;
+            background-color: red;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 6px 10px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            z-index: 100; /* Wichtig: immer über dem Bild */
+            color: #000;
+            user-select: none;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.9);
+            outline: 2px dashed red;
+        }
+            .label.completed {
+                background-color: #d1ffd6;
+                border: 2px solid #4caf50;
+            }
+
+            .label.over {
+                background-color: #cde6ff;
+                border-color: #007aff;
+            }
+
+        .image-container {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+            .image-container img {
+                width: 70%;
+                height: auto;
+                border-radius: 12px;
+            }
+
+
+        /* Wortliste */
+        .wordlist2 {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+            .wordlist2 span {
+                padding: 10px 16px;
+                background-color: red;
+                color: white; /* Schrift*/
+                border-radius: 20px;
+                cursor: grab;
+                font-size: 24px;
+                font-weight: 700;
+                user-select: none;
+                transition: background-color 0.2s;
+            }
+
+                .wordlist2 span:active {
+                    cursor: grabbing;
+                    opacity: 0.7;
+                }
+
+                .wordlist2 span.hidden {
+                    visibility: hidden;
+                }
+
+        /*  */
+        .wordlist3 span {
+            padding: 10px 16px;
+            background-color: lightskyblue;
+            color: white; 
+            border-radius: 20px;
+            cursor: grab;
+            font-size: 24px;
+            font-weight: 700;
+            user-select: none;
+            transition: background-color 0.2s;
+        }
+
+                .wordlist3 span:active {
+                    cursor: grabbing;
+                    opacity: 0.7;
+                }
+
+                .wordlist3 span.hidden {
+                    visibility: hidden;
+                }
+
+    
+
+        /* Positionen für Labels auf der GRafik  (angepasst an dein Bild) */
+        
+        #label-Verdunstung {
+            top: 50%;            left:34%;        }
+
+        #label-Starkregen {
+            top: 40%;            left:65%;        }
+        #label-Gletscher {
+            top: 55%;            left: 60%;        }
+        #label-Meer {
+            top: 60%;            left:34%;        }      
+        #label-Wassertemp {
+            top: 68%;            left: 10%;        }
+        #label-ph {
+            top: 77%;            left: 6%;        }
+        #label-Eis {
+            top: 50%;            left: 4%;        }       
+        #label-LandTemp {
+            top:80%;            left: 60%;        }
+        #label-WasserTemp {
+            top: 40%;            left: 28%;        }
+
+        #label-Flut {
+            top: 75%;            left: 40%;        }
+
+
+        #label-Fels {
+            top: 60%;
+            left: 63%;
+        }
+        #label-Trocken {
+            top: 90%;
+            left: 5%;
+        }
+
+        .ionenliste {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .ion:hover {
+            background-color: #83d6f1;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+        }
+
+        .ion {
+            padding: 10px 12px;
+            /* background-color: var(--element-bg); */
+            background-color: lightskyblue;
+            border: 1px solid var(--element-border);
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            cursor: grab;
+            font-size: 16px;
+            text-align: center;
+        }
+
+
+        .dissoziation {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 30px;
+            width: 100%;
+            max-width: 700px;
+        }
+        /*Ramen um Treibhausgase grün*/
+        .salz {
+            position: relative;
+            width: 90%;
+            height: auto;
+            background-color: #f6f8e2;
+            padding: 16px;
+            border-radius: 16px;
+            border: 1px solid var(--element-border);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .salz-name {
+            font-weight: 700;
+            margin-bottom: 10px;
+            
+        }
+        /*Eingesetzte Gase*/
+        .gleichung {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            font-weight: 700;
+        }
+        /*FEld Treibhausgase grau*/
+        .ionenfeld {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+            justify-content: center;
+            width: 70%;
+            height: 45px;
+            border: 1px dashed var(--element-border);
+            border-radius: 8px;
+            background-color: #f2f2f7;
+        }
+
+            .ionenfeld.correct {
+                border-color: var(--success-color);
+                background-color: #f6f8e2;
+            }
+
+            .ionenfeld.wrong {
+                border-color: var(--error-color);
+                background-color: #f8d7da;
+            }
+
+        /* Treibhausgase mittig platzieren */
+        #dissoziation {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 100%;
+            margin: 20px auto;
+        }
+
+        .salz {
+            width: 90%;
+            max-width: 850px;
+            margin: 0 auto;
+            box-sizing: border-box;
+            background-color: #aFE4E1;
+            padding: 16px;
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .gleichung {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .salz-name {
+            font-size: 22px;
+            font-weight: bold;
+            text-align: center;
+            width: 100%;
+            background-color: #d1eed6;
+        }
+
+        .ionenfeld {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            min-height: 65px;
+            height: auto;
+            box-sizing: border-box;
+            padding: 10px;
+            border: 2px dashed #777;
+            border-radius: 8px;
+            background-color: #f2f2f7;
+        }
+
+            /* Richtige und falsche Antworten */
+            .ionenfeld.correct {
+                border: 2px solid green;
+                background-color: #d1ffd6;
+            }
+
+            .ionenfeld.wrong {
+                border: 2px solid red;
+                background-color: #f8d7da;
+            }
+
+        .result-icon {
+            font-size: 22px;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+
+            .result-icon.correct {
+                color: green;
+            }
+
+            .result-icon.wrong {
+                color: red;
+            }
+
+        /* Pfeile */
+        .pfeile {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
+            margin: 20px 0;
+        }
+
+        .wordlist2,
+        .wordlist3 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+
+            .wordlist2 span,
+            .wordlist3 span {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 10px 20px;
+                font-size: 32px;
+                cursor: grab;
+                border-radius: 12px;
+                user-select: none;
+            }
+        .label.completed {
+            background-color: #d1ffd6;
+            border: 2px solid green;
+        }
+
+        .label.wrong {
+            background-color: #f8d7da;
+            border: 2px solid red;
+        }
+
+
+
+        button {
+            padding: 12px 24px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 12px;
+            background-color: #0071e3;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+            button:hover {
+                background-color: #005bb5;
+                box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+            }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Der Treibhauseffekt</h1>
+        <h4> Welche Gase sind Treibhausgase - ziehe sie das Feld.   </h4>
+        <h4> Setze die richtigen Pfeile.    </h4>
+
+        <div class="image-container">
+
+            <div class="ionenliste" id="ionenliste">
+                <div class="ion" draggable="true" data-type="ion" id="Methan">Methan</div>
+                <div class="ion" draggable="true" data-type="ion" id="XX">Helium</div>
+                <div class="ion" draggable="true" data-type="ion" id="XX">Ammoniak</div>
+                <div class="ion" draggable="true" data-type="ion" id="Wasserdampf">Wasserdampf</div>
+                <div class="ion" draggable="true" data-type="ion" id="Ozon">Ozon</div>
+                <div class="ion" draggable="true" data-type="ion" id="XX">Stickstoff</div>
+                <div class="ion" draggable="true" data-type="ion" id="XX">Wasserstoff</div>
+                <div class="ion" draggable="true" data-type="ion" id="CO2">CO₂</div>
+                <div class="ion" draggable="true" data-type="ion" id="FCKW">FCKW</div>
+                <div class="ion" draggable="true" data-type="ion" id="NOX">NOX</div>
+            </div>
+            <div class="dissoziation" id="dissoziation"></div>
+
+            <img src="./Pics/Treibhaus2.jpg" alt="Pflanze" />
+
+            <!-- Westermann Chemie S! S 315 -->
+            <div class="label" id="label-Gletscher">(Gletschereis)</div>
+            <div class="label" id="label-Verdunstung">(Wasserverdunstung)</div>
+            <div class="label" id="label-Meer">(Meerespiegel)</div>
+            <div class="label" id="label-Wassertemp">(Wassertemperatur der Meere)</div>
+            <div class="label" id="label-ph">(pH-Wert der Meere)</div>
+            <div class="label" id="label-Eis">(Eismenge der Pole)</div>
+            <div class="label" id="label-LandTemp">(Temperatur auf dem Land)</div>
+            <div class="label" id="label-WasserTemp">(Temperatur über dem Wasser)</div>
+            <div class="label" id="label-Flut">(Tsunamis)</div>
+            <div class="label" id="label-Starkregen">(Starkregen,Überschwemmungen)</div>
+            <div class="label" id="label-Fels">(Felsabbrüche)</div>
+            <div class="label" id="label-Trocken">(Austrocknung einiger Gebiete)</div>
+
+        </div>
+
+        <div class="pfeile">
+
+            <div class="wordlist2">
+                <span draggable="true" id="arrow-up">↑</span>
+            </div>
+
+            <div class="wordlist3">
+                <span draggable="true" id="arrow-down">↓</span>
+            </div>
+
+        </div>
+
+        <p class="feedback" id="feedback">Auswertung Grafik</p>
+        <div class="dissoziation" id="dissoziation"></div>
+        <div id="auswertung"></div>
+        
+
+            <button onclick="location.reload()">Seite neu laden</button>
+            <button onclick="openQRCode()">QR-Code anzeigen</button>      
+    </div>
+
+        <!-- richtige Gase in Feld Treibhausgase einsetzen-->
+        <script>
+            // Richtige Treibhausgase
+            const richtigeGase = [
+                "Methan",
+                "Wasserdampf",
+                "CO₂",
+                "Ozon",
+                "FCKW",
+                "NOX"
+            ];
+
+            const container = document.getElementById("dissoziation");
+
+            // Feld "Treibhausgase" erstellen
+            const feld = document.createElement("div");
+            feld.className = "salz";
+
+            feld.innerHTML = `
+                    <div class="gleichung">
+                        <div class="salz-name">Treibhausgase</div>
+
+                        <div class="ionenfeld"
+                             id="treibhausgas-feld"
+                             ondragover="allowDrop(event)"
+                             ondrop="dropGas(event)">
+                        </div>
+
+                        <div id="gas-auswertung"></div>
+                    </div>
+                `;
+
+            container.appendChild(feld);
+
+
+            // =========================
+            // GASE DRAG & DROP
+            // =========================
+
+            document.querySelectorAll(".ion").forEach(el => {
+
+                el.addEventListener("dragstart", ev => {
+                    ev.dataTransfer.setData(
+                        "gas",
+                        el.textContent.trim()
+                    );
+                });
+
+            });
+
+
+            function allowDrop(ev) {
+                ev.preventDefault();
+            }
+
+
+            function dropGas(ev) {
+                ev.preventDefault();
+
+                const gas = ev.dataTransfer.getData("gas");
+
+                if (!gas) return;
+
+                const feld = document.getElementById("treibhausgas-feld");
+
+
+                // Prüfen, ob dieses Gas bereits im Feld ist
+                const bereitsVorhanden = [
+                    ...feld.querySelectorAll(".gas-element")
+                ].some(el => el.dataset.gas === gas);
+
+                if (bereitsVorhanden) {
+                    return;
+                }
+
+
+                // Neues Gas erzeugen
+                const element = document.createElement("span");
+
+                element.className = "gas-element ion";
+                element.dataset.gas = gas;
+                element.textContent = gas;
+
+
+                // Ergebnis-Symbol
+                const icon = document.createElement("span");
+                icon.className = "result-icon";
+
+
+                // JEDES Gas einzeln prüfen
+                if (richtigeGase.includes(gas)) {
+
+                    element.classList.add("correct");
+
+                    icon.textContent = " ✓";
+                    icon.classList.add("correct");
+
+                } else {
+
+                    element.classList.add("wrong");
+
+                    icon.textContent = " ✗";
+                    icon.classList.add("wrong");
+                }
+
+
+                element.appendChild(icon);
+                feld.appendChild(element);
+
+
+                // Gesamtauswertung aktualisieren
+                checkGasAuswertung();
+            }
+
+
+            // =========================
+            // GESAMTAUSWERTUNG
+            // =========================
+
+            function checkGasAuswertung() {
+
+                const feld = document.getElementById("treibhausgas-feld");
+
+                const eingesetzteGase =
+                    [...feld.querySelectorAll(".gas-element")];
+
+                let richtig = 0;
+
+                eingesetzteGase.forEach(element => {
+
+                    const gas = element.dataset.gas;
+
+                    if (richtigeGase.includes(gas)) {
+                        richtig++;
+                    }
+
+                });
+
+
+                const auswertung =
+                    document.getElementById("gas-auswertung");
+
+
+                if (richtig === richtigeGase.length) {
+
+                    auswertung.innerHTML =
+                        `<span style="color:green;font-weight:bold;">
+                                ✓ Alle 5 Treibhausgase richtig!
+                            </span>`;
+
+                } else {
+
+                    auswertung.innerHTML =
+                        `<span>
+                                ${richtig} von ${richtigeGase.length}
+                                Treibhausgasen richtig.
+                            </span>`;
+                }
+            }
+        </script>
+
+
+
+        <!--  richtige Pfeilrichtungen-->
+
+        <script>
+            const draggables = document.querySelectorAll(
+                '#arrow-up, #arrow-down'
+            );
+
+            const labels = document.querySelectorAll('.label');
+
+            const feedback = document.getElementById('feedback');
+
+            // Festgelegte richtige Pfeilrichtungen
+            const pfeilLoesungen = {
+
+                "label-Verdunstung": "arrow-up",
+                "label-Starkregen": "arrow-up",
+                "label-Meer": "arrow-up",
+                "label-LandTemp": "arrow-up",
+                "label-WasserTemp": "arrow-up",
+                "label-Wassertemp": "arrow-up",
+                "label-Flut": "arrow-up",
+                "label-Trocken": "arrow-up",
+                "label-Fels": "arrow-up",
+
+                "label-Gletscher": "arrow-down",
+                "label-Eis": "arrow-down",
+                "label-ph": "arrow-down"
+            };
+
+            let richtig = 0;
+
+            const total = Object.keys(pfeilLoesungen).length;
+
+            // Pfeile ziehen
+            draggables.forEach(item => {
+
+                item.addEventListener('dragstart', e => {
+                    e.dataTransfer.setData('text/plain', e.target.id);
+                });
+
+            });
+
+            // Beschriftungen prüfen
+            labels.forEach(label => {
+
+                label.addEventListener('dragover', e => {
+                    e.preventDefault();
+                });
+
+                label.addEventListener('drop', e => {
+
+                    e.preventDefault();
+
+                    const draggedId = e.dataTransfer.getData('text/plain');
+
+                    const richtigeRichtung = pfeilLoesungen[label.id];
+
+                    if (!richtigeRichtung) return;
+
+                    // Alte Bewertung entfernen
+                    if (label.dataset.completed === "true") {
+                        return;
+                    }
+
+                    if (draggedId === richtigeRichtung) {
+
+                        label.dataset.completed = "true";
+
+                        label.classList.remove("wrong");
+                        label.classList.add("completed");
+
+                        label.textContent +=
+                            draggedId === "arrow-up" ? " ↑ ✓" : " ↓ ✓";
+
+                        richtig++;
+
+                        feedback.textContent =
+                            richtig === total
+                                ? "Super! Alle Pfeile sind richtig! ✓"
+                                : `${richtig} von ${total} Pfeilen richtig.`;
+
+                    } else {
+
+                        label.classList.add("wrong");
+
+                        feedback.textContent =
+                            "✗ Falscher Pfeil! Versuche es erneut.";
+
+                    }
+
+                });
+
+            });
+        </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <script>
+            function openQRCode() {
+                const currentUrl = window.location.href;
+                const qrWin = window.open("", "_blank", "width=520,height=600,resizable=yes,scrollbars=no");
+
+                qrWin.document.write(`
+                                                                                   <html lang="de">
+                                                                                   <head>
+                                                                                     <meta charset="UTF-8">
+                                                                                     <title>QR-Code</title>
+                                                                                     <style>
+                                                                                       body {
+                                                                                         font-family: Arial, sans-serif;
+                                                                                         text-align: center;
+                                                                                         background: #fff;
+                                                                                         padding: 30px;
+                                                                                       }
+                                                                                       #qrcode { margin-top: 40px; }
+                                                                                       button {
+                                                                                         margin-top: 40px;
+                                                                                         background: #0071e3;
+                                                                                         color: #fff;
+                                                                                         border: none;
+                                                                                         border-radius: 10px;
+                                                                                         font-size: 16px;
+                                                                                         padding: 10px 20px;
+                                                                                         cursor: pointer;
+                                                                                       }
+                                                                                       button:hover { background: #005bb5; }
+                                                                                     </style>
+                                                                                   </head>
+                                                                                   <body>
+                                                                                     <h2>QR-Code zu dieser Seite</h2>
+                                                                                     <div id="qrcode"></div>
+                                                                                     <button onclick="window.close()">Fenster schlieÃŸen</button>
+                                                                                     <script src="libs/qrcode.min.js"><\/script>
+                                                                                     <script>
+                                                                                       window.addEventListener('load', function() {
+                                                                                         new QRCode(document.getElementById("qrcode"), {
+                                                                                           text: "${currentUrl}",
+                                                                                           width: 220,
+                                                                                           height: 220,
+                                                                                           correctLevel: QRCode.CorrectLevel.H
+                                                                                         });
+                                                                                       });
+                                                                                     <\/script>
+                                                                                   </body>
+                                                                                   </html>
+                                                                                 `);
+
+                qrWin.document.close();
+            }
+        </script>
+
+
+
+</body>
+    </html>
